@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="SecretaireAgenceViewDlg" widgetVar="SecretaireAgenceViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewSecretaireAgenceTitle}">
+            <h:form id="SecretaireAgenceViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{secretaireAgenceController.selected != null}">
+                        <h:outputText value="#{bundle.ViewSecretaireAgenceLabel_chef}"/>
+                        <h:outputText value="#{secretaireAgenceController.selected.chef}" title="#{bundle.ViewSecretaireAgenceTitle_chef}"/>
+                        <h:outputText value="#{bundle.ViewSecretaireAgenceLabel_id}"/>
+                        <h:outputText value="#{secretaireAgenceController.selected.id}" title="#{bundle.ViewSecretaireAgenceTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewSecretaireAgenceLabel_nom}"/>
+                        <h:outputText value="#{secretaireAgenceController.selected.nom}" title="#{bundle.ViewSecretaireAgenceTitle_nom}"/>
+                        <h:outputText value="#{bundle.ViewSecretaireAgenceLabel_prenom}"/>
+                        <h:outputText value="#{secretaireAgenceController.selected.prenom}" title="#{bundle.ViewSecretaireAgenceTitle_prenom}"/>
+                        <h:outputText value="#{bundle.ViewSecretaireAgenceLabel_email}"/>
+                        <h:outputText value="#{secretaireAgenceController.selected.email}" title="#{bundle.ViewSecretaireAgenceTitle_email}"/>
+                        <h:outputText value="#{bundle.ViewSecretaireAgenceLabel_tel}"/>
+                        <h:outputText value="#{secretaireAgenceController.selected.tel}" title="#{bundle.ViewSecretaireAgenceTitle_tel}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="SecretaireAgenceViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

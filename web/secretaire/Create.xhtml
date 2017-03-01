@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="SecretaireCreateDlg" widgetVar="SecretaireCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateSecretaireTitle}">
+            <h:form id="SecretaireCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{secretaireController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateSecretaireLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{secretaireController.selected.id}" title="#{bundle.CreateSecretaireTitle_id}" />
+                        <p:outputLabel value="#{bundle.CreateSecretaireLabel_nom}" for="nom" />
+                        <p:inputText id="nom" value="#{secretaireController.selected.nom}" title="#{bundle.CreateSecretaireTitle_nom}" />
+                        <p:outputLabel value="#{bundle.CreateSecretaireLabel_prenom}" for="prenom" />
+                        <p:inputText id="prenom" value="#{secretaireController.selected.prenom}" title="#{bundle.CreateSecretaireTitle_prenom}" />
+                        <p:outputLabel value="#{bundle.CreateSecretaireLabel_email}" for="email" />
+                        <p:inputText id="email" value="#{secretaireController.selected.email}" title="#{bundle.CreateSecretaireTitle_email}" />
+                        <p:outputLabel value="#{bundle.CreateSecretaireLabel_tel}" for="tel" />
+                        <p:inputText id="tel" value="#{secretaireController.selected.tel}" title="#{bundle.CreateSecretaireTitle_tel}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{secretaireController.create}" value="#{bundle.Save}" update="display,:SecretaireListForm:datalist,:growl" oncomplete="handleSubmit(args,'SecretaireCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="SecretaireCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
