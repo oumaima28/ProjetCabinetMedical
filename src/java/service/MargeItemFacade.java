@@ -17,6 +17,8 @@ import javax.persistence.PersistenceContext;
 @Stateless
 public class MargeItemFacade extends AbstractFacade<MargeItem> {
 
+    
+    
     @PersistenceContext(unitName = "GestionCabinetMedicalPU")
     private EntityManager em;
 

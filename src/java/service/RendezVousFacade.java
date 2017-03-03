@@ -31,7 +31,7 @@ public class RendezVousFacade extends AbstractFacade<RendezVous> {
                 return -1;
             }
         }
-        edit(rendezVous);
+        create(rendezVous);
         return 1;
     }
 

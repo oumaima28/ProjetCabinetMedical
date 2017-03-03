@@ -5,7 +5,10 @@
  */
 package service;
 
+import java.util.Date;
 import bean.MargeBloquee;
+import bean.MargeItem;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -16,6 +19,20 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class MargeBloqueeFacade extends AbstractFacade<MargeBloquee> {
+
+    private MargeItemFacade margeItemFacade;
+
+    public void createMargeAndMargeItem(MargeBloquee margeBloquee, List<MargeItem> margeItems) {
+        if (margeBloquee.getDateDebut().getTime() >= System.currentTimeMillis()) {
+//            margeBloquee.setDateDebut(dateDeb);
+//            margeBloquee.setDateFin(dateFin);
+            create(margeBloquee);
+            for (MargeItem margeItem : margeItems) {
+                margeItem.setMargeBloquee(margeBloquee);
+                margeItemFacade.create(margeItem);
+            }
+        }
+    }
 
     @PersistenceContext(unitName = "GestionCabinetMedicalPU")
     private EntityManager em;
@@ -28,5 +45,5 @@ public class MargeBloqueeFacade extends AbstractFacade<MargeBloquee> {
     public MargeBloqueeFacade() {
         super(MargeBloquee.class);
     }
-    
+
 }

@@ -1,11 +1,13 @@
 package controller;
 
 import bean.MargeBloquee;
+import bean.MargeItem;
 import controller.util.JsfUtil;
 import controller.util.JsfUtil.PersistAction;
 import service.MargeBloqueeFacade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -27,7 +29,27 @@ public class MargeBloqueeController implements Serializable {
     private service.MargeBloqueeFacade ejbFacade;
     private List<MargeBloquee> items = null;
     private MargeBloquee selected;
+    
+    //MargeItem Taken From View
+    private MargeItem selectedMargeItem;
+    private List<MargeItem> margeIems = null;
 
+    public void save(){
+        ejbFacade.createMargeAndMargeItem(selected, margeIems);
+    }
+    
+    public void addMargeItem(){
+      margeIems.add(selectedMargeItem);
+    }
+    
+    public List<Integer> countJours(){
+        List<Integer> list=new ArrayList<>();
+        for (int i = 1; i <= 31; i++) {
+            list.add(i);
+        }
+        return list;
+    }
+    
     public MargeBloqueeController() {
     }
 
@@ -37,6 +59,22 @@ public class MargeBloqueeController implements Serializable {
 
     public void setSelected(MargeBloquee selected) {
         this.selected = selected;
+    }
+
+    public List<MargeItem> getMargeIems() {
+        return margeIems;
+    }
+
+    public void setMargeIems(List<MargeItem> margeIems) {
+        this.margeIems = margeIems;
+    }
+
+    public MargeItem getSelectedMargeItem() {
+        return selectedMargeItem;
+    }
+
+    public void setSelectedMargeItem(MargeItem selectedMargeItem) {
+        this.selectedMargeItem = selectedMargeItem;
     }
 
     protected void setEmbeddableKeys() {

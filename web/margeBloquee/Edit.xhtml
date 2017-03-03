@@ -12,8 +12,6 @@
             <h:form id="MargeBloqueeEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{margeBloqueeController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditMargeBloqueeLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{margeBloqueeController.selected.id}" title="#{bundle.EditMargeBloqueeTitle_id}" />
                         <p:outputLabel value="#{bundle.EditMargeBloqueeLabel_dateDebut}" for="dateDebut" />
                         <p:calendar id="dateDebut" pattern="MM/dd/yyyy" value="#{margeBloqueeController.selected.dateDebut}" title="#{bundle.EditMargeBloqueeTitle_dateDebut}"  showOn="button"/>
                         <p:outputLabel value="#{bundle.EditMargeBloqueeLabel_dateFin}" for="dateFin" />

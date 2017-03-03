@@ -1,0 +1,186 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+
+    </h:head>
+    <h:body>
+        <!--Inputs de la Marge Blockée-->
+        <h:form id="MargeBloqueeCreateForm">
+            <!--<h:panelGroup id="display">-->
+            <p:panelGrid columns="4" rendered="#{margeBloqueeController.selected != null}">
+                <p:outputLabel value="#{bundle.CreateMargeBloqueeLabel_dateDebut}" for="dateDebut" />
+                <p:calendar id="dateDebut" pattern="dd/MM/yyyy" value="#{margeBloqueeController.selected.dateDebut}" title="#{bundle.EditMargeBloqueeTitle_dateDebut}"  showOn="button"/>
+                <p:outputLabel value="#{bundle.CreateMargeBloqueeLabel_dateFin}" for="dateFin" />
+                <p:calendar id="dateFin" pattern="dd/MM/yyyy" value="#{margeBloqueeController.selected.dateFin}" title="#{bundle.EditMargeBloqueeTitle_dateFin}"  showOn="button"/>
+                <p:outputLabel value="#{bundle.CreateMargeItemLabel_heureDebut}" for="heureDebut" />
+                <p:calendar id="heureDebut" pattern="HH:mm:ss" value="#{margeBloqueeController.selectedMargeItem.heureDebut}" title="#{bundle.EditMargeItemTitle_heureDebut}"  showOn="button"/>
+                <p:outputLabel value="#{bundle.CreateMargeItemLabel_heureFin}" for="heureFin" />
+                <p:calendar id="heureFin" pattern="HH:mm:ss" value="#{margeBloqueeController.selectedMargeItem.heureFin}" title="#{bundle.EditMargeItemTitle_heureFin}"  showOn="button"/>            
+                <p:outputLabel value="#{bundle.CreateMargeItemLabel_jour}" for="jour" />
+                <p:inputText id="jour" value="#{margeBloqueeController.selectedMargeItem.jour}" title="#{bundle.CreateMargeItemTitle_jour}" />
+                <p:outputLabel value="#{bundle.CreateMargeItemLabel_mois}" for="mois" />
+                <p:inputText id="mois" value="#{margeBloqueeController.selectedMargeItem.mois}" title="#{bundle.CreateMargeItemTitle_mois}" />
+                <p:outputLabel value="#{bundle.CreateMargeItemLabel_annee}" for="annee" />
+                <p:inputText id="annee" value="#{margeBloqueeController.selectedMargeItem.annee}" title="#{bundle.CreateMargeItemTitle_annee}" />
+
+            </p:panelGrid>
+
+
+            <h:form id="MargeItemListForm">
+                <h1><h:outputText value="List"/></h1>
+                <p:dataTable id="MargeItemDataList" value="#{margeBloqueeController.margeIems}" var="item">
+
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Jour"/>
+                        </f:facet>
+                        <h:outputText value="#{item.jour}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Mois"/>
+                        </f:facet>
+                        <h:outputText value="#{item.mois}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Annee"/>
+                        </f:facet>
+                        <h:outputText value="#{item.annee}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="HeureDebut"/>
+                        </f:facet>
+                        <h:outputText value="#{item.heureDebut}">
+                            <f:convertDateTime pattern="HH:mm:ss" />
+                        </h:outputText>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="HeureFin"/>
+                        </f:facet>
+                        <h:outputText value="#{item.heureFin}">
+                            <f:convertDateTime pattern="HH:mm:ss" />
+                        </h:outputText>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="MargeBloquee"/>
+                        </f:facet>
+                        <h:outputText value="#{item.margeBloquee}"/>
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+
+
+
+            <!--</h:panelGroup>-->
+        </h:form>  
+    </h:body>
+</html>
+<h:form id="MargeItemListForm">
+    <h1><h:outputText value="List"/></h1>
+    <p:dataTable id="MargeItemDataList" value="#{margeBloqueeController.margeIems}" var="item">
+
+        <p:column>
+            <f:facet name="header">
+                <h:outputText value="Jour"/>
+            </f:facet>
+            <h:outputText value="#{item.jour}"/>
+        </p:column>
+        <p:column>
+            <f:facet name="header">
+                <h:outputText value="Mois"/>
+            </f:facet>
+            <h:outputText value="#{item.mois}"/>
+        </p:column>
+        <p:column>
+            <f:facet name="header">
+                <h:outputText value="Annee"/>
+            </f:facet>
+            <h:outputText value="#{item.annee}"/>
+        </p:column>
+        <p:column>
+            <f:facet name="header">
+                <h:outputText value="HeureDebut"/>
+            </f:facet>
+            <h:outputText value="#{item.heureDebut}">
+                <f:convertDateTime pattern="HH:mm:ss" />
+            </h:outputText>
+        </p:column>
+        <p:column>
+            <f:facet name="header">
+                <h:outputText value="HeureFin"/>
+            </f:facet>
+            <h:outputText value="#{item.heureFin}">
+                <f:convertDateTime pattern="HH:mm:ss" />
+            </h:outputText>
+        </p:column>
+        <p:column>
+            <f:facet name="header">
+                <h:outputText value="MargeBloquee"/>
+            </f:facet>
+            <h:outputText value="#{item.margeBloquee}"/>
+        </p:column>
+    </p:dataTable>
+</h:form>
+
+
+
+<!--</h:panelGroup>-->
+</h:form>  
+</h:body>
+</html>
+<h:form id="MargeItemListForm">
+    <h1><h:outputText value="List"/></h1>
+    <p:dataTable id="MargeItemDataList" value="#{margeBloqueeController.margeIems}" var="item">
+
+        <p:column>
+            <f:facet name="header">
+                <h:outputText value="Jour"/>
+            </f:facet>
+            <h:outputText value="#{item.jour}"/>
+        </p:column>
+        <p:column>
+            <f:facet name="header">
+                <h:outputText value="Mois"/>
+            </f:facet>
+            <h:outputText value="#{item.mois}"/>
+        </p:column>
+        <p:column>
+            <f:facet name="header">
+                <h:outputText value="Annee"/>
+            </f:facet>
+            <h:outputText value="#{item.annee}"/>
+        </p:column>
+        <p:column>
+            <f:facet name="header">
+                <h:outputText value="HeureDebut"/>
+            </f:facet>
+            <h:outputText value="#{item.heureDebut}">
+                <f:convertDateTime pattern="HH:mm:ss" />
+            </h:outputText>
+        </p:column>
+        <p:column>
+            <f:facet name="header">
+                <h:outputText value="HeureFin"/>
+            </f:facet>
+            <h:outputText value="#{item.heureFin}">
+                <f:convertDateTime pattern="HH:mm:ss" />
+            </h:outputText>
+        </p:column>
+        <p:column>
+            <f:facet name="header">
+                <h:outputText value="MargeBloquee"/>
+            </f:facet>
+            <h:outputText value="#{item.margeBloquee}"/>
+        </p:column>
+    </p:dataTable>
+</h:body>
+</html>
+
