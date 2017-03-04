@@ -21,6 +21,7 @@ import org.primefaces.model.DefaultScheduleModel;
 import org.primefaces.model.LazyScheduleModel;
 import org.primefaces.model.ScheduleEvent;
 import org.primefaces.model.ScheduleModel;
+import service.PatientFacade;
 import service.RendezVousFacade;
 
 @ManagedBean
@@ -32,9 +33,10 @@ public class ScheduleView implements Serializable {
     private ScheduleModel lazyEventModel;
 
     private DefaultScheduleEvent event = new DefaultScheduleEvent();
+    
     @EJB
     private RendezVousFacade rendezVousFacade;
-
+    
     private RendezVous selected;
 
     @PostConstruct
@@ -231,7 +233,7 @@ public class ScheduleView implements Serializable {
 
     public void onEventSelect(SelectEvent selectEvent) {
         event = (DefaultScheduleEvent) (ScheduleEvent) selectEvent.getObject();
-        selected.setDateRdv((Date) selectEvent.getObject());
+        
     }
 
     public void onDateSelect(SelectEvent selectEvent) {

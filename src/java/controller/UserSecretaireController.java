@@ -1,9 +1,9 @@
 package controller;
 
-import bean.MargeNonBloquee;
+import bean.UserSecretaire;
 import controller.util.JsfUtil;
 import controller.util.JsfUtil.PersistAction;
-import service.MargeNonBloqueeFacade;
+import service.UserSecretaireFacade;
 
 import java.io.Serializable;
 import java.util.List;
@@ -19,26 +19,23 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-@Named("margeNonBloqueeController")
+@Named("userSecretaireController")
 @SessionScoped
-public class MargeNonBloqueeController implements Serializable {
+public class UserSecretaireController implements Serializable {
 
     @EJB
-    private service.MargeNonBloqueeFacade ejbFacade;
-    private List<MargeNonBloquee> items = null;
-    private MargeNonBloquee selected;
+    private service.UserSecretaireFacade ejbFacade;
+    private List<UserSecretaire> items = null;
+    private UserSecretaire selected;
 
-    public MargeNonBloqueeController() {
+    public UserSecretaireController() {
     }
 
-    public MargeNonBloquee getSelected() {
-        if(selected==null){
-            selected=new MargeNonBloquee();
-        }
+    public UserSecretaire getSelected() {
         return selected;
     }
 
-    public void setSelected(MargeNonBloquee selected) {
+    public void setSelected(UserSecretaire selected) {
         this.selected = selected;
     }
 
@@ -48,36 +45,36 @@ public class MargeNonBloqueeController implements Serializable {
     protected void initializeEmbeddableKey() {
     }
 
-    private MargeNonBloqueeFacade getFacade() {
+    private UserSecretaireFacade getFacade() {
         return ejbFacade;
     }
 
-    public MargeNonBloquee prepareCreate() {
-        selected = new MargeNonBloquee();
+    public UserSecretaire prepareCreate() {
+        selected = new UserSecretaire();
         initializeEmbeddableKey();
         return selected;
     }
 
     public void create() {
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("MargeNonBloqueeCreated"));
+        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("UserSecretaireCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
     public void update() {
-        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("MargeNonBloqueeUpdated"));
+        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("UserSecretaireUpdated"));
     }
 
     public void destroy() {
-        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("MargeNonBloqueeDeleted"));
+        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("UserSecretaireDeleted"));
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
-    public List<MargeNonBloquee> getItems() {
+    public List<UserSecretaire> getItems() {
         if (items == null) {
             items = getFacade().findAll();
         }
@@ -112,38 +109,38 @@ public class MargeNonBloqueeController implements Serializable {
         }
     }
 
-    public MargeNonBloquee getMargeNonBloquee(java.lang.Long id) {
+    public UserSecretaire getUserSecretaire(java.lang.String id) {
         return getFacade().find(id);
     }
 
-    public List<MargeNonBloquee> getItemsAvailableSelectMany() {
+    public List<UserSecretaire> getItemsAvailableSelectMany() {
         return getFacade().findAll();
     }
 
-    public List<MargeNonBloquee> getItemsAvailableSelectOne() {
+    public List<UserSecretaire> getItemsAvailableSelectOne() {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass = MargeNonBloquee.class)
-    public static class MargeNonBloqueeControllerConverter implements Converter {
+    @FacesConverter(forClass = UserSecretaire.class)
+    public static class UserSecretaireControllerConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            MargeNonBloqueeController controller = (MargeNonBloqueeController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "margeNonBloqueeController");
-            return controller.getMargeNonBloquee(getKey(value));
+            UserSecretaireController controller = (UserSecretaireController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "userSecretaireController");
+            return controller.getUserSecretaire(getKey(value));
         }
 
-        java.lang.Long getKey(String value) {
-            java.lang.Long key;
-            key = Long.valueOf(value);
+        java.lang.String getKey(String value) {
+            java.lang.String key;
+            key = value;
             return key;
         }
 
-        String getStringKey(java.lang.Long value) {
+        String getStringKey(java.lang.String value) {
             StringBuilder sb = new StringBuilder();
             sb.append(value);
             return sb.toString();
@@ -154,11 +151,11 @@ public class MargeNonBloqueeController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof MargeNonBloquee) {
-                MargeNonBloquee o = (MargeNonBloquee) object;
-                return getStringKey(o.getId());
+            if (object instanceof UserSecretaire) {
+                UserSecretaire o = (UserSecretaire) object;
+                return getStringKey(o.getLogin());
             } else {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), MargeNonBloquee.class.getName()});
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), UserSecretaire.class.getName()});
                 return null;
             }
         }

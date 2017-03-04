@@ -14,10 +14,18 @@
                     <p:panelGrid columns="2" rendered="#{margeNonBloqueeController.selected != null}">
                         <p:outputLabel value="#{bundle.CreateMargeNonBloqueeLabel_id}" for="id" />
                         <p:inputText id="id" value="#{margeNonBloqueeController.selected.id}" title="#{bundle.CreateMargeNonBloqueeTitle_id}" />
+                        <p:outputLabel value="#{bundle.CreateMargeNonBloqueeLabel_nom}" for="nom" />
+                        <p:inputText id="nom" value="#{margeNonBloqueeController.selected.nom}" title="#{bundle.CreateMargeNonBloqueeTitle_nom}" />
                         <p:outputLabel value="#{bundle.CreateMargeNonBloqueeLabel_dateDebut}" for="dateDebut" />
                         <p:calendar id="dateDebut" pattern="MM/dd/yyyy" value="#{margeNonBloqueeController.selected.dateDebut}" title="#{bundle.EditMargeNonBloqueeTitle_dateDebut}"  showOn="button"/>
                         <p:outputLabel value="#{bundle.CreateMargeNonBloqueeLabel_dateFin}" for="dateFin" />
                         <p:calendar id="dateFin" pattern="MM/dd/yyyy" value="#{margeNonBloqueeController.selected.dateFin}" title="#{bundle.EditMargeNonBloqueeTitle_dateFin}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateMargeNonBloqueeLabel_medecin}" for="medecin" />
+                        <p:selectOneMenu id="medecin" value="#{margeNonBloqueeController.selected.medecin}" >
+                            <f:selectItems value="#{medecinController.itemsAvailableSelectOne}"
+                                           var="medecinItem"
+                                           itemValue="#{medecinItem}"/>
+                        </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{margeNonBloqueeController.create}" value="#{bundle.Save}" update="display,:MargeNonBloqueeListForm:datalist,:growl" oncomplete="handleSubmit(args,'MargeNonBloqueeCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="MargeNonBloqueeCreateDialog.hide()"/>

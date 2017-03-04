@@ -32,9 +32,6 @@ public class VacanceController implements Serializable {
     }
 
     public Vacance getSelected() {
-        if(selected==null){
-            selected=new Vacance();
-        }
         return selected;
     }
 
@@ -112,7 +109,7 @@ public class VacanceController implements Serializable {
         }
     }
 
-    public Vacance getVacance(java.lang.String id) {
+    public Vacance getVacance(java.lang.Long id) {
         return getFacade().find(id);
     }
 
@@ -137,13 +134,13 @@ public class VacanceController implements Serializable {
             return controller.getVacance(getKey(value));
         }
 
-        java.lang.String getKey(String value) {
-            java.lang.String key;
-            key = value;
+        java.lang.Long getKey(String value) {
+            java.lang.Long key;
+            key = Long.valueOf(value);
             return key;
         }
 
-        String getStringKey(java.lang.String value) {
+        String getStringKey(java.lang.Long value) {
             StringBuilder sb = new StringBuilder();
             sb.append(value);
             return sb.toString();
@@ -156,7 +153,7 @@ public class VacanceController implements Serializable {
             }
             if (object instanceof Vacance) {
                 Vacance o = (Vacance) object;
-                return getStringKey(o.getNom());
+                return getStringKey(o.getId());
             } else {
                 Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), Vacance.class.getName()});
                 return null;

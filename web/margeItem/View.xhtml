@@ -12,26 +12,26 @@
             <h:form id="MargeItemViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{margeItemController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateMargeItemLabel_heureDebut}" for="heureDebut" />
-                        <p:calendar id="heureDebut" pattern="HH:mm:ss" value="#{margeItemController.selected.heureDebut}" title="#{bundle.EditMargeItemTitle_heureDebut}"  showOn="button"/>
-                        <p:outputLabel value="#{bundle.CreateMargeItemLabel_heureFin}" for="heureFin" />
-                        <p:calendar id="heureFin" pattern="HH:mm:ss" value="#{margeItemController.selected.heureFin}" title="#{bundle.EditMargeItemTitle_heureFin}"  showOn="button"/>
-                        <p:outputLabel value="#{bundle.CreateMargeItemLabel_margeBloquee}" for="margeBloquee" />
-                        <p:selectOneMenu id="margeBloquee" value="#{margeItemController.selected.margeBloquee}" >
-                            <f:selectItems value="#{margeBloqueeController.itemsAvailableSelectOne}"
-                                           var="margeBloqueeItem"
-                                           itemValue="#{margeBloqueeItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.CreateMargeItemLabel_jour}" for="jour" />
-                        <p:inputText id="jour" value="#{margeItemController.selected.jour}" title="#{bundle.CreateMargeItemTitle_jour}" />
-                        <p:outputLabel value="#{bundle.CreateMargeItemLabel_mois}" for="mois" />
-                        <p:inputText id="mois" value="#{margeItemController.selected.mois}" title="#{bundle.CreateMargeItemTitle_mois}" />
-                        <p:outputLabel value="#{bundle.CreateMargeItemLabel_annee}" for="annee" />
-                        <p:inputText id="annee" value="#{margeItemController.selected.annee}" title="#{bundle.CreateMargeItemTitle_annee}" />
-                        
+                        <h:outputText value="#{bundle.ViewMargeItemLabel_id}"/>
+                        <h:outputText value="#{margeItemController.selected.id}" title="#{bundle.ViewMargeItemTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewMargeItemLabel_jour}"/>
+                        <h:outputText value="#{margeItemController.selected.jour}" title="#{bundle.ViewMargeItemTitle_jour}"/>
+                        <h:outputText value="#{bundle.ViewMargeItemLabel_mois}"/>
+                        <h:outputText value="#{margeItemController.selected.mois}" title="#{bundle.ViewMargeItemTitle_mois}"/>
+                        <h:outputText value="#{bundle.ViewMargeItemLabel_annee}"/>
+                        <h:outputText value="#{margeItemController.selected.annee}" title="#{bundle.ViewMargeItemTitle_annee}"/>
+                        <h:outputText value="#{bundle.ViewMargeItemLabel_heureDebut}"/>
+                        <h:outputText value="#{margeItemController.selected.heureDebut}" title="#{bundle.ViewMargeItemTitle_heureDebut}">
+                            <f:convertDateTime pattern="HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewMargeItemLabel_heureFin}"/>
+                        <h:outputText value="#{margeItemController.selected.heureFin}" title="#{bundle.ViewMargeItemTitle_heureFin}">
+                            <f:convertDateTime pattern="HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewMargeItemLabel_margeBloquee}"/>
+                        <h:outputText value="#{margeItemController.selected.margeBloquee}" title="#{bundle.ViewMargeItemTitle_margeBloquee}"/>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{margeItemController.create}" value="#{bundle.Save}" update="display,:MargeItemListForm:datalist,:growl" oncomplete="handleSubmit(args,'MargeItemCreateDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="MargeItemCreateDialog.hide()"/>
+                    <p:commandButton value="#{bundle.Close}" onclick="MargeItemViewDialog.hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

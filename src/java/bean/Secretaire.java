@@ -19,6 +19,7 @@ import javax.persistence.OneToOne;
 @Entity
 public class Secretaire implements Serializable {
 
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,7 +29,7 @@ public class Secretaire implements Serializable {
     protected String email;
     protected String tel;
     @OneToOne
-    protected User user;
+    protected UserSecretaire userSecretaire;
     
     public Long getId() {
         return id;

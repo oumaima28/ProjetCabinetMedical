@@ -25,6 +25,8 @@
                                            var="residenceItem"
                                            itemValue="#{residenceItem}"/>
                         </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditVacanceLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{vacanceController.selected.id}" title="#{bundle.EditVacanceTitle_id}" />
                     </p:panelGrid>
                     <p:commandButton actionListener="#{vacanceController.update}" value="#{bundle.Save}" update="display,:VacanceListForm:datalist,:growl" oncomplete="handleSubmit(args, 'VacanceEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="VacanceEditDialog.hide()"/>

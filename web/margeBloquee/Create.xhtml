@@ -6,27 +6,30 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
+    <ui:composition>
 
-</ui:composition>
+        <p:dialog id="MargeBloqueeCreateDlg" widgetVar="MargeBloqueeCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateMargeBloqueeTitle}">
+            <h:form id="MargeBloqueeCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{margeBloqueeController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateMargeBloqueeLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{margeBloqueeController.selected.id}" title="#{bundle.CreateMargeBloqueeTitle_id}" />
+                        <p:outputLabel value="#{bundle.CreateMargeBloqueeLabel_dateDebut}" for="dateDebut" />
+                        <p:calendar id="dateDebut" pattern="MM/dd/yyyy" value="#{margeBloqueeController.selected.dateDebut}" title="#{bundle.EditMargeBloqueeTitle_dateDebut}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateMargeBloqueeLabel_dateFin}" for="dateFin" />
+                        <p:calendar id="dateFin" pattern="MM/dd/yyyy" value="#{margeBloqueeController.selected.dateFin}" title="#{bundle.EditMargeBloqueeTitle_dateFin}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateMargeBloqueeLabel_medecin}" for="medecin" />
+                        <p:selectOneMenu id="medecin" value="#{margeBloqueeController.selected.medecin}" >
+                            <f:selectItems value="#{medecinController.itemsAvailableSelectOne}"
+                                           var="medecinItem"
+                                           itemValue="#{medecinItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{margeBloqueeController.create}" value="#{bundle.Save}" update="display,:MargeBloqueeListForm:datalist,:growl" oncomplete="handleSubmit(args,'MargeBloqueeCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="MargeBloqueeCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
 
-
-<p:dialog id="MargeBloqueeCreateDlg" widgetVar="MargeBloqueeCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateMargeBloqueeTitle}">
-    <h:form id="MargeBloqueeCreateForm">
-        <h:panelGroup id="display">
-            <p:panelGrid columns="2" rendered="#{margeBloqueeController.selected != null}">
-                <p:outputLabel value="#{bundle.CreateMargeBloqueeLabel_dateDebut}" for="dateDebut" />
-                <p:calendar id="dateDebut" pattern="MM/dd/yyyy" value="#{margeBloqueeController.selected.dateDebut}" title="#{bundle.EditMargeBloqueeTitle_dateDebut}"  showOn="button"/>
-                <p:outputLabel value="#{bundle.CreateMargeBloqueeLabel_dateFin}" for="dateFin" />
-                <p:calendar id="dateFin" pattern="MM/dd/yyyy" value="#{margeBloqueeController.selected.dateFin}" title="#{bundle.EditMargeBloqueeTitle_dateFin}"  showOn="button"/>
-            </p:panelGrid>
-            <p:commandButton actionListener="#{margeBloqueeController.create}" value="#{bundle.Save}" update="display,:MargeBloqueeListForm:datalist,:growl" oncomplete="handleSubmit(args,'MargeBloqueeCreateDialog');"/>
-            <p:commandButton value="#{bundle.Cancel}" onclick="MargeBloqueeCreateDialog.hide()"/>
-        </h:panelGroup>
-    </h:form>
-</p:dialog>
-
-</ui:composition>
-
-
-
-
+    </ui:composition>
+</html>

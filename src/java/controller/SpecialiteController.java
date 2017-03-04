@@ -32,9 +32,6 @@ public class SpecialiteController implements Serializable {
     }
 
     public Specialite getSelected() {
-        if(selected==null){
-            selected=new Specialite();
-        }
         return selected;
     }
 

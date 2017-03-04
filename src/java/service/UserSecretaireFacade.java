@@ -5,9 +5,7 @@
  */
 package service;
 
-
-import bean.MargeItem;
-import java.util.List;
+import bean.UserSecretaire;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -17,7 +15,7 @@ import javax.persistence.PersistenceContext;
  * @author moi
  */
 @Stateless
-public class MargeItemFacade extends AbstractFacade<MargeItem> {
+public class UserSecretaireFacade extends AbstractFacade<UserSecretaire> {
 
     @PersistenceContext(unitName = "GestionCabinetMedicalPU")
     private EntityManager em;
@@ -27,8 +25,8 @@ public class MargeItemFacade extends AbstractFacade<MargeItem> {
         return em;
     }
 
-    public MargeItemFacade() {
-        super(MargeItem.class);
+    public UserSecretaireFacade() {
+        super(UserSecretaire.class);
     }
-
+    
 }

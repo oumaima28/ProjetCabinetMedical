@@ -14,6 +14,8 @@
                     <p:panelGrid columns="2" rendered="#{margeNonBloqueeController.selected != null}">
                         <h:outputText value="#{bundle.ViewMargeNonBloqueeLabel_id}"/>
                         <h:outputText value="#{margeNonBloqueeController.selected.id}" title="#{bundle.ViewMargeNonBloqueeTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewMargeNonBloqueeLabel_nom}"/>
+                        <h:outputText value="#{margeNonBloqueeController.selected.nom}" title="#{bundle.ViewMargeNonBloqueeTitle_nom}"/>
                         <h:outputText value="#{bundle.ViewMargeNonBloqueeLabel_dateDebut}"/>
                         <h:outputText value="#{margeNonBloqueeController.selected.dateDebut}" title="#{bundle.ViewMargeNonBloqueeTitle_dateDebut}">
                             <f:convertDateTime pattern="MM/dd/yyyy" />
@@ -22,6 +24,8 @@
                         <h:outputText value="#{margeNonBloqueeController.selected.dateFin}" title="#{bundle.ViewMargeNonBloqueeTitle_dateFin}">
                             <f:convertDateTime pattern="MM/dd/yyyy" />
                         </h:outputText>
+                        <h:outputText value="#{bundle.ViewMargeNonBloqueeLabel_medecin}"/>
+                        <h:outputText value="#{margeNonBloqueeController.selected.medecin}" title="#{bundle.ViewMargeNonBloqueeTitle_medecin}"/>
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="MargeNonBloqueeViewDialog.hide()"/>
                 </h:panelGroup>

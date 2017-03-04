@@ -23,6 +23,8 @@ public class Vacance implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String nom;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dateDebut;
@@ -61,6 +63,14 @@ public class Vacance implements Serializable {
 
     public void setResidence(Residence residence) {
         this.residence = residence;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     @Override

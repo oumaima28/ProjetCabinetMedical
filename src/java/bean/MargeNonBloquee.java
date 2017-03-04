@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 
 /**
@@ -24,10 +25,13 @@ public class MargeNonBloquee implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String nom;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dateDebut;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dateFin;
+    @ManyToOne
+    private Medecin medecin;
 
     public Long getId() {
         return id;
@@ -36,6 +40,16 @@ public class MargeNonBloquee implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    
 
     public Date getDateDebut() {
         return dateDebut;
@@ -51,6 +65,14 @@ public class MargeNonBloquee implements Serializable {
 
     public void setDateFin(Date dateFin) {
         this.dateFin = dateFin;
+    }
+
+    public Medecin getMedecin() {
+        return medecin;
+    }
+
+    public void setMedecin(Medecin medecin) {
+        this.medecin = medecin;
     }
 
     @Override

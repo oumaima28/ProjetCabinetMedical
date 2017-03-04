@@ -19,7 +19,7 @@
                     <p:dataTable id="datalist" value="#{vacanceController.items}" var="item"
                                  selectionMode="single" selection="#{vacanceController.selected}"
                                  paginator="true"
-                                 rowKey="#{item.nom}"
+                                 rowKey="#{item.id}"
                                  rows="10"
                                  rowsPerPageTemplate="10,20,30,40,50"
                                  >
@@ -54,6 +54,12 @@
                                 <h:outputText value="#{bundle.ListVacanceTitle_residence}"/>
                             </f:facet>
                             <h:outputText value="#{item.residence}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListVacanceTitle_id}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.id}"/>
                         </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{vacanceController.prepareCreate}" update=":VacanceCreateForm" oncomplete="PF('VacanceCreateDialog').show()"/>

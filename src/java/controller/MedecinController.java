@@ -29,7 +29,6 @@ public class MedecinController implements Serializable {
     private Medecin selected;
 
     public MedecinController() {
-        
     }
 
     public Medecin getSelected() {

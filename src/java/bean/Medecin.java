@@ -38,12 +38,16 @@ public class Medecin implements Serializable {
     private Specialite specialite;
     @ManyToOne
     private Configuration configuration;
+    @OneToOne
+    private UserMedecin userMedecin;
     @OneToMany(mappedBy = "medecin")
     private List<SecretaireMedecin> secretaireMedecins;
     @OneToMany(mappedBy = "medecin")
     private List<RendezVous> rendezVouss;
-    @OneToOne
-    private User user;
+    @OneToMany(mappedBy = "medecin")
+    private List<MargeNonBloquee> margeNonBloquees;
+    @OneToMany(mappedBy = "medecin")
+    private List<MargeBloquee> margeBloquees;
 
     public Long getId() {
         return id;
@@ -139,6 +143,30 @@ public class Medecin implements Serializable {
 
     public void setConfiguration(Configuration configuration) {
         this.configuration = configuration;
+    }
+
+    public UserMedecin getUserMedecin() {
+        return userMedecin;
+    }
+
+    public void setUserMedecin(UserMedecin userMedecin) {
+        this.userMedecin = userMedecin;
+    }
+
+    public List<MargeNonBloquee> getMargeNonBloquees() {
+        return margeNonBloquees;
+    }
+
+    public void setMargeNonBloquees(List<MargeNonBloquee> margeNonBloquees) {
+        this.margeNonBloquees = margeNonBloquees;
+    }
+
+    public List<MargeBloquee> getMargeBloquees() {
+        return margeBloquees;
+    }
+
+    public void setMargeBloquees(List<MargeBloquee> margeBloquees) {
+        this.margeBloquees = margeBloquees;
     }
 
     @Override

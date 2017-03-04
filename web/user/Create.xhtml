@@ -22,18 +22,6 @@
                         <p:inputText id="blocked" value="#{userController.selected.blocked}" title="#{bundle.CreateUserTitle_blocked}" />
                         <p:outputLabel value="#{bundle.CreateUserLabel_nbrCnx}" for="nbrCnx" />
                         <p:inputText id="nbrCnx" value="#{userController.selected.nbrCnx}" title="#{bundle.CreateUserTitle_nbrCnx}" />
-                        <p:outputLabel value="#{bundle.CreateUserLabel_secretaire}" for="secretaire" />
-                        <p:selectOneMenu id="secretaire" value="#{userController.selected.secretaire}" >
-                            <f:selectItems value="#{secretaireController.itemsAvailableSelectOne}"
-                                           var="secretaireItem"
-                                           itemValue="#{secretaireItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.CreateUserLabel_medecin}" for="medecin" />
-                        <p:selectOneMenu id="medecin" value="#{userController.selected.medecin}" >
-                            <f:selectItems value="#{medecinController.itemsAvailableSelectOne}"
-                                           var="medecinItem"
-                                           itemValue="#{medecinItem}"/>
-                        </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{userController.create}" value="#{bundle.Save}" update="display,:UserListForm:datalist,:growl" oncomplete="handleSubmit(args,'UserCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="UserCreateDialog.hide()"/>

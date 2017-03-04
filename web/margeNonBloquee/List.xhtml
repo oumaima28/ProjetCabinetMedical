@@ -35,6 +35,12 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMargeNonBloqueeTitle_nom}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nom}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
                                 <h:outputText value="#{bundle.ListMargeNonBloqueeTitle_dateDebut}"/>
                             </f:facet>
                             <h:outputText value="#{item.dateDebut}">
@@ -48,6 +54,12 @@
                             <h:outputText value="#{item.dateFin}">
                                 <f:convertDateTime pattern="MM/dd/yyyy" />
                             </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMargeNonBloqueeTitle_medecin}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.medecin}"/>
                         </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{margeNonBloqueeController.prepareCreate}" update=":MargeNonBloqueeCreateForm" oncomplete="PF('MargeNonBloqueeCreateDialog').show()"/>

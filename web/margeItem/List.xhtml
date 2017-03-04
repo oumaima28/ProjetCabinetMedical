@@ -26,8 +26,7 @@
 
                         <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
                         <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
-                        
-                        <p:column>
+<p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListMargeItemTitle_heureDebut}"/>
                             </f:facet>
@@ -44,11 +43,6 @@
                             </h:outputText>
                         </p:column>
                         <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListMargeItemTitle_margeBloquee}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.margeBloquee}"/>
-                        </p:column>
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListMargeItemTitle_jour}"/>
@@ -66,6 +60,11 @@
                                 <h:outputText value="#{bundle.ListMargeItemTitle_annee}"/>
                             </f:facet>
                             <h:outputText value="#{item.annee}"/>
+                        </p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMargeItemTitle_margeBloquee}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.margeBloquee}"/>
                         </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{margeItemController.prepareCreate}" update=":MargeItemCreateForm" oncomplete="PF('MargeItemCreateDialog').show()"/>

@@ -12,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 
@@ -30,6 +31,8 @@ public class MargeBloquee implements Serializable {
     private Date dateDebut;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dateFin;
+    @ManyToOne
+    private Medecin medecin;
     @OneToMany(mappedBy = "margeBloquee")
     private List<MargeItem> margeItems;
 
@@ -63,6 +66,14 @@ public class MargeBloquee implements Serializable {
 
     public void setMargeItems(List<MargeItem> margeItems) {
         this.margeItems = margeItems;
+    }
+
+    public Medecin getMedecin() {
+        return medecin;
+    }
+
+    public void setMedecin(Medecin medecin) {
+        this.medecin = medecin;
     }
 
     @Override

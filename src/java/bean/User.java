@@ -22,17 +22,13 @@ public class User implements Serializable {
     
     private static final long serialVersionUID = 1L;
     @Id
-    private String login;
-    private String password;
-    private int blocked;
-    private int nbrCnx;
-    private boolean mdpChanged;
+    protected String login;
+    protected String password;
+    protected int blocked;
+    protected int nbrCnx;
+    protected boolean mdpChanged;
     @OneToMany(mappedBy = "user")
-    private List<Device> devices;
-    @OneToOne(mappedBy = "user")
-    private Secretaire secretaire;
-    @OneToOne(mappedBy = "user")
-    private Medecin medecin;
+    protected List<Device> devices;
     
     public String getId() {
         return login;
@@ -88,22 +84,6 @@ public class User implements Serializable {
 
     public void setDevices(List<Device> devices) {
         this.devices = devices;
-    }
-
-    public Secretaire getSecretaire() {
-        return secretaire;
-    }
-
-    public void setSecretaire(Secretaire secretaire) {
-        this.secretaire = secretaire;
-    }
-
-    public Medecin getMedecin() {
-        return medecin;
-    }
-
-    public void setMedecin(Medecin medecin) {
-        this.medecin = medecin;
     }
 
     @Override

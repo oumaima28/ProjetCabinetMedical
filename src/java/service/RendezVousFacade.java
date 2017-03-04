@@ -61,5 +61,4 @@ public class RendezVousFacade extends AbstractFacade<RendezVous> {
     public RendezVousFacade() {
         super(RendezVous.class);
     }
-
 }

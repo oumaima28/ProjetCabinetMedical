@@ -12,6 +12,8 @@
             <h:form id="MargeBloqueeViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{margeBloqueeController.selected != null}">
+                        <h:outputText value="#{bundle.ViewMargeBloqueeLabel_id}"/>
+                        <h:outputText value="#{margeBloqueeController.selected.id}" title="#{bundle.ViewMargeBloqueeTitle_id}"/>
                         <h:outputText value="#{bundle.ViewMargeBloqueeLabel_dateDebut}"/>
                         <h:outputText value="#{margeBloqueeController.selected.dateDebut}" title="#{bundle.ViewMargeBloqueeTitle_dateDebut}">
                             <f:convertDateTime pattern="MM/dd/yyyy" />
@@ -20,6 +22,8 @@
                         <h:outputText value="#{margeBloqueeController.selected.dateFin}" title="#{bundle.ViewMargeBloqueeTitle_dateFin}">
                             <f:convertDateTime pattern="MM/dd/yyyy" />
                         </h:outputText>
+                        <h:outputText value="#{bundle.ViewMargeBloqueeLabel_medecin}"/>
+                        <h:outputText value="#{margeBloqueeController.selected.medecin}" title="#{bundle.ViewMargeBloqueeTitle_medecin}"/>
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="MargeBloqueeViewDialog.hide()"/>
                 </h:panelGroup>

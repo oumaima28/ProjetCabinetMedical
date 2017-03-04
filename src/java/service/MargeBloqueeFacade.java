@@ -5,7 +5,6 @@
  */
 package service;
 
-import java.util.Date;
 import bean.MargeBloquee;
 import bean.MargeItem;
 import java.util.List;
@@ -33,7 +32,7 @@ public class MargeBloqueeFacade extends AbstractFacade<MargeBloquee> {
             }
         }
     }
-
+    
     @PersistenceContext(unitName = "GestionCabinetMedicalPU")
     private EntityManager em;
 
@@ -45,5 +44,5 @@ public class MargeBloqueeFacade extends AbstractFacade<MargeBloquee> {
     public MargeBloqueeFacade() {
         super(MargeBloquee.class);
     }
-
+    
 }

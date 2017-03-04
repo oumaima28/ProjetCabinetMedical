@@ -12,10 +12,19 @@
             <h:form id="MargeBloqueeEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{margeBloqueeController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditMargeBloqueeLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{margeBloqueeController.selected.id}" title="#{bundle.EditMargeBloqueeTitle_id}" />
                         <p:outputLabel value="#{bundle.EditMargeBloqueeLabel_dateDebut}" for="dateDebut" />
                         <p:calendar id="dateDebut" pattern="MM/dd/yyyy" value="#{margeBloqueeController.selected.dateDebut}" title="#{bundle.EditMargeBloqueeTitle_dateDebut}"  showOn="button"/>
                         <p:outputLabel value="#{bundle.EditMargeBloqueeLabel_dateFin}" for="dateFin" />
                         <p:calendar id="dateFin" pattern="MM/dd/yyyy" value="#{margeBloqueeController.selected.dateFin}" title="#{bundle.EditMargeBloqueeTitle_dateFin}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditMargeBloqueeLabel_medecin}" for="medecin" />
+                        <p:selectOneMenu id="medecin" value="#{margeBloqueeController.selected.medecin}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{medecinController.itemsAvailableSelectOne}"
+                                           var="medecinItem"
+                                           itemValue="#{medecinItem}"/>
+                        </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{margeBloqueeController.update}" value="#{bundle.Save}" update="display,:MargeBloqueeListForm:datalist,:growl" oncomplete="handleSubmit(args, 'MargeBloqueeEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="MargeBloqueeEditDialog.hide()"/>

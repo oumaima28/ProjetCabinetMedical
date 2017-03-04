@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="UserMedecinCreateDlg" widgetVar="UserMedecinCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateUserMedecinTitle}">
+            <h:form id="UserMedecinCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{userMedecinController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateUserMedecinLabel_medecin}" for="medecin" />
+                        <p:selectOneMenu id="medecin" value="#{userMedecinController.selected.medecin}" >
+                            <f:selectItems value="#{medecinController.itemsAvailableSelectOne}"
+                                           var="medecinItem"
+                                           itemValue="#{medecinItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateUserMedecinLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{userMedecinController.selected.id}" title="#{bundle.CreateUserMedecinTitle_id}" />
+                        <p:outputLabel value="#{bundle.CreateUserMedecinLabel_login}" for="login" />
+                        <p:inputText id="login" value="#{userMedecinController.selected.login}" title="#{bundle.CreateUserMedecinTitle_login}" />
+                        <p:outputLabel value="#{bundle.CreateUserMedecinLabel_password}" for="password" />
+                        <p:inputText id="password" value="#{userMedecinController.selected.password}" title="#{bundle.CreateUserMedecinTitle_password}" />
+                        <p:outputLabel value="#{bundle.CreateUserMedecinLabel_blocked}" for="blocked" />
+                        <p:inputText id="blocked" value="#{userMedecinController.selected.blocked}" title="#{bundle.CreateUserMedecinTitle_blocked}" />
+                        <p:outputLabel value="#{bundle.CreateUserMedecinLabel_nbrCnx}" for="nbrCnx" />
+                        <p:inputText id="nbrCnx" value="#{userMedecinController.selected.nbrCnx}" title="#{bundle.CreateUserMedecinTitle_nbrCnx}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{userMedecinController.create}" value="#{bundle.Save}" update="display,:UserMedecinListForm:datalist,:growl" oncomplete="handleSubmit(args,'UserMedecinCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="UserMedecinCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
