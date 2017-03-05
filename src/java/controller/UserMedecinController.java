@@ -31,6 +31,20 @@ public class UserMedecinController implements Serializable {
     public UserMedecinController() {
     }
 
+    
+    public String seConnecter()
+    {
+        int res = ejbFacade.seConnnecter(selected);
+        if ( res > 0 )
+        {
+            return "compte/Agenda";
+        }
+        else
+            return null;
+    }
+    
+    
+    
     public UserMedecin getSelected() {
         return selected;
     }
