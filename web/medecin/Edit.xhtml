@@ -47,13 +47,7 @@
                                            var="configurationItem"
                                            itemValue="#{configurationItem}"/>
                         </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.EditMedecinLabel_userMedecin}" for="userMedecin" />
-                        <p:selectOneMenu id="userMedecin" value="#{medecinController.selected.userMedecin}" >
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{userMedecinController.itemsAvailableSelectOne}"
-                                           var="userMedecinItem"
-                                           itemValue="#{userMedecinItem}"/>
-                        </p:selectOneMenu>
+                        
                     </p:panelGrid>
                     <p:commandButton actionListener="#{medecinController.update}" value="#{bundle.Save}" update="display,:MedecinListForm:datalist,:growl" oncomplete="handleSubmit(args, 'MedecinEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="MedecinEditDialog.hide()"/>

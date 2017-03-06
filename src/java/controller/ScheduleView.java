@@ -1,10 +1,15 @@
 package controller;
 
+import bean.MargeBloquee;
+import bean.MargeItem;
 import bean.RendezVous;
 import controller.util.JsfUtil;
 import java.io.Serializable;
+import java.time.Year;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
@@ -18,10 +23,9 @@ import org.primefaces.event.ScheduleEntryResizeEvent;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.model.DefaultScheduleEvent;
 import org.primefaces.model.DefaultScheduleModel;
-import org.primefaces.model.LazyScheduleModel;
 import org.primefaces.model.ScheduleEvent;
 import org.primefaces.model.ScheduleModel;
-import service.PatientFacade;
+import service.MargeItemFacade;
 import service.RendezVousFacade;
 
 @ManagedBean
@@ -33,9 +37,11 @@ public class ScheduleView implements Serializable {
     private ScheduleModel lazyEventModel;
 
     private DefaultScheduleEvent event = new DefaultScheduleEvent();
-    
+
     @EJB
     private RendezVousFacade rendezVousFacade;
+    @EJB
+    private MargeItemFacade margeItemFacade;
     
     private RendezVous selected;
 
@@ -43,25 +49,18 @@ public class ScheduleView implements Serializable {
     public void init() {
         eventModel = new DefaultScheduleModel();
         initAgenda();
+        initEventListFromMargeItems();
     }
 
     public void addRendezVous() {
-        //rendezVousFacade.create(selected);
         int res = rendezVousFacade.save(selected);
-        System.out.println(selected.getDateRdv());
-      
         if (res < 0) {
-            FacesMessage message=new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Rendez Vous Non Disponible");
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Rendez Vous Non Disponible");
             addMessage(message);
         } else {
-            System.out.println(selected.getDateRdv());
             Long var = selected.getDateRdv().getTime() + selected.getMedecin().getConfiguration().getPas() * 60 * 1000;
-            System.out.println(selected.getDateRdv());
-            
             Date dateFin = new Date();
             dateFin.setTime(var);
-            System.out.println(selected.getDateRdv());
-            System.out.println(dateFin);
             eventModel.addEvent(new DefaultScheduleEvent(selected.getPatient().getNom(), selected.getDateRdv(), dateFin));
         }
     }
@@ -75,19 +74,25 @@ public class ScheduleView implements Serializable {
         }
     }
 
-//    private Date calculDateDebutRdv(RendezVous rendezVous){
-//        Calendar t=Calendar.getInstance();
-//        Date date=rendezVous.getDateRdv();
-//        Date heure=rendezVous.getHeure();
-//        t.set(date.getYear()+1900, date.getMonth(), date.getDate(), heure.getHours(), heure.getMinutes(), heure.getSeconds());
-//        return t.getTime();
-//    }
-//    
-//    private Date calculDateFinRdv(RendezVous rendezVous){
-//        Calendar t=Calendar.getInstance();
-//        Date dateDeb=calculDateDebutRdv(rendezVous);
-//        Date DateFin=dateDeb.
-//    }
+    public void addEventListFromMargeItem(MargeItem margeItem) {
+        System.out.println("3");
+        List<DefaultScheduleEvent> margeEvents=margeItemFacade.createEventListFromMargeItem(margeItem);
+        System.out.println(margeEvents);
+        for (DefaultScheduleEvent margeEvent : margeEvents) {
+            eventModel.addEvent(margeEvent);
+        }
+        System.out.println("fin");
+    }
+
+    public void initEventListFromMargeItems(){
+        System.out.println("1");
+        for (MargeItem margeItem : margeItemFacade.findAll()) {
+            System.out.println("2");
+            addEventListFromMargeItem(margeItem);
+            
+        }
+    }
+    
     public Date getRandomDate(Date base) {
         Calendar date = Calendar.getInstance();
         date.setTime(base);
@@ -156,7 +161,7 @@ public class ScheduleView implements Serializable {
         t.set(Calendar.DATE, t.get(Calendar.DATE) + 2);
         t.set(Calendar.AM_PM, Calendar.PM);
         t.set(Calendar.HOUR, 3);
-        t.set(Calendar.DATE, t.DAY_OF_MONTH+1);
+        t.set(Calendar.DATE, t.DAY_OF_MONTH + 1);
         return t.getTime();
     }
 
@@ -233,7 +238,7 @@ public class ScheduleView implements Serializable {
 
     public void onEventSelect(SelectEvent selectEvent) {
         event = (DefaultScheduleEvent) (ScheduleEvent) selectEvent.getObject();
-        
+
     }
 
     public void onDateSelect(SelectEvent selectEvent) {

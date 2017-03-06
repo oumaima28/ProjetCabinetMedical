@@ -17,7 +17,7 @@ import javax.persistence.OneToOne;
 @Entity
 public class UserSecretaire extends User implements Serializable {
 
-    @OneToOne(mappedBy = "userSecretaire")
+    @OneToOne
     private Secretaire secretaire;
 
     public Secretaire getSecretaire() {

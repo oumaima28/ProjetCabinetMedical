@@ -20,18 +20,6 @@ import javax.persistence.PersistenceContext;
 public class MargeBloqueeFacade extends AbstractFacade<MargeBloquee> {
 
     private MargeItemFacade margeItemFacade;
-
-    public void createMargeAndMargeItem(MargeBloquee margeBloquee, List<MargeItem> margeItems) {
-        if (margeBloquee.getDateDebut().getTime() >= System.currentTimeMillis()) {
-//            margeBloquee.setDateDebut(dateDeb);
-//            margeBloquee.setDateFin(dateFin);
-            create(margeBloquee);
-            for (MargeItem margeItem : margeItems) {
-                margeItem.setMargeBloquee(margeBloquee);
-                margeItemFacade.create(margeItem);
-            }
-        }
-    }
     
     @PersistenceContext(unitName = "GestionCabinetMedicalPU")
     private EntityManager em;

@@ -98,7 +98,8 @@ public class MargeBloquee implements Serializable {
 
     @Override
     public String toString() {
-        return "bean.MargeBlocker[ id=" + id + " ]";
+        return "MargeBloquee{" + "id=" + id + ", dateDebut=" + dateDebut + ", dateFin=" + dateFin + '}';
     }
+  
 
 }

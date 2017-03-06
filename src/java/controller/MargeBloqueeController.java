@@ -20,6 +20,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import service.MargeItemFacade;
 
 @Named("margeBloqueeController")
 @SessionScoped
@@ -29,31 +30,45 @@ public class MargeBloqueeController implements Serializable {
     private service.MargeBloqueeFacade ejbFacade;
     private List<MargeBloquee> items = null;
     private MargeBloquee selected;
+
+    @EJB
+    private MargeItemFacade margeItemFacade;
+    private ScheduleView scheduleView;
     
     //MargeItem Taken From View
     private MargeItem selectedMargeItem;
-    private List<MargeItem> margeIems = null;
+    private List<MargeItem> margeItems = null;
 
-    public void save(){
-        ejbFacade.createMargeAndMargeItem(selected, margeIems);
+    public void save() {
+        selected.setId(ejbFacade.generateId("MargeBloquee", "id"));
+        create();
+        margeItemFacade.save(selected, margeItems);
     }
-    
-    public void addMargeItem(){
-      margeIems.add(selectedMargeItem);
+
+    public void addMargeItem() {
+        selectedMargeItem.setId(margeItemFacade.generateId("MargeItem", "id"));
+        margeItems.add(margeItemFacade.clone(selectedMargeItem));
     }
-    
-    public List<Integer> countJours(){
-        List<Integer> list=new ArrayList<>();
+
+    public void removeMargeItem() {
+        margeItems.remove(selectedMargeItem);
+    }
+
+    public List<Integer> countJours() {
+        List<Integer> list = new ArrayList<>();
         for (int i = 1; i <= 31; i++) {
             list.add(i);
         }
         return list;
     }
-    
+
     public MargeBloqueeController() {
     }
 
     public MargeBloquee getSelected() {
+        if (selected == null) {
+            selected = new MargeBloquee();
+        }
         return selected;
     }
 
@@ -61,20 +76,33 @@ public class MargeBloqueeController implements Serializable {
         this.selected = selected;
     }
 
-    public List<MargeItem> getMargeIems() {
-        return margeIems;
+    public List<MargeItem> getMargeItems() {
+        if (margeItems == null) {
+            margeItems = new ArrayList<>();
+        }
+        return margeItems;
     }
 
-    public void setMargeIems(List<MargeItem> margeIems) {
-        this.margeIems = margeIems;
+    public void setMargeItems(List<MargeItem> margeItems) {
+        this.margeItems = margeItems;
     }
 
     public MargeItem getSelectedMargeItem() {
+        if (selectedMargeItem == null) {
+            selectedMargeItem = new MargeItem();
+        }
         return selectedMargeItem;
     }
 
     public void setSelectedMargeItem(MargeItem selectedMargeItem) {
         this.selectedMargeItem = selectedMargeItem;
+    }
+
+    public List<MargeBloquee> getItems() {
+        if (items == null) {
+            items = getFacade().findAll();
+        }
+        return items;
     }
 
     protected void setEmbeddableKeys() {
@@ -110,13 +138,6 @@ public class MargeBloqueeController implements Serializable {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
         }
-    }
-
-    public List<MargeBloquee> getItems() {
-        if (items == null) {
-            items = getFacade().findAll();
-        }
-        return items;
     }
 
     private void persist(PersistAction persistAction, String successMessage) {

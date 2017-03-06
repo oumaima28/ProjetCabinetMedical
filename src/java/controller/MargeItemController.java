@@ -6,6 +6,7 @@ import controller.util.JsfUtil.PersistAction;
 import service.MargeItemFacade;
 
 import java.io.Serializable;
+import java.util.Iterator;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -27,11 +28,14 @@ public class MargeItemController implements Serializable {
     private service.MargeItemFacade ejbFacade;
     private List<MargeItem> items = null;
     private MargeItem selected;
-
+    
     public MargeItemController() {
     }
 
     public MargeItem getSelected() {
+        if(selected==null){
+            selected=new MargeItem();
+        }
         return selected;
     }
 

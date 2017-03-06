@@ -115,7 +115,8 @@ public class MargeItem implements Serializable {
 
     @Override
     public String toString() {
-        return "bean.MargeItem[ id=" + id + " ]";
+        return "MargeItem{" + "id=" + id + ", jour=" + jour + ", mois=" + mois + ", annee=" + annee + ", heureDebut=" + heureDebut + ", heureFin=" + heureFin + ", margeBloquee=" + margeBloquee + '}';
     }
+
     
 }
