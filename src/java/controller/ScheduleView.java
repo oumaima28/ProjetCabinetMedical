@@ -75,21 +75,16 @@ public class ScheduleView implements Serializable {
     }
 
     public void addEventListFromMargeItem(MargeItem margeItem) {
-        System.out.println("3");
         List<DefaultScheduleEvent> margeEvents=margeItemFacade.createEventListFromMargeItem(margeItem);
         System.out.println(margeEvents);
         for (DefaultScheduleEvent margeEvent : margeEvents) {
             eventModel.addEvent(margeEvent);
         }
-        System.out.println("fin");
     }
 
     public void initEventListFromMargeItems(){
-        System.out.println("1");
         for (MargeItem margeItem : margeItemFacade.findAll()) {
-            System.out.println("2");
             addEventListFromMargeItem(margeItem);
-            
         }
     }
     
