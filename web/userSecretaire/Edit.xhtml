@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="UserSecretaireEditDlg" widgetVar="UserSecretaireEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditUserSecretaireTitle}">
+            <h:form id="UserSecretaireEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{userSecretaireController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditUserSecretaireLabel_secretaire}" for="secretaire" />
+                        <p:selectOneMenu id="secretaire" value="#{userSecretaireController.selected.secretaire}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{secretaireController.itemsAvailableSelectOne}"
+                                           var="secretaireItem"
+                                           itemValue="#{secretaireItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditUserSecretaireLabel_mdpChanged}" for="mdpChanged" />
+                        <p:inputText id="mdpChanged" value="#{userSecretaireController.selected.mdpChanged}" title="#{bundle.EditUserSecretaireTitle_mdpChanged}" />
+                        <p:outputLabel value="#{bundle.EditUserSecretaireLabel_login}" for="login" />
+                        <p:inputText id="login" value="#{userSecretaireController.selected.login}" title="#{bundle.EditUserSecretaireTitle_login}" />
+                        <p:outputLabel value="#{bundle.EditUserSecretaireLabel_password}" for="password" />
+                        <p:inputText id="password" value="#{userSecretaireController.selected.password}" title="#{bundle.EditUserSecretaireTitle_password}" />
+                        <p:outputLabel value="#{bundle.EditUserSecretaireLabel_blocked}" for="blocked" />
+                        <p:inputText id="blocked" value="#{userSecretaireController.selected.blocked}" title="#{bundle.EditUserSecretaireTitle_blocked}" />
+                        <p:outputLabel value="#{bundle.EditUserSecretaireLabel_nbrCnx}" for="nbrCnx" />
+                        <p:inputText id="nbrCnx" value="#{userSecretaireController.selected.nbrCnx}" title="#{bundle.EditUserSecretaireTitle_nbrCnx}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{userSecretaireController.update}" value="#{bundle.Save}" update="display,:UserSecretaireListForm:datalist,:growl" oncomplete="handleSubmit(args, 'UserSecretaireEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="UserSecretaireEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
