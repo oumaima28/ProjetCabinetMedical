@@ -27,7 +27,7 @@ public class RendezVousController implements Serializable {
     private service.RendezVousFacade ejbFacade;
     private List<RendezVous> items = null;
     private RendezVous selected;
-
+ 
     public RendezVousController() {
     }
 

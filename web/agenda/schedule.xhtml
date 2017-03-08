@@ -27,7 +27,7 @@
 
             <p:dialog widgetVar="eventDialog" header="Event Details" showEffect="clip" hideEffect="clip">
                 <h:panelGrid id="eventDetails" columns="2">
-                    
+
                     <p:outputLabel value="#{bundle.CreateRendezVousLabel_medecin}" for="medecin" />
                     <p:selectOneMenu id="medecin" value="#{scheduleView.selected.medecin}" >
                         <f:selectItems value="#{medecinController.itemsAvailableSelectOne}"
@@ -44,19 +44,22 @@
                     <p:calendar id="dateRdv" pattern="dd/MM/yyyy HH:mm:ss" value="#{scheduleView.selected.dateRdv}" timeZone="GMT" title="#{bundle.EditRendezVousTitle_dateRdv}"  showOn="button"/>
 
                     <p:commandButton type="reset" value="Reset" />
-<!--                    <c:choose>
-                        <c:when test="">
-                            
-                        </c:when>
-                        <c:otherwise>
-                            
-                        </c:otherwise>
-                    </c:choose>-->
+                    <!--                    <c:choose>
+                                            <c:when test="">
+                                                
+                                            </c:when>
+                                            <c:otherwise>
+                                                
+                                            </c:otherwise>
+                                        </c:choose>-->
                     <p:commandButton id="addButton" value="Save" actionListener="#{scheduleView.addRendezVous()}" oncomplete="PF('myschedule').update();PF('eventDialog').hide();" />
+                    <p:commandButton id="deleteButton" value="Delete" actionListener="#{scheduleView.delete()}" oncomplete="PF('myschedule').update();PF('eventDialog').hide();" />
+                    <p:commandButton id="editButton" value="Edit" actionListener="#{scheduleView.modifierRdv()}" oncomplete="PF('myschedule').update();PF('eventDialog').hide();" />
+                
                 </h:panelGrid>
-            </p:dialog>    
+            </p:dialog> 
         </h:form>
-        
+
         <!--
                 <script type="text/javascript">
                     PrimeFaces.locales['tr'] = {
