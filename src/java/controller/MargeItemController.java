@@ -1,11 +1,14 @@
 package controller;
 
+import bean.MargeBloquee;
 import bean.MargeItem;
 import controller.util.JsfUtil;
 import controller.util.JsfUtil.PersistAction;
+import controller.util.Session;
 import service.MargeItemFacade;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -28,19 +31,151 @@ public class MargeItemController implements Serializable {
     private service.MargeItemFacade ejbFacade;
     private List<MargeItem> items = null;
     private MargeItem selected;
+
+    //Recherche MargeItem
+    private Date heureDebutMin;
+    private Date heureDebutMax;
+    private Date heureFinMin;
+    private Date heureFinMax;
+    private int jourMin;
+    private int jourMax;
+    private int anneeMin;
+    private int anneeMax;
+    private int moisMin;
+    private int moisMax;
+    // private List<MargeItem> margeItems =null;
+
+    //init items from margeBloquee details
+    public void initItems() {
+        if (Session.getAttribut("selectedMargeBloqueeForDetails") != null) {
+            items = ejbFacade.findByMargeBloquee((MargeBloquee) Session.getAttribut("selectedMargeBloqueeForDetails"));
+        } else {
+            items = getFacade().findAll();
+        }
+    }
+
+    //rechercher margeItem
+    public void rechercherMargeItem() {
+        items = ejbFacade.rechercher(heureDebutMin, heureDebutMax, heureFinMin, heureFinMax, jourMin, jourMax, moisMin, moisMax, anneeMin, anneeMax);
+    }
+
+    //modifier a margeItem from rechercher view
+    public void modifierMargeItem() {
+        ejbFacade.modifier(selected);
+        items = null;
+    }
+
+    public void editPopUp(MargeItem margeItem){
+        selected=margeItem;
+    }
     
+    //deleting a margeItem form datalist and db in rechercher view
+    public void deleteMargeItem(MargeItem margeItem) {
+        //System.out.println(selected);
+        ejbFacade.delete(margeItem);
+        items = ejbFacade.findByMargeBloquee((MargeBloquee) Session.getAttribut("selectedMargeBloqueeForDetails"));
+    }
+
     public MargeItemController() {
     }
 
     public MargeItem getSelected() {
-        if(selected==null){
-            selected=new MargeItem();
+        if (selected == null) {
+            selected = new MargeItem();
         }
         return selected;
     }
 
     public void setSelected(MargeItem selected) {
         this.selected = selected;
+    }
+
+    public MargeItemFacade getEjbFacade() {
+        return ejbFacade;
+    }
+
+    public void setEjbFacade(MargeItemFacade ejbFacade) {
+        this.ejbFacade = ejbFacade;
+    }
+
+    public Date getHeureDebutMin() {
+        return heureDebutMin;
+    }
+
+    public void setHeureDebutMin(Date heureDebutMin) {
+        this.heureDebutMin = heureDebutMin;
+    }
+
+    public Date getHeureDebutMax() {
+        return heureDebutMax;
+    }
+
+    public void setHeureDebutMax(Date heureDebutMax) {
+        this.heureDebutMax = heureDebutMax;
+    }
+
+    public Date getHeureFinMin() {
+        return heureFinMin;
+    }
+
+    public void setHeureFinMin(Date heureFinMin) {
+        this.heureFinMin = heureFinMin;
+    }
+
+    public Date getHeureFinMax() {
+        return heureFinMax;
+    }
+
+    public void setHeureFinMax(Date heureFinMax) {
+        this.heureFinMax = heureFinMax;
+    }
+
+    public int getJourMin() {
+        return jourMin;
+    }
+
+    public void setJourMin(int jourMin) {
+        this.jourMin = jourMin;
+    }
+
+    public int getJourMax() {
+        return jourMax;
+    }
+
+    public void setJourMax(int jourMax) {
+        this.jourMax = jourMax;
+    }
+
+    public int getAnneeMin() {
+        return anneeMin;
+    }
+
+    public void setAnneeMin(int anneeMin) {
+        this.anneeMin = anneeMin;
+    }
+
+    public int getAnneeMax() {
+        return anneeMax;
+    }
+
+    public void setAnneeMax(int anneeMax) {
+        this.anneeMax = anneeMax;
+    }
+
+    public int getMoisMin() {
+        return moisMin;
+    }
+
+    public void setMoisMin(int moisMin) {
+        this.moisMin = moisMin;
+    }
+
+    public int getMoisMax() {
+        return moisMax;
+    }
+
+    public void setMoisMax(int moisMax) {
+        this.moisMax = moisMax;
     }
 
     protected void setEmbeddableKeys() {
@@ -79,7 +214,11 @@ public class MargeItemController implements Serializable {
     }
 
     public List<MargeItem> getItems() {
-        if (items == null) {
+        if (Session.getAttribut("selectedMargeBloqueeForDetails") != null) {
+            items = ejbFacade.findByMargeBloquee((MargeBloquee) Session.getAttribut("selectedMargeBloqueeForDetails"));
+            Session.clear();
+
+        } else {
             items = getFacade().findAll();
         }
         return items;

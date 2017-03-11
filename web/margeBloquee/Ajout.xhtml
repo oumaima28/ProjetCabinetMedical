@@ -64,12 +64,7 @@
                     <p:dataTable id="MargeItemDataList" value="#{margeBloqueeController.margeItems}" var="item">
 <!--                        <p:ajax event="rowSelect"   update=":MargeBloqueeCreateForm:addMargeItemBtn deleteMargeItemBtn"/>
                         <p:ajax event="rowUnselect" update=":MargeBloqueeCreateForm:addMargeItemBtn deleteMargeItemBtn"/>-->
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="Id"/>
-                            </f:facet>
-                            <h:outputText value="#{item.id}"/>
-                        </p:column>
+                        
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="Jour"/>
@@ -108,7 +103,7 @@
                             <f:facet name="header">
                                 <h:outputText value="Button"/>
                             </f:facet>
-                            <p:commandButton id="deleteMargeItemBtn" action="#{margeBloqueeController.removeMargeItem()}" value="Supprimer" update="MargeItemDataList" />
+                            <p:commandButton action="#{margeBloqueeController.removeMargeItem(item)}" value="Supprimer" update="MargeItemDataList" />
                         </p:column>
                     </p:dataTable>
                 </h:form>

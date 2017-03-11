@@ -6,6 +6,7 @@
 package service;
 
 import bean.User;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -25,6 +26,11 @@ public class UserFacade extends AbstractFacade<User> {
         return em;
     }
 
+    public String findType(User user){
+       List<String> list= em.createNativeQuery("SELECT user.DTYPE FROM User user WHERE user.login = '"+user.getLogin()+"'").getResultList();
+       return list.get(0);
+    }
+    
     public UserFacade() {
         super(User.class);
     }

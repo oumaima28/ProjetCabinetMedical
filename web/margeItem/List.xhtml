@@ -26,7 +26,7 @@
 
                         <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
                         <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
-<p:column>
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListMargeItemTitle_heureDebut}"/>
                             </f:facet>
@@ -43,24 +43,24 @@
                             </h:outputText>
                         </p:column>
                         <p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListMargeItemTitle_jour}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.jour}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListMargeItemTitle_mois}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.mois}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListMargeItemTitle_annee}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.annee}"/>
-                        </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListMargeItemTitle_jour}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.jour}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListMargeItemTitle_mois}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.mois}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListMargeItemTitle_annee}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.annee}"/>
+                            </p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListMargeItemTitle_margeBloquee}"/>
                             </f:facet>

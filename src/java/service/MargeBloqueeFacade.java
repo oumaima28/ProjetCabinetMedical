@@ -22,7 +22,7 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class MargeBloqueeFacade extends AbstractFacade<MargeBloquee> {
-    
+
     @EJB
     private MargeItemFacade margeItemFacade;
 
@@ -31,9 +31,10 @@ public class MargeBloqueeFacade extends AbstractFacade<MargeBloquee> {
 
     public List<MargeBloquee> rechercher(Medecin medecin, Date dateDebutMin, Date dateDebutMax, Date dateFinMin, Date dateFinMax) {
         String query = "Select m FROM MargeBloquee m WHERE 1=1";
-//        if(medecin!=null){
-//        query += SearchUtil.addConstraint("m", "medecin.id", "=", medecin.getId());
+//        if (medecin != null) {
+//             query+=SearchUtil.addConstraint("m", "medecin.id", "=", medecin.getId());
 //        }
+  
         if(medecin!=null){
             query+=" AND m.medecin.id ='"+medecin.getId()+"'";
         }
@@ -49,33 +50,38 @@ public class MargeBloqueeFacade extends AbstractFacade<MargeBloquee> {
         if(dateFinMax!=null){
             query+=" AND m.dateFin <= '"+SearchUtil.convertToSqlDate(dateFinMax)+"'";
         }
-        //query += SearchUtil.addConstraintMinMaxDate("m", "dateDebut", dateDebutMin, dateDebutMax);
-       //query += SearchUtil.addConstraintMinMaxDate("m", "dateFin", dateFinMin, dateFinMax);
-        return em.createQuery(query).getResultList();
+        
+//    query += SearchUtil.addConstraintMinMaxDate("m", "dateDebut", dateDebutMin, dateDebutMax) ;
+//    query += SearchUtil.addConstraintMinMaxDate("m", "dateFin", dateFinMin, dateFinMax) ;
+
+    return em.createQuery (query)
+
+.getResultList();
     }
 
-    public void modifier(MargeBloquee modifiedMargeBloquee) {
-        MargeBloquee loadedMargeBloquee = find(find(modifiedMargeBloquee));
+    public void modifier(MargeBloquee oldMargeBloquee,MargeBloquee modifiedMargeBloquee) {
+        MargeBloquee loadedMargeBloquee = find(oldMargeBloquee.getId());
         loadedMargeBloquee.setDateDebut(modifiedMargeBloquee.getDateDebut());
         loadedMargeBloquee.setDateFin(modifiedMargeBloquee.getDateFin());
         loadedMargeBloquee.setMedecin(modifiedMargeBloquee.getMedecin());
+        edit(loadedMargeBloquee);
     }
 
     public void delete(MargeBloquee margeBloquee) {
-        System.out.println("2");
-        System.out.println(margeBloquee);
         margeItemFacade.deleteByMargeBloquee(margeBloquee);
-        System.out.println("4");
         remove(margeBloquee);
     }
 
     @Override
-    protected EntityManager getEntityManager() {
+        protected EntityManager getEntityManager() {
         return em;
     }
 
-    public MargeBloqueeFacade() {
-        super(MargeBloquee.class);
+    public MargeBloqueeFacade
+
+() {
+        super(MargeBloquee.class
+);
     }
 
 }

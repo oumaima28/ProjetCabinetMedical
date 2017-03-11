@@ -28,6 +28,10 @@ public class SearchUtil {
 
         return new java.sql.Date(date.getTime());
     }
+    public static java.sql.Date convertdate(java.util.Date date) {
+
+        return new java.sql.Date(date.getTime());
+    }
 
     public static java.sql.Timestamp convertToSqlTimeStamp(java.util.Date date) {
         return new java.sql.Timestamp(date.getTime());
@@ -56,7 +60,7 @@ public class SearchUtil {
     }
 
     public static String addConstraintMinMaxDate(String beanAbrev, String atributeName, Date valueMin, Date valueMax) {
-        return addConstraintMinMax(beanAbrev, atributeName, convertToSqlDate(valueMin), convertToSqlDate(valueMax));
+        return addConstraintMinMax(beanAbrev, atributeName, convertdate(valueMin), convertdate(valueMax));
     }
 
     public static String supprimerCleEtranger(String beanAbrev, String atributeName, String condition, Object value) {

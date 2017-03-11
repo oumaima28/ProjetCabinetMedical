@@ -17,6 +17,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import org.primefaces.context.RequestContext;
 
 import org.primefaces.event.ScheduleEntryMoveEvent;
 import org.primefaces.event.ScheduleEntryResizeEvent;
@@ -28,6 +29,7 @@ import org.primefaces.model.ScheduleModel;
 import service.MargeItemFacade;
 import service.PatientFacade;
 import service.RendezVousFacade;
+import service.UserFacade;
 
 @ManagedBean
 @ViewScoped
@@ -45,12 +47,15 @@ public class ScheduleView implements Serializable {
     private MargeItemFacade margeItemFacade;
     @EJB
     private PatientFacade patientFacade;
-    
+    @EJB
+    private UserFacade userFacade;
+
     private RendezVous selected;
 
     @PostConstruct
     public void init() {
         eventModel = new DefaultScheduleModel();
+        //System.out.println(userFacade.findType(userFacade.find("houda1234")));
         initAgenda();
         initEventListFromMargeItems();
     }
@@ -75,19 +80,19 @@ public class ScheduleView implements Serializable {
     }
 
     public void addEventListFromMargeItem(MargeItem margeItem) {
-        List<DefaultScheduleEvent> margeEvents=margeItemFacade.createEventListFromMargeItem(margeItem);
+        List<DefaultScheduleEvent> margeEvents = margeItemFacade.createEventListFromMargeItem(margeItem);
         System.out.println(margeEvents);
         for (DefaultScheduleEvent margeEvent : margeEvents) {
             eventModel.addEvent(margeEvent);
         }
     }
 
-    public void initEventListFromMargeItems(){
+    public void initEventListFromMargeItems() {
         for (MargeItem margeItem : margeItemFacade.findAll()) {
             addEventListFromMargeItem(margeItem);
         }
     }
-    
+
     public void modifierRdv() {
         RendezVous rdv = new RendezVous();
         rdv.setPatient(patientFacade.find(event.getTitle()));
@@ -97,26 +102,20 @@ public class ScheduleView implements Serializable {
         event.setEndDate(rendezVousFacade.calculDateFin(rdv));
         rendezVousFacade.modifier(rdv, selected);
     }
-    
-   
-    
-//    public void findEventByMargeItem(MargeItem margeItem){
-//        List<ScheduleEvent> concernedEvents = eventModel.getEvents();
-//        for (ScheduleEvent concernedEvent : concernedEvents) {
-//            if(concernedEvent.getTitle().equals("Marge Bloquée")){
-//                
-//            }
-//        }
-//    }
-    
-    public void deleteEventFromMargeItem(ScheduleEvent scheduleEvent){
+
+    public void decideIfMargeEvent(ScheduleEvent scheduleEvent) {
+        if (scheduleEvent != null) {
+            if (scheduleEvent.getTitle().equals("Marge Bloquée")) {
+                RequestContext context = RequestContext.getCurrentInstance();
+                context.execute("PF('eventDialog').hide();");
+            }
+        }
+    }
+
+    public void deleteEventFromMargeItem(ScheduleEvent scheduleEvent) {
         eventModel.deleteEvent(scheduleEvent);
     }
-    
-    
-    
-    
-    
+
     public Date getRandomDate(Date base) {
         Calendar date = Calendar.getInstance();
         date.setTime(base);
@@ -261,8 +260,15 @@ public class ScheduleView implements Serializable {
     }
 
     public void onEventSelect(SelectEvent selectEvent) {
+
         event = (DefaultScheduleEvent) (ScheduleEvent) selectEvent.getObject();
-        selected.setDateRdv(event.getStartDate());
+        if (!event.getTitle().equals("Marge Bloquée")) {
+            RequestContext context = RequestContext.getCurrentInstance();
+            context.execute("PF('eventDialog').show();");
+        } else {
+            selected.setDateRdv(event.getStartDate());
+        }
+        //decideIfMargeEvent(event);
         //selected.setPatient(patientFacade.find(event.getTitle()));
     }
 

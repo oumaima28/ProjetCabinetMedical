@@ -12,8 +12,6 @@
             <h:form id="MargeItemEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{margeItemController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditMargeItemLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{margeItemController.selected.id}" title="#{bundle.EditMargeItemTitle_id}" />
                         <p:outputLabel value="#{bundle.EditMargeItemLabel_jour}" for="jour" />
                         <p:inputText id="jour" value="#{margeItemController.selected.jour}" title="#{bundle.EditMargeItemTitle_jour}" />
                         <p:outputLabel value="#{bundle.EditMargeItemLabel_mois}" for="mois" />

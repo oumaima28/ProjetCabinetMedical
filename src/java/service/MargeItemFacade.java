@@ -7,6 +7,7 @@ package service;
 
 import bean.MargeBloquee;
 import bean.MargeItem;
+import controller.util.SearchUtil;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -78,12 +79,10 @@ public class MargeItemFacade extends AbstractFacade<MargeItem> {
     }
 
     public void deleteByMargeBloquee(MargeBloquee margeBloquee) {
-//        String req = "DELETE FROM MargeItem m WHERE m.margeBloquee.id ='" + margeBloquee.getId()+ "'";
+        String req = "DELETE FROM MargeItem m WHERE m.margeBloquee.id = '" + margeBloquee.getId()+ "'";
 //        em.getTransaction().begin();
 //        em.createQuery(req).executeUpdate();
 //        em.getTransaction().commit();
-        System.out.println("3");
-        System.out.println(findByMargeBloquee(margeBloquee));
         List <MargeItem> list=findByMargeBloquee(margeBloquee);
         int i=list.size();
         for (MargeItem margeItem : findByMargeBloquee(margeBloquee)) {
@@ -108,6 +107,26 @@ public class MargeItemFacade extends AbstractFacade<MargeItem> {
         return em.createQuery("SELECT m FROM MargeItem m WHERE m.margeBloquee.id ='"+margeBloquee.getId()+"'").getResultList();
     }
 
+    public List<MargeItem> rechercher(Date heureDebutMin,Date heureDebutMax,Date heureFinMin,Date heureFinMax,
+            int jourMin,int jourMax,int moisMin,int moisMax,int anneeMin,int anneeMax){
+        String req="SELECT m FROM MargeItem m WHERE 1=1";
+        if(heureDebutMin!=null) req+=" AND m.heureDebut >= '"+SearchUtil.convertToSqlTimeStamp(heureDebutMin)+"'";
+        if(heureDebutMax!=null) req+=" AND m.heureDebut <= '"+SearchUtil.convertToSqlTimeStamp(heureDebutMax)+"'";
+        if(heureFinMin!=null) req+=" AND m.heureFin >= '"+SearchUtil.convertToSqlTimeStamp(heureFinMin)+"'";
+        if(heureFinMax!=null) req+=" AND m.heureFin <= '"+SearchUtil.convertToSqlTimeStamp(heureFinMax)+"'";
+        if(jourMin!=0) req+=" AND m.jour >= '"+jourMin+"'";
+        if(jourMax!=0) req+=" AND m.jour <= '"+jourMax+"'";
+        if(moisMin!=0) req+=" AND m.mois >= '"+moisMin+"'";
+        if(moisMax!=0) req+=" AND m.mois <= '"+moisMax+"'";
+        if(anneeMin!=0) req+=" AND m.annee >= '"+anneeMin+"'";
+        if(anneeMax!=0) req+=" AND m.annee <= '"+anneeMax+"'";
+        return em.createQuery(req).getResultList();
+    }
+    
+    public void delete(MargeItem margeItem){
+        remove(margeItem);
+    }
+    
     @PersistenceContext(unitName = "GestionCabinetMedicalPU")
     private EntityManager em;
 

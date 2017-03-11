@@ -5,6 +5,7 @@ import bean.MargeItem;
 import bean.Medecin;
 import controller.util.JsfUtil;
 import controller.util.JsfUtil.PersistAction;
+import controller.util.Session;
 import service.MargeBloqueeFacade;
 
 import java.io.Serializable;
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.function.Predicate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
@@ -36,11 +38,11 @@ public class MargeBloqueeController implements Serializable {
     @EJB
     private MargeItemFacade margeItemFacade;
 
-    //MargeItem Taken From View
+    //MargeItem Taken Create From View
     private MargeItem selectedMargeItem;
     private List<MargeItem> margeItems = null;
 
-    //Recherche
+    //Recherche MargeBloquee
     private Medecin medecinRecherchee;
     private Date dateDebutMin;
     private Date dateFinMin;
@@ -58,13 +60,15 @@ public class MargeBloqueeController implements Serializable {
 
     //add MargeItem to the datalist existing in the view
     public void addMargeItem() {
-        selectedMargeItem.setId(margeItemFacade.generateId("MargeItem", "id"));
+
+        // selectedMargeItem.setId(margeItemFacade.generateId("MargeItem", "id"));
         margeItems.add(margeItemFacade.clone(selectedMargeItem));
     }
 
     //deleting margeItem from the datalist in create margeBloqueeAndMargeItem view
-    public void removeMargeItem() {
-        margeItems.remove(selectedMargeItem);
+    public void removeMargeItem(MargeItem margeItem) {
+        System.out.println(margeItem);
+        margeItems.remove(margeItem);
     }
 
     //rechercher margeBloquee
@@ -73,15 +77,26 @@ public class MargeBloqueeController implements Serializable {
     }
 
     //deleting a margeBloque from datalist and db in rechercher view
-    public void deleteMargeBloquee() {
-        System.out.println("1");
-        ejbFacade.delete(selected);
-        items=null;
+    public void deleteMargeBloquee(MargeBloquee margeBloquee) {
+        ejbFacade.delete(margeBloquee);
+        items = null;
     }
 
-    //deleting a margeItem form datalist and db in rechercher view
-    public void deleteMargeItem() {
-        margeItemFacade.remove(selectedMargeItem);
+    //modifier a margeBloquee from rechercher view
+    public void modifierMargeBloque() {
+        ejbFacade.modifier(selected, selected);
+        items = null;
+    }
+
+    //initialiser pop up d'edit
+    public void editePopUp(MargeBloquee margeBloquee) {
+        selected = margeBloquee;
+    }
+
+    //details
+    public String detail(MargeBloquee margeBloquee) {
+        Session.createAtrribute(margeBloquee, "selectedMargeBloqueeForDetails");
+        return "/margeItem/MargeItem.xhtml";
     }
 
     public List<Integer> countJours() {
@@ -135,6 +150,27 @@ public class MargeBloqueeController implements Serializable {
         return items;
     }
 
+//    public List<MargeBloquee> getRechercheItems() {
+//        if (rechercheItems == null) {
+//            items = getFacade().findAll();
+//        }
+//        return rechercheItems;
+//    }
+//
+//    public void setRechercheItems(List<MargeBloquee> rechercheItems) {
+//        this.rechercheItems = rechercheItems;
+//    }
+    public Medecin getMedecinRecherchee() {
+        if (medecinRecherchee == null) {
+            medecinRecherchee = new Medecin();
+        }
+        return medecinRecherchee;
+    }
+
+    public void setMedecinRecherchee(Medecin medecinRecherchee) {
+        this.medecinRecherchee = medecinRecherchee;
+    }
+
     public Date getDateDebutMin() {
         return dateDebutMin;
     }
@@ -165,14 +201,6 @@ public class MargeBloqueeController implements Serializable {
 
     public void setDateFinMax(Date dateFinMax) {
         this.dateFinMax = dateFinMax;
-    }
-
-    public Medecin getMedecinRecherchee() {
-        return medecinRecherchee;
-    }
-
-    public void setMedecinRecherchee(Medecin medecinRecherchee) {
-        this.medecinRecherchee = medecinRecherchee;
     }
 
     protected void setEmbeddableKeys() {
@@ -289,6 +317,21 @@ public class MargeBloqueeController implements Serializable {
             }
         }
 
+    }
+
+    private static class PredicateImpl implements Predicate<MargeItem> {
+
+        private final MargeItem margeItem;
+
+        public PredicateImpl(MargeItem margeItem) {
+            this.margeItem = margeItem;
+        }
+
+        @Override
+        public boolean test(MargeItem item) {
+            return item.getHeureDebut().equals(margeItem.getHeureDebut()) && item.getHeureFin().equals(margeItem.getHeureFin()) && item.getAnnee() == margeItem.getAnnee()
+                    && item.getMois() == margeItem.getMois() && item.getJour() == margeItem.getJour();
+        }
     }
 
 }
