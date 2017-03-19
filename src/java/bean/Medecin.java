@@ -39,7 +39,7 @@ public class Medecin implements Serializable {
     @ManyToOne
     private Configuration configuration;
     @OneToOne
-    private UserMedecin userMedecin;
+    private User user;
     @OneToMany(mappedBy = "medecin")
     private List<SecretaireMedecin> secretaireMedecins;
     @OneToMany(mappedBy = "medecin")
@@ -145,12 +145,12 @@ public class Medecin implements Serializable {
         this.configuration = configuration;
     }
 
-    public UserMedecin getUserMedecin() {
-        return userMedecin;
+    public User getUserMedecin() {
+        return user;
     }
 
-    public void setUserMedecin(UserMedecin userMedecin) {
-        this.userMedecin = userMedecin;
+    public void setUserMedecin(User user) {
+        this.user = user;
     }
 
     public List<MargeNonBloquee> getMargeNonBloquees() {

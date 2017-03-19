@@ -20,7 +20,7 @@ import javax.persistence.OneToOne;
 public class Secretaire implements Serializable {
 
     @OneToOne(mappedBy = "secretaire")
-    private UserSecretaire userSecretaire;
+    private User user;
 
 
     private static final long serialVersionUID = 1L;
@@ -49,6 +49,15 @@ public class Secretaire implements Serializable {
         this.nom = nom;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    
     public String getPrenom() {
         return prenom;
     }

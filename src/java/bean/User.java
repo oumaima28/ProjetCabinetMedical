@@ -11,6 +11,7 @@ import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 /**
  *
@@ -19,15 +20,19 @@ import javax.persistence.OneToMany;
 @Entity
 public class User implements Serializable {
     
-    private static final long serialVersionUID = 1L;
     @Id
-    protected String login;
-    protected String password;
-    protected int blocked;
-    protected int nbrCnx;
-    protected boolean mdpChanged;
+    private String login;
+    private String password;
+    private int blocked;
+    private int nbrCnx;
+    private int type;
+    private boolean mdpChanged;
     @OneToMany(mappedBy = "user")
     protected List<Device> devices;
+    @OneToOne
+    private Medecin medecin;
+    @OneToOne
+    private Secretaire secretaire;
     
     public String getId() {
         return login;
@@ -85,6 +90,39 @@ public class User implements Serializable {
         this.devices = devices;
     }
 
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    public Medecin getMedecin() {
+        if ( type == 2 )
+        {
+            return null;
+        }
+        return medecin;
+    }
+
+    public void setMedecin(Medecin medecin) {
+        this.medecin = medecin;
+    }
+
+    public Secretaire getSecretaire() {
+        if ( type == 1 )
+        {
+            return null;
+        }
+        return secretaire;
+    }
+
+    public void setSecretaire(Secretaire secretaire) {
+        this.secretaire = secretaire;
+    }
+
+    
     @Override
     public int hashCode() {
         int hash = 5;

@@ -6,6 +6,7 @@
 package service;
 
 import java.util.List;
+import java.util.Random;
 import javax.persistence.EntityManager;
 
 /**
@@ -42,6 +43,19 @@ public abstract class AbstractFacade<T> {
         javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
         cq.select(cq.from(entityClass));
         return getEntityManager().createQuery(cq).getResultList();
+    }
+    
+    public String getGeneratePass() {
+        String SALTCHARS = "abcdefjhijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+        StringBuilder salt = new StringBuilder();
+        Random rnd = new Random();
+        while (salt.length() < 5) {
+            int index = (int) (rnd.nextFloat() * SALTCHARS.length());
+            salt.append(SALTCHARS.charAt(index));
+        }
+        String saltStr = salt.toString();
+        return saltStr;
+
     }
 
     public List<T> findRange(int[] range) {
