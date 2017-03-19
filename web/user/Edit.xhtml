@@ -12,16 +12,12 @@
             <h:form id="UserEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{userController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditUserLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{userController.selected.id}" title="#{bundle.EditUserTitle_id}" />
                         <p:outputLabel value="#{bundle.EditUserLabel_login}" for="login" />
-                        <p:inputText id="login" value="#{userController.selected.login}" title="#{bundle.EditUserTitle_login}" />
+                        <p:inputText id="login" disabled="true" value="#{userController.selected.login}" title="#{bundle.EditUserTitle_login}" />
                         <p:outputLabel value="#{bundle.EditUserLabel_password}" for="password" />
                         <p:inputText id="password" value="#{userController.selected.password}" title="#{bundle.EditUserTitle_password}" />
                         <p:outputLabel value="#{bundle.EditUserLabel_blocked}" for="blocked" />
                         <p:inputText id="blocked" value="#{userController.selected.blocked}" title="#{bundle.EditUserTitle_blocked}" />
-                        <p:outputLabel value="#{bundle.EditUserLabel_nbrCnx}" for="nbrCnx" />
-                        <p:inputText id="nbrCnx" value="#{userController.selected.nbrCnx}" title="#{bundle.EditUserTitle_nbrCnx}" />
                     </p:panelGrid>
                     <p:commandButton actionListener="#{userController.update}" value="#{bundle.Save}" update="display,:UserListForm:datalist,:growl" oncomplete="handleSubmit(args, 'UserEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="UserEditDialog.hide()"/>
