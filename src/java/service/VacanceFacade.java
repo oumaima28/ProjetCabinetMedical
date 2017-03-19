@@ -5,7 +5,9 @@
  */
 package service;
 
+import bean.Residence;
 import bean.Vacance;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -17,6 +19,10 @@ import javax.persistence.PersistenceContext;
 @Stateless
 public class VacanceFacade extends AbstractFacade<Vacance> {
 
+    public List<Vacance> findByResidence(Residence residence){
+        return em.createQuery("SELECT v FROM Vacance v WHERE v.residence.nom= '"+ residence.getNom()+"'").getResultList();
+    }
+    
     @PersistenceContext(unitName = "GestionCabinetMedicalPU")
     private EntityManager em;
 

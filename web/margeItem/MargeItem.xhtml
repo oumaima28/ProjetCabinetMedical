@@ -1,0 +1,111 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="/template.xhtml">
+            <ui:define name="title">
+                <h:outputText value="#{bundle.ListMargeBloqueeTitle}"></h:outputText>
+            </ui:define>
+            <ui:define name="body">
+            <h:form id="MargeItemRechercheForm">
+                <p:panel menuTitle="Recherche MargeItem">
+                    <p:panel header="Recherche">
+                        <p:panelGrid columns="6">
+                            <p:outputLabel value="#{bundle.CreateMargeItemLabel_jourMin}" for="jourMin" />
+                            <p:inputText id="jourMin" value="#{margeItemController.jourMin}" title="#{bundle.CreateMargeItemTitle_jourMin}" />
+                            <p:outputLabel value="#{bundle.CreateMargeItemLabel_jourMax}" for="jourMax" />
+                            <p:inputText id="jourMax" value="#{margeItemController.jourMax}" title="#{bundle.CreateMargeItemTitle_jourMax}" />
+                            <p:outputLabel value="#{bundle.CreateMargeItemLabel_moisMin}" for="moisMin" />
+                            <p:inputText id="moisMin" value="#{margeItemController.moisMin}" title="#{bundle.CreateMargeItemTitle_moisMin}" />
+                            <p:outputLabel value="#{bundle.CreateMargeItemLabel_moisMax}" for="moisMax" />
+                            <p:inputText id="moisMax" value="#{margeItemController.moisMax}" title="#{bundle.CreateMargeItemTitle_moisMax}" />
+                            <p:outputLabel value="#{bundle.CreateMargeItemLabel_anneeMin}" for="anneeMin" />
+                            <p:inputText id="anneeMin" value="#{margeItemController.anneeMin}" title="#{bundle.CreateMargeItemTitle_anneeMin}" />
+                            <p:outputLabel value="#{bundle.CreateMargeItemLabel_anneeMax}" for="anneeMax" />
+                            <p:inputText id="anneeMax" value="#{margeItemController.anneeMax}" title="#{bundle.CreateMargeItemTitle_anneeMax}" />
+                            <p:outputLabel value="#{bundle.CreateMargeItemLabel_heureDebutMin}" for="heureDebutMin" />
+                            <p:calendar id="heureDebutMin" pattern="HH:mm:ss" value="#{margeItemController.heureDebutMin}" title="#{bundle.EditMargeItemTitle_heureDebutMin}"  showOn="button"/>
+                            <p:outputLabel value="#{bundle.CreateMargeItemLabel_heureDebutMax}" for="heureDebutMax" />
+                            <p:calendar id="heureDebutMax" pattern="HH:mm:ss" value="#{margeItemController.heureDebutMax}" title="#{bundle.EditMargeItemTitle_heureDebutMax}"  showOn="button"/>
+                            <p:outputLabel value="#{bundle.CreateMargeItemLabel_heureFinMin}" for="heureFinMin" />
+                            <p:calendar id="heureFinMin" pattern="HH:mm:ss" value="#{margeItemController.heureFinMin}" title="#{bundle.EditMargeItemTitle_heureFinMin}"  showOn="button"/>
+                            <p:outputLabel value="#{bundle.CreateMargeItemLabel_heureFinMax}" for="heureFinMax" />
+                            <p:calendar id="heureFinMax" pattern="HH:mm:ss" value="#{margeItemController.heureFinMax}" title="#{bundle.EditMargeItemTitle_heureFinMax}"  showOn="button"/>
+                            
+                        </p:panelGrid>
+                    </p:panel>
+                </p:panel>
+                <p:commandButton actionListener="#{margeItemController.rechercherMargeItem()}" value="Rechercher" update=":MargeItemListForm:datalist"/>
+
+            </h:form>
+                <h:form id="MargeItemListForm">
+                    <p:panel header="#{bundle.ListMargeItemTitle}">
+                        <p:dataTable id="datalist" value="#{margeItemController.items}" var="item"
+                                      
+                                     >
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListMargeItemTitle_heureDebut}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.heureDebut}">
+                                    <f:convertDateTime pattern="HH:mm:ss" />
+                                </h:outputText>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListMargeItemTitle_heureFin}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.heureFin}">
+                                    <f:convertDateTime pattern="HH:mm:ss" />
+                                </h:outputText>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListMargeItemTitle_jour}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.jour}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListMargeItemTitle_mois}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.mois}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListMargeItemTitle_annee}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.annee}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListMargeItemTitle_margeBloquee}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.margeBloquee}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListMargeItemTitle_margeBloquee}"/>
+                                </f:facet>
+                                <p:commandButton actionListener="#{margeItemController.deleteMargeItem(item)}" value="Supprimer"/>
+                                <p:commandButton id="editButton"  action="#{margeItemController.editPopUp(item)}" icon="ui-icon-pencil" value="#{bundle.Edit}" update=":MargeItemEditForm" oncomplete="PF('MargeItemEditDialog').show()" disabled="#{empty margeItemController.selected}"/>
+                            </p:column>
+                            <f:facet name="footer">
+                            </f:facet>
+                        </p:dataTable>
+                    </p:panel>
+                </h:form>
+                <ui:include src="Edit.xhtml"/>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

@@ -10,6 +10,17 @@
     </h:head>
     <h:body>
         <h:form>
+            <p:outputLabel value="#{bundle.CreateMargeBloqueeLabel_medecin}" for="medecin" />
+            <p:selectOneMenu id="medecin" value="#{scheduleView.medecin}" >
+                <f:selectItem itemLabel="--SELECT--"/>
+                <f:selectItems value="#{medecinController.itemsAvailableSelectOne}"
+                               var="medecinItem"
+                               itemValue="#{medecinItem}"/>
+                <p:ajax process="medecin" listener="#{scheduleView.initAllAgendaEvents()}" update=":agendaForm:schedule"/>
+            </p:selectOneMenu>
+
+        </h:form>
+        <h:form id="agendaForm">
             <p:growl id="messages" showDetail="true" />
 
             <h:panelGrid columnClasses="value">
@@ -27,7 +38,7 @@
 
             <p:dialog widgetVar="eventDialog" header="Event Details" showEffect="clip" hideEffect="clip" >
                 <h:panelGrid id="eventDetails" columns="2">
-                    
+
                     <p:outputLabel value="#{bundle.CreateRendezVousLabel_medecin}" for="medecin" />
                     <p:selectOneMenu id="medecin" value="#{scheduleView.selected.medecin}" >
                         <f:selectItems value="#{medecinController.itemsAvailableSelectOne}"
@@ -41,23 +52,26 @@
                                        itemValue="#{patientItem}"/>
                     </p:selectOneMenu>
                     <p:outputLabel value="#{bundle.CreateRendezVousLabel_dateRdv}" for="dateRdv" />
-                    <p:calendar id="dateRdv" pattern="dd/MM/yyyy HH:mm:ss" value="#{scheduleView.selected.dateRdv}" timeZone="GMT" title="#{bundle.EditRendezVousTitle_dateRdv}"  showOn="button"/>
+                    <p:calendar id="dateRdv" pattern="dd/MM/yyyy HH:mm:ss" value="#{scheduleView.selected.dateRdv}"  title="#{bundle.EditRendezVousTitle_dateRdv}"  showOn="button"/>
 
                     <p:commandButton type="reset" value="Reset" />
-<!--                    <c:choose>
-                        <c:when test="">
-                            
-                        </c:when>
-                        <c:otherwise>
-                            
-                        </c:otherwise>
-                    </c:choose>-->
-                    <p:commandButton id="addButton" value="Save" actionListener="#{scheduleView.addRendezVous()}" oncomplete="PF('myschedule').update();PF('eventDialog').hide();" />
+                    <!--                    <c:choose>
+                                            <c:when test="">
+                                                
+                                            </c:when>
+                                            <c:otherwise>
+                                                
+                                            </c:otherwise>
+                                        </c:choose>-->
+                    <p:commandButton id="addButton" value="Save" actionListener="#{scheduleView.addRendezVous()}" oncomplete="PF('myschedule').update();PF('eventDialog').hide();" rendered="#{scheduleView.nbrEvent==0?true:false}"/>
+                    <p:commandButton id="editButton" value="Editer" actionListener="#{scheduleView.modifierRdv()}" oncomplete="PF('myschedule').update();PF('eventDialog').hide();" rendered="#{scheduleView.nbrEvent==1?true:false}"/>
+                    <p:commandButton id="deleteButton" value="Delete" actionListener="#{scheduleView.deleteRdv()}" oncomplete="PF('myschedule').update();PF('eventDialog').hide();" />
+
                 </h:panelGrid>
             </p:dialog>
-            
+
         </h:form>
-        
+
         <!--
                 <script type="text/javascript">
                     PrimeFaces.locales['tr'] = {
@@ -86,6 +100,15 @@
         <style type="text/css">
             .value {
                 width: 700px;
+            }
+            .colorMargeBloquee{
+                background-color: red;
+            }
+            .colorRdv{
+                background-color: green;
+            }
+            .colorMargeNonBloquee{
+                background-color: gray;
             }
         </style>
     </h:body>

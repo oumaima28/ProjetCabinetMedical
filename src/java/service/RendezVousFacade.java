@@ -8,6 +8,8 @@ package service;
 import bean.Medecin;
 import bean.Patient;
 import bean.RendezVous;
+import controller.util.DateUtil;
+import controller.util.SearchUtil;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -21,8 +23,6 @@ import javax.persistence.PersistenceContext;
 @Stateless
 public class RendezVousFacade extends AbstractFacade<RendezVous> {
 
-    
-    
     @PersistenceContext(unitName = "GestionCabinetMedicalPU")
     private EntityManager em;
 
@@ -38,18 +38,48 @@ public class RendezVousFacade extends AbstractFacade<RendezVous> {
         return 1;
     }
 
+    public List<RendezVous> search(Patient patient, Medecin medecin, Date dateMin, Date dateMax) {
+        System.out.println("mm" + medecin);
+        String req = "SELECT rdv FROM RendezVous rdv WHERE 1=1";
+
+        if (patient != null) {
+            req += " AND rdv.patient.cin = '" + patient.getCin() + "'";
+        }
+        if (medecin != null) {
+            req += " AND rdv.medecin.id = '" + medecin.getId() + "'";
+        }
+        if (dateMin != null && dateMax != null) {
+            req += controller.util.DateUtil.addConstraintMinMaxTimestamp("rdv", "dateRdv", dateMin, dateMax);
+        }
+        return em.createQuery(req).getResultList();
+    }
+
     public List<RendezVous> findByMedecin(Medecin medecin) {
         return em.createQuery("SELECT rdv FROM RendezVous rdv WHERE rdv.medecin.id = '" + medecin.getId() + "'").getResultList();
     }
 
-    public List<RendezVous> findByAttribut(Medecin medecin, Patient patient, Date dateRendv) {
-        return em.createQuery("SELECT rdv FROM RendezVous rdv WHERE rdv.medecin.id = '" + medecin.getId() + "'AND rdv.patient.cin='" + patient.getCin() + "'" + controller.util.SearchUtil.addConstraintDate("rdv", "dateRdv", "=", dateRendv)).getResultList();
+    public RendezVous findByAttribut(Medecin medecin, Patient patient, Date dateRendv) {
+        String req = "SELECT rdv FROM RendezVous rdv WHERE 1=1";
+        if (patient != null) {
+            req += " AND rdv.patient.cin = '" + patient.getCin() + "'";
+        }
+        if (medecin != null) {
+            req += " AND rdv.medecin.id = '" + medecin.getId() + "'";
+        }
+        if (dateRendv != null) {
+            req += " AND rdv.dateRdv = '" + SearchUtil.convertToSqlTimeStamp(dateRendv) + "'";
+        }
+        List<RendezVous> rdvs = em.createQuery(req).getResultList();
+        if (rdvs.isEmpty()) {
+            return null;
+        } else {
+            return rdvs.get(0);
+        }
     }
-    
+
     public int modifier(RendezVous rendezVous, RendezVous modifiedRendezVous) {
-        Date dateActuelle = new Date();
-        if (modifiedRendezVous.getDateRdv().getTime() > dateActuelle.getTime()) {
-            RendezVous loadedRendezVous = find(rendezVous.getId());
+        if (modifiedRendezVous.getDateRdv().getTime() > System.currentTimeMillis()) {
+            RendezVous loadedRendezVous = findByAttribut(rendezVous.getMedecin(), rendezVous.getPatient(), rendezVous.getDateRdv());
             loadedRendezVous.setDateRdv(modifiedRendezVous.getDateRdv());
             loadedRendezVous.setMedecin(modifiedRendezVous.getMedecin());
             loadedRendezVous.setPatient(modifiedRendezVous.getPatient());
@@ -66,7 +96,7 @@ public class RendezVousFacade extends AbstractFacade<RendezVous> {
         dateFin.setTime(var);
         return dateFin;
     }
-    
+
     @Override
     protected EntityManager getEntityManager() {
         return em;

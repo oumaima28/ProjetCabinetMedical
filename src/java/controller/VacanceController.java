@@ -18,6 +18,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import service.MargeNonBloqueeFacade;
 
 @Named("vacanceController")
 @SessionScoped
@@ -28,10 +29,16 @@ public class VacanceController implements Serializable {
     private List<Vacance> items = null;
     private Vacance selected;
 
+    @EJB
+    private MargeNonBloqueeFacade margeNonBloqueeFacade;
+    
     public VacanceController() {
     }
 
     public Vacance getSelected() {
+        if(selected==null){
+            selected=new Vacance();
+        }
         return selected;
     }
 
@@ -87,6 +94,7 @@ public class VacanceController implements Serializable {
             try {
                 if (persistAction != PersistAction.DELETE) {
                     getFacade().edit(selected);
+                    margeNonBloqueeFacade.saveByVacance(selected);
                 } else {
                     getFacade().remove(selected);
                 }

@@ -88,7 +88,7 @@ public class RendezVous implements Serializable {
 
     @Override
     public String toString() {
-        return "bean.RendezVous[ id=" + id + " ]";
+        return "RendezVous{" + "id=" + id + ", dateRdv=" + dateRdv + ", medecin=" + medecin + ", patient=" + patient + '}';
     }
     
 }

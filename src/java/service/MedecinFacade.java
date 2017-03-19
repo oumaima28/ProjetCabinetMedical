@@ -6,6 +6,8 @@
 package service;
 
 import bean.Medecin;
+import bean.Residence;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -16,6 +18,10 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class MedecinFacade extends AbstractFacade<Medecin> {
+
+    public List<Medecin> findMedecinByResidence(Residence residence) {
+        return em.createQuery("SELECT med FROM Medecin med WHERE med.residence.nom = '" + residence.getNom() + "'").getResultList();
+    }
 
     @PersistenceContext(unitName = "GestionCabinetMedicalPU")
     private EntityManager em;
@@ -28,5 +34,5 @@ public class MedecinFacade extends AbstractFacade<Medecin> {
     public MedecinFacade() {
         super(Medecin.class);
     }
-    
+
 }

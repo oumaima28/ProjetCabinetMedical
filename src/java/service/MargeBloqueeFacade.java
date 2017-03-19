@@ -31,9 +31,6 @@ public class MargeBloqueeFacade extends AbstractFacade<MargeBloquee> {
 
     public List<MargeBloquee> rechercher(Medecin medecin, Date dateDebutMin, Date dateDebutMax, Date dateFinMin, Date dateFinMax) {
         String query = "Select m FROM MargeBloquee m WHERE 1=1";
-//        if (medecin != null) {
-//             query+=SearchUtil.addConstraint("m", "medecin.id", "=", medecin.getId());
-//        }
   
         if(medecin!=null){
             query+=" AND m.medecin.id ='"+medecin.getId()+"'";
@@ -70,6 +67,10 @@ public class MargeBloqueeFacade extends AbstractFacade<MargeBloquee> {
     public void delete(MargeBloquee margeBloquee) {
         margeItemFacade.deleteByMargeBloquee(margeBloquee);
         remove(margeBloquee);
+    }
+    
+    public List<MargeBloquee> findByMedecin(Medecin medecin){
+        return em.createQuery("SELECT m FROM MargeBloquee m WHERE m.medecin.id = '"+medecin.getId()+"'").getResultList();
     }
 
     @Override

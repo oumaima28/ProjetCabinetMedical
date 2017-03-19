@@ -34,6 +34,10 @@ public class DateUtil {
         return new java.sql.Timestamp(date.getTime());
     }
 
+    public static java.sql.Time getTime(java.util.Date date){
+        return new java.sql.Time(date.getTime());
+    }
+    
     public static String format(Date date) {//"yyyy-MM-dd"
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy ");
         return simpleDateFormat.format(date);
@@ -61,11 +65,11 @@ public class DateUtil {
         return requette;
     }
 
-    public static String addConstraintDate(String beanAbrev, String attributeName, String operator, Date value) {
+    public static String addConstraintTimestamp(String beanAbrev, String attributeName, String operator, Date value) {
         return addConstraint(beanAbrev, attributeName, operator, getTimestamp(value));
     }
 
-    public static String addConstraintMinMaxDate(String beanAbrev, String attributName, Date valueMin, Date valueMax) {
+    public static String addConstraintMinMaxTimestamp(String beanAbrev, String attributName, Date valueMin, Date valueMax) {
         return addConstraintMinMax(beanAbrev, attributName, getTimestamp(valueMin), getTimestamp(valueMax));
     }
 }

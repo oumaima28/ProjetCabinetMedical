@@ -1,11 +1,14 @@
 package controller;
 
+import bean.Medecin;
+import bean.Patient;
 import bean.RendezVous;
 import controller.util.JsfUtil;
 import controller.util.JsfUtil.PersistAction;
 import service.RendezVousFacade;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -28,11 +31,56 @@ public class RendezVousController implements Serializable {
     private service.RendezVousFacade ejbFacade;
     private List<RendezVous> items = null;
     private RendezVous selected;
-    
-    
+    //Attribut Recherche
+
+    private Date dateMin;
+    private Date dateMax;
+    private Patient patient;
+    private Medecin medecin;
+
+    public void search() {
+        items = ejbFacade.search(patient, medecin, dateMin, dateMax);
+    }
+
     public RendezVousController() {
     }
 
+    public Date getDateMin() {
+        return dateMin;
+    }
+
+    public void setDateMin(Date dateMin) {
+        this.dateMin = dateMin;
+    }
+
+    public Date getDateMax() {
+        return dateMax;
+    }
+
+    public void setDateMax(Date dateMax) {
+        this.dateMax = dateMax;
+    }
+
+    public Patient getPatient() {
+        return patient;
+    }
+
+    public void setPatient(Patient patient) {
+        this.patient = patient;
+    }
+
+    public Medecin getMedecin() {
+        return medecin;
+    }
+
+    public void setMedecin(Medecin medecin) {
+        this.medecin = medecin;
+    }
+    
+    public void delete(RendezVous rdv){
+        ejbFacade.remove(rdv);
+    }
+    
     public RendezVous getSelected() {
         return selected;
     }
@@ -87,12 +135,18 @@ public class RendezVousController implements Serializable {
         if (selected != null) {
             setEmbeddableKeys();
             try {
-                if (persistAction != PersistAction.DELETE) {
-                    getFacade().edit(selected);
-                } else {
+                if (persistAction == PersistAction.CREATE) {
+                    int res = getFacade().save(selected);
+                    if (res < 0) {
+                        JsfUtil.addErrorMessage("Impossible d'ajouter un rdv dans cette date");
+                    }
+                } else if (persistAction == PersistAction.DELETE) {
                     getFacade().remove(selected);
+                    JsfUtil.addSuccessMessage(successMessage);
+                } else {
+                    getFacade().edit(selected);
+                    JsfUtil.addSuccessMessage(successMessage);
                 }
-                JsfUtil.addSuccessMessage(successMessage);
             } catch (EJBException ex) {
                 String msg = "";
                 Throwable cause = ex.getCause();

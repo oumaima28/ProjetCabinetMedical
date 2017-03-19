@@ -18,8 +18,9 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import service.MargeNonBloqueeFacade;
 
-@Named("medecinController")
+@Named("medecinController") 
 @SessionScoped
 public class MedecinController implements Serializable {
 
@@ -28,6 +29,9 @@ public class MedecinController implements Serializable {
     private List<Medecin> items = null;
     private Medecin selected;
 
+    @EJB
+    private MargeNonBloqueeFacade margeNonBloqueeFacade;
+    
     public MedecinController() {
     }
 
@@ -90,6 +94,7 @@ public class MedecinController implements Serializable {
             try {
                 if (persistAction != PersistAction.DELETE) {
                     getFacade().edit(selected);
+                    margeNonBloqueeFacade.saveByMedecin(selected);
                 } else {
                     getFacade().remove(selected);
                 }
