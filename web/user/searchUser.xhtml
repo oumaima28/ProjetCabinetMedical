@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="/template.xhtml">
+            <ui:define name="title">
+                <h:outputText value="List Searched User"></h:outputText>
+            </ui:define>
+            <ui:define name="body">
+
+                <h:form id="UserSearchForm">
+                    <p:panel menuTitle="Search User">
+                        <p:panel header="Recherche">
+                            <p:panelGrid columns="5">   
+                             <p:outputLabel value="#{bundle.EditUserLabel_login}" for="login" />
+                                <p:inputText id="login" value="#{userController.selected.login}" title="#{bundle.EditUserTitle_login}" />
+                             <p:outputLabel value="#{bundle.EditUserLabel_password}" for="password" />
+                                <p:inputText id="password" value="#{userController.selected.password}" title="#{bundle.EditUserTitle_password}" />
+                                <p:selectOneRadio id="typeUser"  required="true" value="#{userController.selected.type}" >
+                                    <f:selectItem  itemLabel="Medecin" itemValue="1" ></f:selectItem>
+                                    <f:selectItem itemLabel="Secretaire" itemValue="2" ></f:selectItem>
+                                </p:selectOneRadio>
+                                <p:outputLabel value="#{bundle.EditUserLabel_blocked}" for="blocked" />
+                               <p:inputText id="blocked" value="#{userController.selected.blocked}" title="#{bundle.EditUserTitle_blocked}" />
+                            </p:panelGrid>
+                            <p:commandButton actionListener="#{userController.searchUser()}" value="Search" update=":UserListForm:datalist"/>
+                        </p:panel>
+                    </p:panel>
+                </h:form>
+                <h:form id="UserListForm">
+                    <h1><h:outputText value="Liste Users"/></h1>
+                    <p:panel header="#{bundle.ListUserTitle}">
+                        <p:dataTable id="datalist" value="#{userController.items}" var="item"
+                                     
+                                     >
+
+                      
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListUserTitle_login}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.login}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListUserTitle_password}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.password}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListUserTitle_blocked}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.blocked}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListUserTitle_nbrCnx}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nbrCnx}"/>
+                        </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListMargeBloqueeTitle_medecin}"/>
+                                </f:facet>
+                                <p:commandButton actionListener="#{userController.deleteUser(item)}" value="Delete" update="datalist"></p:commandButton>
+                                <p:commandButton action="#{userController.editePopUp(item)}" id="editButton" icon="ui-icon-pencil" value="#{bundle.Edit}" update=":UserEditForm" oncomplete="PF('UserEditDialog').show()" disabled="#{empty userController.selected}"/>
+                                <p:commandButton id="viewButton" action="#{userController.editePopUp(item)}"  icon="ui-icon-search" value="#{bundle.View}" update=":UserViewForm" oncomplete="PF('UserViewDialog').show()" disabled="#{empty userController.selected}"/>
+
+                            </p:column>
+                            <f:facet name="footer">
+                            </f:facet>
+                        </p:dataTable>
+                    </p:panel>
+                </h:form>
+                <ui:include src="Edit.xhtml"/>
+                <ui:include src="View.xhtml"/>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+
