@@ -27,8 +27,11 @@
                                     <f:selectItem  itemLabel="Medecin" itemValue="1" ></f:selectItem>
                                     <f:selectItem itemLabel="Secretaire" itemValue="2" ></f:selectItem>
                                 </p:selectOneRadio>
-                                <p:outputLabel value="#{bundle.EditUserLabel_blocked}" for="blocked" />
-                               <p:inputText id="blocked" value="#{userController.selected.blocked}" title="#{bundle.EditUserTitle_blocked}" />
+                                <p:outputLabel value="#{bundle.EditUserLabel_blocked}" for="blocked"  />
+                                <p:selectOneRadio id="blocked" required="true" value="#{userController.selected.blocked}"  >
+                                    <f:selectItem  itemLabel="Blocked" itemValue="1" ></f:selectItem>
+                                    <f:selectItem itemLabel="Not Blocked" itemValue="-1" ></f:selectItem>
+                                </p:selectOneRadio>
                             </p:panelGrid>
                             <p:commandButton actionListener="#{userController.searchUser()}" value="Search" update=":UserListForm:datalist"/>
                         </p:panel>
@@ -58,7 +61,7 @@
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListUserTitle_blocked}"/>
                             </f:facet>
-                            <h:outputText value="#{item.blocked}"/>
+                            <h:outputText value="#{item.blocked}" />
                         </p:column>
                         <p:column>
                             <f:facet name="header">
