@@ -75,7 +75,7 @@ public class Residence implements Serializable {
 
     @Override
     public String toString() {
-        return "bean.Residence[ id=" + nom + " ]";
+        return nom;
     }
 
 }

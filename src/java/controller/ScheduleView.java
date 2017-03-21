@@ -64,7 +64,6 @@ public class ScheduleView implements Serializable {
         eventModel = new DefaultScheduleModel();
 //        Session.clear();
 //        medecin=(Medecin) Session.getAttribut("selectedMedecinForAgenda");
-
     }
 
     public void initAllAgendaEvents() {
@@ -98,6 +97,7 @@ public class ScheduleView implements Serializable {
             dateFin.setTime(var);
             DefaultScheduleEvent eventRdv = new DefaultScheduleEvent(rendezVous.getPatient().getCin(), rendezVous.getDateRdv(), dateFin);
             eventModel.addEvent(eventRdv);
+            eventRdv.setId("" + rendezVous.getId());
             eventRdv.setStyleClass("colorRdv");
         }
     }
@@ -105,6 +105,7 @@ public class ScheduleView implements Serializable {
     public void addEventListFromMargeItem(MargeItem margeItem) {
         List<DefaultScheduleEvent> margeEvents = margeItemFacade.createEventListFromMargeItem(margeItem);
         for (DefaultScheduleEvent margeEvent : margeEvents) {
+
             eventModel.addEvent(margeEvent);
             margeEvent.setStyleClass("colorMargeBloquee");
         }
@@ -126,14 +127,12 @@ public class ScheduleView implements Serializable {
     }
 
     public void modifierRdv() {
-        RendezVous rdv = new RendezVous();
-        rdv.setPatient(patientFacade.find(event.getTitle()));
-        rdv.setDateRdv(event.getStartDate());
-        rdv.setMedecin(selected.getMedecin());
+        RendezVous rendezVous = rendezVousFacade.find(Long.parseLong(event.getId()) * 1L);
+        System.out.println(rendezVous);
         event.setTitle(selected.getPatient().getCin());
         event.setStartDate(selected.getDateRdv());
-        event.setEndDate(rendezVousFacade.calculDateFin(rdv));
-        rendezVousFacade.modifier(rdv, selected);
+        event.setEndDate(rendezVousFacade.calculDateFin(rendezVous));
+        rendezVousFacade.modifier(rendezVous, selected);
     }
 
     public void decideIfMargeEvent(ScheduleEvent scheduleEvent) {
@@ -150,7 +149,7 @@ public class ScheduleView implements Serializable {
     }
 
     public void deleteRdv() {
-        RendezVous rdv = rendezVousFacade.findByAttribut(selected.getMedecin(), selected.getPatient(), selected.getDateRdv());
+        RendezVous rdv = rendezVousFacade.find(Long.parseLong(event.getId()) * 1L);
         if (rdv == null) {
             JsfUtil.addErrorMessage("rdv non trouvee");
         } else {
@@ -287,9 +286,18 @@ public class ScheduleView implements Serializable {
     }
 
     public void onEventMove(ScheduleEntryMoveEvent event) {
+        RendezVous loadedRendezVous = rendezVousFacade.find(Long.parseLong(event.getScheduleEvent().getId()) * 1L);
+        System.out.println(loadedRendezVous);
+        rendezVousFacade.edit(loadedRendezVous);
+        System.out.println(loadedRendezVous);
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Event moved", "Day delta:" + event.getDayDelta() + ", Minute delta:" + event.getMinuteDelta());
         addMessage(message);
-
+        System.out.println("hani");
+        System.out.println(event.getScheduleEvent().getId());
+        System.out.println(loadedRendezVous);
+//        //rendezVousFacade.eventMove(event.getScheduleEvent().getId(), event.getDayDelta(), event.getMinuteDelta());
+//        System.out.println(event.getDayDelta());
+//        System.out.println(event.getMinuteDelta());
     }
 
     public void onEventResize(ScheduleEntryResizeEvent event) {

@@ -19,9 +19,6 @@ import javax.persistence.OneToOne;
 @Entity
 public class Secretaire implements Serializable {
 
-    @OneToOne(mappedBy = "secretaire")
-    private UserSecretaire userSecretaire;
-
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -31,7 +28,8 @@ public class Secretaire implements Serializable {
     protected String prenom;
     protected String email;
     protected String tel;
-
+    @OneToOne(mappedBy = "secretaire")
+    protected User user;
     
     public Long getId() {
         return id;
@@ -72,8 +70,15 @@ public class Secretaire implements Serializable {
     public void setTel(String tel) {
         this.tel = tel;
     }
-    
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;

@@ -75,7 +75,8 @@ public class Specialite implements Serializable {
 
     @Override
     public String toString() {
-        return "bean.Specialite[ id=" + id + " ]";
+        return libelle;
     }
 
+    
 }

@@ -8,6 +8,7 @@ package service;
 import bean.Medecin;
 import bean.Patient;
 import bean.RendezVous;
+import controler.util.HashageUtil;
 import controller.util.DateUtil;
 import controller.util.SearchUtil;
 import java.util.Date;
@@ -15,6 +16,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import org.primefaces.model.DefaultScheduleEvent;
 
 /**
  *
@@ -27,7 +29,6 @@ public class RendezVousFacade extends AbstractFacade<RendezVous> {
     private EntityManager em;
 
     public int save(RendezVous rendezVous) {
-
         List<RendezVous> rendezVousesMed = findByMedecin(rendezVous.getMedecin());
         for (RendezVous rendezVousMedecin : rendezVousesMed) {
             if (rendezVousMedecin.getDateRdv().equals(rendezVous.getDateRdv())) {
@@ -77,9 +78,8 @@ public class RendezVousFacade extends AbstractFacade<RendezVous> {
         }
     }
 
-    public int modifier(RendezVous rendezVous, RendezVous modifiedRendezVous) {
+    public int modifier(RendezVous loadedRendezVous, RendezVous modifiedRendezVous) {
         if (modifiedRendezVous.getDateRdv().getTime() > System.currentTimeMillis()) {
-            RendezVous loadedRendezVous = findByAttribut(rendezVous.getMedecin(), rendezVous.getPatient(), rendezVous.getDateRdv());
             loadedRendezVous.setDateRdv(modifiedRendezVous.getDateRdv());
             loadedRendezVous.setMedecin(modifiedRendezVous.getMedecin());
             loadedRendezVous.setPatient(modifiedRendezVous.getPatient());
@@ -97,6 +97,49 @@ public class RendezVousFacade extends AbstractFacade<RendezVous> {
         return dateFin;
     }
 
+    public void eventMove(String eventId, int dayDelta, int minuteDelta){
+        RendezVous loadedRendezVous = find(Long.parseLong(eventId) * 1L);
+        System.out.println(loadedRendezVous);
+//       // Date d=new Date();
+//        if(dayDelta!=0){
+//            //loadedRendezVous.setDateRdv(loadedRendezVous.getDateRdv()+dayDelta);
+////           d=loadedRendezVous.getDateRdv();
+////            d.setHours(loadedRendezVous.getDateRdv().getHours()+dayDelta*24);
+////            System.out.println(d);
+//              loadedRendezVous.getDateRdv().setTime(loadedRendezVous.getDateRdv().getTime()+dayDelta*24*60*60*1000);
+//        }
+//        if(minuteDelta!=0){
+////            d=loadedRendezVous.getDateRdv();
+////            d.setMinutes(loadedRendezVous.getDateRdv().getMinutes()+minuteDelta);
+////            System.out.println(d);
+//              loadedRendezVous.getDateRdv().setTime(loadedRendezVous.getDateRdv().getTime()+minuteDelta*60*1000);
+//        }
+       // loadedRendezVous.setDateRdv(d);
+       // System.out.println(loadedRendezVous.getDateRdv());
+        edit(loadedRendezVous);
+    }
+    
+    public RendezVous findRdvByEventId(String eventId){
+        System.out.println("hani");
+        List<RendezVous> list=findAll();
+        int i=list.size();
+        for (RendezVous rdv : list) {
+            i--;
+            System.out.println(rdv);
+            String hashedId = HashageUtil.sha256(""+rdv.getId());
+            System.out.println(hashedId);
+            System.out.println(rdv);
+            if(hashedId.equals(eventId)){
+                System.out.println(rdv);
+                return rdv;
+            }
+            if(i==0){
+                break;
+            }
+        }
+        return null;
+    }
+    
     @Override
     protected EntityManager getEntityManager() {
         return em;

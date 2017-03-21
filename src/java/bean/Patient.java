@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 /**
  *
@@ -19,9 +20,6 @@ import javax.persistence.OneToMany;
  */
 @Entity
 public class Patient implements Serializable {
-
-    @OneToMany(mappedBy = "patient")
-    private List<RendezVous> rendezVouss;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -31,10 +29,11 @@ public class Patient implements Serializable {
     private String email;
     private String tel;
     private String ville;
-    
+    @OneToMany(mappedBy = "patient")
+    private List<RendezVous> rendezVouss;
+    @OneToOne(mappedBy = "patient")
+    private User user;
 
-    
-    
     public String getCin() {
         return cin;
     }
@@ -91,7 +90,14 @@ public class Patient implements Serializable {
         this.ville = ville;
     }
 
-    
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;

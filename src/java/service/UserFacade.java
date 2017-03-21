@@ -62,6 +62,7 @@ public class UserFacade extends AbstractFacade<User> {
     
     public void createUser(User user)
     {
+        System.out.println(user.getLogin());
         User loadUser = find(user.getLogin());
         
         if ( loadUser == null )
