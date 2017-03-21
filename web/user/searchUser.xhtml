@@ -4,7 +4,8 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui">
     <h:head>
         <title>Facelet Title</title>
     </h:head>
@@ -16,72 +17,70 @@
             <ui:define name="body">
 
                 <h:form id="UserSearchForm">
-                    <p:panel menuTitle="Search User">
-                        <p:panel header="Recherche">
-                            <p:panelGrid columns="5">   
-                             <p:outputLabel value="#{bundle.EditUserLabel_login}" for="login" />
-                                <p:inputText id="login" value="#{userController.selected.login}" title="#{bundle.EditUserTitle_login}" />
-                             <p:outputLabel value="#{bundle.EditUserLabel_password}" for="password" />
-                                <p:inputText id="password" value="#{userController.selected.password}" title="#{bundle.EditUserTitle_password}" />
-                                <p:selectOneRadio id="typeUser"  required="true" value="#{userController.selected.type}" >
-                                    <f:selectItem  itemLabel="Medecin" itemValue="1" ></f:selectItem>
-                                    <f:selectItem itemLabel="Secretaire" itemValue="2" ></f:selectItem>
-                                </p:selectOneRadio>
-                                <p:outputLabel value="#{bundle.EditUserLabel_blocked}" for="blocked"  />
-                                <p:selectOneRadio id="blocked" required="true" value="#{userController.selected.blocked}"  >
-                                    <f:selectItem  itemLabel="Blocked" itemValue="1" ></f:selectItem>
-                                    <f:selectItem itemLabel="Not Blocked" itemValue="-1" ></f:selectItem>
-                                </p:selectOneRadio>
-                            </p:panelGrid>
-                            <p:commandButton actionListener="#{userController.searchUser()}" value="Search" update=":UserListForm:datalist"/>
-                        </p:panel>
-                    </p:panel>
+                    <b:panel title="Recherche" class="panel panel-primary" >
+                        <p:panelGrid columns="5">   
+                            <p:outputLabel value="#{bundle.EditUserLabel_login}" for="login" />
+                            <p:inputText id="login" value="#{userController.selected.login}" title="#{bundle.EditUserTitle_login}" />
+                            <p:outputLabel value="#{bundle.EditUserLabel_password}" for="password" />
+                            <p:inputText id="password" type="password" value="#{userController.selected.password}" title="#{bundle.EditUserTitle_password}" />
+                            <h:selectOneRadio id="typeUser" class="form-control form-inline" required="true" value="#{userController.selected.type}" >
+                                <f:selectItem class="input-group-addon" itemLabel="Medecin" itemValue="1" ></f:selectItem>
+                                <f:selectItem class="input-group-addon" itemLabel="Secretaire" itemValue="2" ></f:selectItem>
+                            </h:selectOneRadio>
+                            <p:outputLabel value="#{bundle.EditUserLabel_blocked}" for="blocked"  />
+                            <h:selectOneRadio id="blocked" class="form-control" required="true" value="#{userController.selected.blocked}"  >
+                                <f:selectItem class="input-group-addon" itemLabel="Blocked" itemValue="1" ></f:selectItem>
+                                <f:selectItem class="input-group-addon" itemLabel="Not Blocked" itemValue="-1" ></f:selectItem>
+                            </h:selectOneRadio>
+                        </p:panelGrid>
+                        <b:commandButton class="btn btn-success" actionListener="#{userController.searchUser()}" value="Search" update=":UserListForm:datalist"/>
+                    </b:panel>
                 </h:form>
                 <h:form id="UserListForm">
                     <h1><h:outputText value="Liste Users"/></h1>
-                    <p:panel header="#{bundle.ListUserTitle}">
-                        <p:dataTable id="datalist" value="#{userController.items}" var="item"
-                                     
+                    <b:panel title="#{bundle.ListUserTitle}" class="panel panel-info">
+                        <b:dataTable class="panel panel-default" id="datalist" value="#{userController.items}" var="item"
+
                                      >
 
-                      
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListUserTitle_login}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.login}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListUserTitle_password}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.password}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListUserTitle_blocked}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.blocked}" />
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListUserTitle_nbrCnx}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.nbrCnx}"/>
-                        </p:column>
-                            <p:column>
+
+                            <b:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListUserTitle_login}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.login}"/>
+                            </b:column>
+                            <b:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListUserTitle_password}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.password}"/>
+                            </b:column>
+                            <b:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListUserTitle_blocked}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.blocked==1?'Blocked':'Not Blocked'}"/>
+                            </b:column>
+                            <b:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListUserTitle_nbrCnx}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.nbrCnx}"/>
+                            </b:column>
+                            <b:column>
                                 <f:facet name="header">
                                     <h:outputText value="#{bundle.ListMargeBloqueeTitle_medecin}"/>
                                 </f:facet>
-                                <p:commandButton actionListener="#{userController.deleteUser(item)}" value="Delete" update="datalist"></p:commandButton>
-                                <p:commandButton action="#{userController.editePopUp(item)}" id="editButton" icon="ui-icon-pencil" value="#{bundle.Edit}" update=":UserEditForm" oncomplete="PF('UserEditDialog').show()" disabled="#{empty userController.selected}"/>
-                                <p:commandButton id="viewButton" action="#{userController.editePopUp(item)}"  icon="ui-icon-search" value="#{bundle.View}" update=":UserViewForm" oncomplete="PF('UserViewDialog').show()" disabled="#{empty userController.selected}"/>
+                                <b:commandButton actionListener="#{userController.deleteUser(item)}" value="Delete" update="datalist"></b:commandButton>
+                                <b:commandButton action="#{userController.editePopUp(item)}" id="editButton" icon="ui-icon-pencil" value="#{bundle.Edit}" update=":UserEditForm" oncomplete="PF('UserEditDialog').show()" disabled="#{empty userController.selected}"></b:commandButton>
+                                <b:commandButton id="viewButton" action="#{userController.editePopUp(item)}"  icon="ui-icon-search" value="#{bundle.View}" update=":UserViewForm" oncomplete="PF('UserViewDialog').show()" disabled="#{empty userController.selected}"></b:commandButton>
 
-                            </p:column>
+                            </b:column>
                             <f:facet name="footer">
                             </f:facet>
-                        </p:dataTable>
-                    </p:panel>
+                        </b:dataTable>
+                    </b:panel>
                 </h:form>
                 <ui:include src="Edit.xhtml"/>
                 <ui:include src="View.xhtml"/>

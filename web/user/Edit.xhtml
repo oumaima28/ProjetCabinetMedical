@@ -15,7 +15,7 @@
                         <p:outputLabel value="#{bundle.EditUserLabel_login}" for="login" />
                         <p:inputText id="login" disabled="true" value="#{userController.selected.login}" title="#{bundle.EditUserTitle_login}" />
                         <p:outputLabel value="#{bundle.EditUserLabel_password}" for="password" />
-                        <p:inputText id="password" value="#{userController.selected.password}" title="#{bundle.EditUserTitle_password}" />
+                        <p:inputText id="password" type="password" value="#{userController.selected.password}" title="#{bundle.EditUserTitle_password}" />
                         <p:outputLabel value="#{bundle.EditUserLabel_blocked}"  for="blocked"  />
                         <p:selectOneRadio id="blocked" required="true" value="#{userController.selected.blocked}"  >
                                     <f:selectItem  itemLabel="Blocked" itemValue="1" ></f:selectItem>

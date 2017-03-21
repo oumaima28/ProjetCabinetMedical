@@ -23,7 +23,7 @@
                         <p:outputLabel value="#{bundle.EditUserLabel_password}" for="confirmPassword" />
                         <p:inputText id="confirmPassword" required="true" value="#{userController.confirmPass}" title="#{bundle.EditUserTitle_password}" />
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{userController.changePass()}" value="#{bundle.Save}" update="display,:UserListForm:datalist,:growl"  oncomplete="handleSubmit(args, 'ChangeDataDialog');"/>
+                    <p:commandButton actionListener="#{userController.changePass()}" value="#{bundle.Save}" update="display"  oncomplete="handleSubmit(args, 'ChangeDataDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="ChangeDataDialog.hide()"/>
                 </h:panelGroup>
             </h:form>
