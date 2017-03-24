@@ -13,6 +13,7 @@ import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import javax.ejb.EJB;
+import org.primefaces.context.RequestContext;
 import service.ConfigurationFacade;
 import service.MedecinFacade;
 import service.PatientFacade;
@@ -45,6 +46,8 @@ public class InscriptionController implements Serializable {
     @EJB
     private ConfigurationFacade configurationFacade;
 
+    private int hidden;
+
     public String goToCreateObjectView() {
         if (typeUser.equals("Medecin")) {
             selectedMedecin = new Medecin();
@@ -58,6 +61,36 @@ public class InscriptionController implements Serializable {
             return "/inscription/CreatePatient.xhtml";
         }
         return null;
+    }
+
+//    public void hiddenValue() {
+//        if (typeUser.equals("Medecin")) {
+//            hidden = 1;
+//        } else if (typeUser.equals("Patient")) {
+//            hidden = 3;
+//        }
+//        System.out.println(hidden);
+//    }
+    public int determineObject() {
+        System.out.println(typeUser);
+        if (typeUser == null) {
+           return -1;
+        }
+//        if (typeUser != null) {
+            if (typeUser.equals("Medecin")) {
+                System.out.println("Med");
+                return 1;
+                //RequestContext context = RequestContext.getCurrentInstance();
+//                context.execute("PF('panMed').show();");
+//                context.execute("PF('panPat').hide();");
+            } else if (typeUser.equals("Patient")) {
+                System.out.println("Pat");
+                return 2;
+//                RequestContext context = RequestContext.getCurrentInstance();
+//                context.execute("PF('panPat').show();");
+//                context.execute("PF('panMed').hide();");
+            }
+        return -1;
     }
 
     public String goToCreateConfiguration() {
@@ -81,6 +114,10 @@ public class InscriptionController implements Serializable {
         String pass = userFacade.getGeneratePass();
         user.setPassword(pass);
         userFacade.create(user);
+    }
+
+    public void addingPas() {
+        configuration.setPas(configuration.getPas() + 1);
     }
 
     public String getNom() {
@@ -157,6 +194,23 @@ public class InscriptionController implements Serializable {
 
     public void setConfiguration(Configuration configuration) {
         this.configuration = configuration;
+    }
+
+    public int getHidden() {
+        if (typeUser.equals("Medecin")) {
+            System.out.println("Med");
+            hidden = 1;
+        }
+        if (typeUser.equals("Patient")) {
+            System.out.println("Pat");
+            hidden = 3;
+        }
+        System.out.println(hidden);
+        return hidden;
+    }
+
+    public void setHidden(int hidden) {
+        this.hidden = hidden;
     }
 
     /**

@@ -35,7 +35,7 @@ public class User implements Serializable {
     private Secretaire secretaire;
     @OneToOne
     private Patient patient;
-    
+
     public String getId() {
         return login;
     }
@@ -131,7 +131,7 @@ public class User implements Serializable {
     public void setPatient(Patient patient) {
         this.patient = patient;
     }
-
+    
     @Override
     public int hashCode() {
         int hash = 5;

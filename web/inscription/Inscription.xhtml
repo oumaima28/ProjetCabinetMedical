@@ -1,0 +1,152 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <h:outputStylesheet library="css" name="bootstrap.css"/>
+        <h:outputStylesheet library="css" name="jsfcrud.css"/>
+        <h:outputScript library="js" name="bootstrap.js"/>
+        <h:outputScript library="js" name="jsfcrud.js"/>
+    </h:head>
+    <h:body style="background-color: lightgray;">
+        <b:navBar inverse="true" fixed="top" brand="Gestion des Cabinets Medicales" brandHref="#">
+            <b:navbarLinks>
+                <b:navLink value="Home" href="#"></b:navLink>
+                <b:navLink value="Inscription" href="#"></b:navLink>
+                <b:dropMenu value="Menu">
+                    <b:navLink value="Patient" href="#"></b:navLink>
+                    <b:navLink value="Medecin" href="#"></b:navLink>
+                    <b:navLink value="Notes" href="#"></b:navLink>
+                    <b:navLink></b:navLink>
+                    <b:navLink header="Rendez Vous"></b:navLink>
+                    <b:navLink value="Agenda" href="#"></b:navLink>
+                </b:dropMenu>
+            </b:navbarLinks>
+        </b:navBar>
+        <!--        <b:carousel id="parque" interval="5000">
+                    <b:carouselItem>
+                        <p:graphicImage value="/resources/images/snkPic1.jpg" alt="First slide"/>
+                    </b:carouselItem>
+                    <b:carouselItem>
+                        <p:graphicImage value="/resources/images/snkPic2.jpg" alt="Second slide"/>
+                    </b:carouselItem>
+                    <b:carouselItem>
+                        <p:graphicImage value="/resources/images/snkPic3.png" alt="Third slide"/>
+                    </b:carouselItem>
+                </b:carousel>-->
+<!--        <div class="container theme-showcase" role="main" style="margin: 5%">
+            <div class="jumbotron">
+                <h1>Inscription</h1>
+            </div>
+        </div>-->
+
+        <h:form id="formId">
+            <b:carousel style="padding-top: 10%" id="wizard" styleClass="wizardPseudoClass"
+                        col-lg="10" offset-lg="1"
+                        startAnimation="false"
+                        showIndicators="false"
+                        wrap="false">
+                <!--class="col-lg-6 col-lg-offset-2"-->
+
+                <b:carouselItem >
+                    <b:panel title="Step 1" class="panel-footer panel-primary">
+
+                        <!--<p:outputLabel value="# {bundle.CreatePatientLabel_nom}" />-->
+                        <b:inputText id="nom" label="Nom:" value="#{inscriptionController.nom}" title="#{bundle.CreatePatientTitle_nom}" />
+                        <!--<p:outputLabel value="#{bundle.CreatePatientLabel_prenom}"/>-->
+                        <b:inputText id="prenom" label="Prenom:" value="#{inscriptionController.prenom}" title="#{bundle.CreatePatientTitle_prenom}" />
+                        <!--<p:outputLabel value="Profession:"/>-->
+                        <b:selectOneMenu id="profession" label="Profession:" required="true" value="#{inscriptionController.typeUser}" >
+                            <f:selectItem itemLabel="Cliquez Pour Choisir"/>
+                            <f:selectItem itemLabel="Medecin" itemValue="Medecin"/>
+                            <f:selectItem itemLabel="Patient" itemValue="Patient"/>
+                        </b:selectOneMenu>
+                        <p:ajax process="profession" listener="#{inscriptionController.determineObject()}" update="pan"/>
+                    </b:panel>
+                </b:carouselItem>
+
+                <b:carouselItem>
+                    <b:panel id="pan" title="Step 2">
+                        <p:cache id="panMed" rendered="#{inscriptionController.determineObject()==1?true:false}">
+                            <!--                        <p:panel id="panMed" widgetVar="panMed">-->
+                            <!--<b:panelGrid rendered="# {inscriptionController.determineObject()==1?false:true}">-->
+                            <b:inputText id="tel" label="Tel:" value="#{inscriptionController.selectedMedecin.tel}" title="#{bundle.CreateMedecinTitle_tel}" />
+                            <b:inputText id="adresse" label="Adresse:" value="#{inscriptionController.selectedMedecin.adresse}" title="#{bundle.CreateMedecinTitle_adresse}" />
+                            <b:selectOneMenu id="residence" label="Residence:" value="#{inscriptionController.selectedMedecin.residence}" >
+                                <f:selectItems value="#{residenceController.itemsAvailableSelectOne}"
+                                               var="residenceItem"
+                                               itemValue="#{residenceItem}"/>
+                            </b:selectOneMenu>
+                            <b:inputText id="ville" label="Ville:" value="#{inscriptionController.selectedMedecin.ville}" title="#{bundle.CreateMedecinTitle_ville}" />
+                            <b:selectOneMenu id="specialite" label="Specialite:" value="#{inscriptionController.selectedMedecin.specialite}" >
+                                <f:selectItems value="#{specialiteController.itemsAvailableSelectOne}"
+                                               var="specialiteItem"
+                                               itemValue="#{specialiteItem}"/>
+                            </b:selectOneMenu>
+                            <b:dateTimePicker id="heureDebut" show-date="false" label="#{bundle.CreateConfigurationLabel_heureDebut}" show-time="true" show-icon="true" value="#{inscriptionController.configuration.heureDebut}"/>
+                            <b:dateTimePicker id="heureFin" show-date="false" label="#{bundle.CreateConfigurationLabel_heureFin}" show-time="true" show-icon="true" value="#{inscriptionController.configuration.heureFin}"/>
+                            <b:inputText id="pas" label="#{bundle.CreateConfigurationLabel_pas}" value="#{inscriptionController.configuration.pas}" title="#{bundle.CreateConfigurationTitle_pas}" />
+                            <b:commandButton id="plusBtn" class="btn btn-group-sm btn-primary" actionListener="#{inscriptionController.addingPas()}" value="+" update="pas"/>
+                            <!--</b:panelGrid>-->
+                        </p:cache>
+                        <!--                        </p:panel>-->
+                        <!--<p:panel id="panPat" widgetVar="panPat">-->
+                        <!--                        <h:panelGroup id="panPat">-->
+                        <p:cache id="panPat" rendered="#{inscriptionController.determineObject()==2?true:false}">
+                            <b:inputText id="cin" label="#{bundle.CreatePatientLabel_cin}" value="#{inscriptionController.selectedPatient.cin}" title="#{bundle.CreatePatientTitle_cin}" />
+                            <b:inputText id="telPatient" label="#{bundle.CreatePatientLabel_tel}" value="#{inscriptionController.selectedPatient.tel}" title="#{bundle.CreatePatientTitle_tel}" />
+                            <b:inputText id="villePatient" label="#{bundle.CreatePatientLabel_ville}" value="#{patientController.selected.ville}" title="#{bundle.CreatePatientTitle_ville}" />
+                        </p:cache>
+                        <!--                        </h:panelGroup>-->
+                        <!--                            </p:panel>-->
+                    </b:panel>
+                </b:carouselItem>
+
+
+                <!--                <b:carouselItem>
+                                    <b:panel title="Step 3">
+                                        <b:dateTimePicker id="heureDebut" show-date="false" label="#{bundle.CreateConfigurationLabel_heureDebut}" show-time="true" show-icon="true" value="#{inscriptionController.configuration.heureDebut}"/>
+                                        <b:dateTimePicker id="heureFin" show-date="false" label="#{bundle.CreateConfigurationLabel_heureFin}" show-time="true" show-icon="true" value="#{inscriptionController.configuration.heureFin}"/>
+                                        <b:inputText id="pas" label="#{bundle.CreateConfigurationLabel_pas}" value="#{inscriptionController.configuration.pas}" title="#{bundle.CreateConfigurationTitle_pas}" />
+                                        <b:commandButton id="plusBtn" class="btn btn-group-sm btn-primary" actionListener="#{inscriptionController.addingPas()}" value="+" update="pas"/>
+                                    </b:panel>
+                                </b:carouselItem>-->
+
+
+                <!--                <b:carouselItem>
+                                    <b:panel title="Step 4">
+                                        <b:inputText id="cin" label="#{bundle.CreatePatientLabel_cin}" value="#{inscriptionController.selectedPatient.cin}" title="#{bundle.CreatePatientTitle_cin}" />
+                                        <b:inputText id="telPatient" label="#{bundle.CreatePatientLabel_tel}" value="#{inscriptionController.selectedPatient.tel}" title="#{bundle.CreatePatientTitle_tel}" />
+                                        <b:inputText id="villePatient" label="#{bundle.CreatePatientLabel_ville}" value="#{patientController.selected.ville}" title="#{bundle.CreatePatientTitle_ville}" />
+                                    </b:panel>
+                                </b:carouselItem>-->
+
+                <b:carouselItem>
+                    <b:panel title="Step 3">
+                        <b:inputText id="email" label="#{bundle.CreatePatientLabel_email}" value="#{inscriptionController.email}" title="#{bundle.CreatePatientTitle_email}" />
+                        <b:inputText id="login" label="#{bundle.CreateUserLabel_login}" value="#{inscriptionController.user.login}" title="#{bundle.CreateUserTitle_login}" />
+                        <b:commandButton class="btn btn-group-justified btn-primary" action="#{inscriptionController.sinscrire()}" value="S'inscrire"/>
+                    </b:panel>
+                </b:carouselItem>
+
+                <div>
+                    <b:carouselControl direction="right" >
+                        <b:commandButton value="Precedent" class="btn btn-group btn-primary col-lg-1 col-lg-offset-1 col-md-1 col-md-offset-2 col-sm-2 col-sm-offset-3 col-xs-2 col-xs-offset-5"
+                                         onclick="$('.wizardPseudoClass').carousel('prev');;$('.wizardPseudoClass').carousel('pause'); return false;"
+                                         />
+                    </b:carouselControl>
+                    <b:carouselControl direction="left">
+                        <b:commandButton value="Suivant" style="margin-top: -35px" class="btn btn-group btn-primary col-lg-1 col-lg-offset-10 col-md-1 col-md-offset-9 col-sm-2 col-sm-offset-8 col-xs-2 col-xs-offset-7"
+                                         onclick="$('.wizardPseudoClass').carousel('next');$('.wizardPseudoClass').carousel('pause'); return false;"
+                                         />
+                    </b:carouselControl>
+                </div>
+            </b:carousel>
+        </h:form>
+
+    </h:body>
+</html>
+

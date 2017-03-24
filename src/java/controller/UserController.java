@@ -31,60 +31,45 @@ public class UserController implements Serializable {
     private String confirmPass;
     private String oldPass;
 
-    private int type;
-    
     public UserController() {
     }
 
-    public Boolean decideIfMedecin() {
-        System.out.println(type);
-        if (type == 1) {
-            return true;
-        } else if (type == 2) {
-            return false;
-        }
-        return false;
-    }
-
-    public int getType() {
-        return type;
-    }
-
-    public void setType(int type) {
-        this.type = type;
-    }
-
     /*Methode Look Down */
- /*Save Methode */
-    public void save() {
-        ejbFacade.createUser(selected); // save this Selected User
+    
+    /*Save Methode */
+    public void save()
+    {
+        User savedUser = selected;
+        ejbFacade.createUser(savedUser); // save this Selected User
+        items.add(savedUser);
         selected = new User();
     }
-
     /*Save Methode */
-
- /*Connect Methode*/
-    public void isConnecte() {
+    
+    
+    /*Connect Methode*/
+    public void isConnecte()
+    {
         int res = ejbFacade.seConnnecter(selectedSign);
-
+        
         switch (res) {
-            // Seccessful
+        // Seccessful
             case 1:
                 JsfUtil.addSuccessMessage("Success");
                 break;
-            // user blocked
+        // user blocked
             case -2:
                 JsfUtil.addErrorMessage("this user is blocked");
                 break;
-            // Wrong Password
+        // Wrong Password
             case -3:
                 JsfUtil.addErrorMessage("Wrong Password");
                 break;
-            // User doesn't exist
+        // User doesn't exist
             case -4:
                 JsfUtil.addErrorMessage("User does not exist");
                 break;
-            // You have not type any login
+        // You have not type any login
             case -5:
                 JsfUtil.addErrorMessage("Please type login");
                 break;
@@ -92,52 +77,76 @@ public class UserController implements Serializable {
                 break;
         }
     }
-
     /*Connect Methode*/
-
- /*findLogin*/
-    public int isLogin() {
-        return ejbFacade.findUserLog(selected.getLogin());
-
-    }
-
+    
     /*findLogin*/
-
- /*Change Data */
-    public void changePass() {
+    public int isLogin()
+    {
+        return ejbFacade.findUserLog(selected.getLogin());
+        
+    }
+    /*findLogin*/
+    
+    /*Change Data */
+    public void changePass()
+    {
         User loadUser = ejbFacade.find(selected.getLogin());
         int res = ejbFacade.changePassword(loadUser.getLogin(), oldPass, selected.getPassword(), confirmPass);
     }
-
     /*Change Data */
-
- /*Search List*/
-    public void searchUser() {
+    
+    
+    /*Search List*/
+    public void searchUser(){
         items = ejbFacade.searchUser(selected);
-        if (items == null) {
+        if ( items == null )
+        {
             items = ejbFacade.findAll();
         }
         selected = new User();
     }
-
-    public void editePopUp(User user) {
+    
+    public void editePopUp(User user)
+    {
         selected = user;
     }
-
     /*Search List*/
- /* Look UP Methode*/
-
- /* Delete Methode */
-    public void deleteUser(User user) {
+    /* Look UP Methode*/
+    
+    
+    /* Delete Methode */
+    public void deleteUser(User user)
+    {
         ejbFacade.deleteUser(user);
         items.remove(items.indexOf(user));
     }
-
     /* Delete Methode */
-
- /* Dakchi Li L Fo9 howa li khassk Tswwa9 Lih */
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    /* Dakchi Li L Fo9 howa li khassk Tswwa9 Lih */
     public User getSelected() {
-        if (selected == null) {
+        if (selected == null )
+        {
             selected = new User();
         }
         return selected;
@@ -230,7 +239,8 @@ public class UserController implements Serializable {
     }
 
     public String getConfirmPass() {
-        if (confirmPass != null) {
+        if ( confirmPass != null )
+        {
             return "";
         }
         return confirmPass;
@@ -241,7 +251,8 @@ public class UserController implements Serializable {
     }
 
     public String getOldPass() {
-        if (oldPass == null) {
+        if ( oldPass == null )
+        {
             return "";
         }
         return oldPass;
@@ -250,8 +261,11 @@ public class UserController implements Serializable {
     public void setOldPass(String oldPass) {
         this.oldPass = oldPass;
     }
+    
+    
 
-    @FacesConverter("userControllerConverter")
+    
+    @FacesConverter(forClass = User.class)
     public static class UserControllerConverter implements Converter {
 
         @Override
@@ -293,7 +307,8 @@ public class UserController implements Serializable {
     }
 
     public User getSelectedSign() {
-        if (selectedSign == null) {
+        if ( selectedSign == null )
+        {
             selectedSign = new User();
         }
         return selectedSign;
@@ -302,5 +317,7 @@ public class UserController implements Serializable {
     public void setSelectedSign(User selectedSign) {
         this.selectedSign = selectedSign;
     }
+    
+    
 
 }

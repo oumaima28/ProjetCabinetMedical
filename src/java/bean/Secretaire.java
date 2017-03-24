@@ -19,7 +19,6 @@ import javax.persistence.OneToOne;
 @Entity
 public class Secretaire implements Serializable {
 
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,6 +46,15 @@ public class Secretaire implements Serializable {
         this.nom = nom;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    
     public String getPrenom() {
         return prenom;
     }
@@ -69,14 +77,6 @@ public class Secretaire implements Serializable {
 
     public void setTel(String tel) {
         this.tel = tel;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
     
     @Override

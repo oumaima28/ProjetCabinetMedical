@@ -145,6 +145,14 @@ public class Medecin implements Serializable {
         this.configuration = configuration;
     }
 
+    public User getUserMedecin() {
+        return user;
+    }
+
+    public void setUserMedecin(User user) {
+        this.user = user;
+    }
+
     public List<MargeNonBloquee> getMargeNonBloquees() {
         return margeNonBloquees;
     }

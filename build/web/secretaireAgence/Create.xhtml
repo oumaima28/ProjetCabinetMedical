@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="SecretaireAgenceCreateDlg" widgetVar="SecretaireAgenceCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateSecretaireAgenceTitle}">
+            <h:form id="SecretaireAgenceCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{secretaireAgenceController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateSecretaireAgenceLabel_chef}" for="chef" />
+                        <p:selectOneMenu id="chef" value="#{secretaireAgenceController.selected.chef}" >
+                            <f:selectItems value="#{chefController.itemsAvailableSelectOne}"
+                                           var="chefItem"
+                                           itemValue="#{chefItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateSecretaireAgenceLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{secretaireAgenceController.selected.id}" title="#{bundle.CreateSecretaireAgenceTitle_id}" />
+                        <p:outputLabel value="#{bundle.CreateSecretaireAgenceLabel_nom}" for="nom" />
+                        <p:inputText id="nom" value="#{secretaireAgenceController.selected.nom}" title="#{bundle.CreateSecretaireAgenceTitle_nom}" />
+                        <p:outputLabel value="#{bundle.CreateSecretaireAgenceLabel_prenom}" for="prenom" />
+                        <p:inputText id="prenom" value="#{secretaireAgenceController.selected.prenom}" title="#{bundle.CreateSecretaireAgenceTitle_prenom}" />
+                        <p:outputLabel value="#{bundle.CreateSecretaireAgenceLabel_email}" for="email" />
+                        <p:inputText id="email" value="#{secretaireAgenceController.selected.email}" title="#{bundle.CreateSecretaireAgenceTitle_email}" />
+                        <p:outputLabel value="#{bundle.CreateSecretaireAgenceLabel_tel}" for="tel" />
+                        <p:inputText id="tel" value="#{secretaireAgenceController.selected.tel}" title="#{bundle.CreateSecretaireAgenceTitle_tel}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{secretaireAgenceController.create}" value="#{bundle.Save}" update="display,:SecretaireAgenceListForm:datalist,:growl" oncomplete="handleSubmit(args,'SecretaireAgenceCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="SecretaireAgenceCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
