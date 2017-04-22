@@ -51,9 +51,7 @@ public class MargeBloqueeFacade extends AbstractFacade<MargeBloquee> {
 //    query += SearchUtil.addConstraintMinMaxDate("m", "dateDebut", dateDebutMin, dateDebutMax) ;
 //    query += SearchUtil.addConstraintMinMaxDate("m", "dateFin", dateFinMin, dateFinMax) ;
 
-    return em.createQuery (query)
-
-.getResultList();
+    return em.createQuery (query).getResultList();
     }
 
     public void modifier(MargeBloquee oldMargeBloquee,MargeBloquee modifiedMargeBloquee) {

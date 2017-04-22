@@ -1,0 +1,159 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+
+    <h:body style="background-color: lightgray;">
+        <b:navBar inverse="true" fixed="top" brand="Gestion des Cabinets Medicales" brandHref="#">
+            <b:navbarLinks>
+                <b:navLink value="Home" href="#"></b:navLink>
+                <b:navLink value="Inscription" href="#"></b:navLink>
+                <b:dropMenu value="Menu">
+                    <b:navLink value="Patient" href="#"></b:navLink>
+                    <b:navLink value="Medecin" href="#"></b:navLink>
+                    <b:navLink value="Notes" href="#"></b:navLink>
+                    <b:navLink></b:navLink>
+                    <b:navLink header="Rendez Vous"></b:navLink>
+                    <b:navLink value="Agenda" href="#"></b:navLink>
+                </b:dropMenu>
+            </b:navbarLinks>
+        </b:navBar>
+        <div class="container theme-showcase" role="main" style="margin: 7%">
+            <div class="jumbotron">
+                <h1>Recherche Medecin</h1>
+            </div>
+        </div>
+
+        <b:form id="search" class="form-group">
+            <b:panel title="Recherche" class="panel-heading panel-success col-lg-10 col-lg-offset-1 col-md-8 col-md-offset-2 col-sm-10 col-xs-12" >
+
+                <b:panelGrid columns="4">
+
+                    <p:outputLabel value="#{bundle.CreateMedecinTitle_nom}"/>
+                    <b:inputText id="nom"  value="#{medecinController.nom}" />
+
+                    <p:outputLabel value="#{bundle.CreateMedecinTitle_prenom}"/>
+                    <b:inputText id="prenom"  value="#{medecinController.prenom}" />
+
+                    <p:outputLabel value="#{bundle.CreateMedecinTitle_ville}"/>
+                    <b:inputText id="ville"  value="#{medecinController.ville}" />
+
+
+                    <p:outputLabel value="#{bundle.CreateMedecinLabel_configuration}"/>
+                    <h:selectOneMenu id="configuration" value="#{medecinController.configuration}"  class="form-control" >
+                        <f:selectItem  itemValue="#{null}" itemLabel="--Select--"/>
+                        <f:selectItems value="#{configurationController.itemsAvailableSelectOne}"
+                                       var="configurationItem"
+                                       itemValue="#{configurationItem}"/>
+                    </h:selectOneMenu>
+                    
+                    <p:outputLabel value="#{bundle.CreateMedecinLabel_residence}"/>
+                    <h:selectOneMenu id="residence"  value="#{medecinController.residence}" class="form-control" >
+                        <f:selectItem itemValue="#{null}" itemLabel="--Select--" />
+                        <f:selectItems value="#{residenceController.itemsAvailableSelectOne}"
+                                       var="residenceItem"
+                                       itemValue="#{residenceItem}"/>
+                    </h:selectOneMenu>
+                    
+                    <p:outputLabel value="#{bundle.CreateMedecinLabel_specialite}"/>
+                    <h:selectOneMenu id="specialite"  value="#{medecinController.specialite}" class="form-control">
+                        <f:selectItem  itemValue="#{null}" itemLabel="--Select--"/>
+                        <f:selectItems value="#{specialiteController.itemsAvailableSelectOne}"
+                                       var="specialiteItem"
+                                       itemValue="#{specialiteItem}"/>
+                    </h:selectOneMenu>
+                    <b:commandButton actionListener="#{medecinController.search()}" value="Search" update=":MedecinListForm:datalist"  class="bg-primary"/>
+
+                </b:panelGrid>
+            </b:panel>
+        </b:form>
+        <b:form id="MedecinListForm" class="form-group" >
+            <b:panel title="#{bundle.ListMedecinTitle}" class="panel-heading panel-success col-lg-10 col-lg-offset-1 ">
+                <p:dataTable id="datalist" value="#{medecinController.items}" var="item" 
+
+                             >
+                        
+
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListMedecinTitle_id}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.id}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListMedecinTitle_nom}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.nom}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListMedecinTitle_prenom}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.prenom}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListMedecinTitle_email}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.email}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListMedecinTitle_tel}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.tel}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListMedecinTitle_adresse}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.adresse}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListMedecinTitle_ville}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.ville}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListMedecinTitle_residence}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.residence}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListMedecinTitle_specialite}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.specialite}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListMedecinTitle_configuration}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.configuration}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="medecin"/>
+                        </f:facet>
+                        <p:commandButton id="deleteButton" value="Delete" actionListener="#{medecinController.deleteMedecin(item)}" update=":MedecinListForm:datalist"  />
+                        <p:commandButton action="#{medecinController.view(item)}"  update=":MedecinListForm" value="Detail"  />
+                        <p:commandButton action="#{medecinController.agendaDetail(item)}" value="Agenda" icon="ui-icon-calendar" />
+
+                    </p:column>
+                </p:dataTable>
+            </b:panel>
+        </b:form>
+    </h:body>
+
+</html>
+

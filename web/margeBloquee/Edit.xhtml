@@ -24,7 +24,7 @@
                                            itemValue="#{medecinItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{margeBloqueeRechercheController.modifierMargeBloque(item)}" value="#{bundle.Save}" update="display,:MargeBloqueeListForm:rechercheDatalist,:growl" oncomplete="handleSubmit(args, 'MargeBloqueeEditDialog');"/>
+                    <p:commandButton actionListener="#{margeBloqueeController.modifierMargeBloquee()}" value="#{bundle.Save}" update="display,:MargeBloqueeListForm:rechercheDatalist,:growl" oncomplete="handleSubmit(args, 'MargeBloqueeEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="MargeBloqueeEditDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

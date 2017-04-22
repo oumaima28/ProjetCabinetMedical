@@ -1,8 +1,13 @@
 package controller;
 
+import bean.Configuration;
 import bean.Medecin;
+import bean.Residence;
+import bean.Specialite;
 import controller.util.JsfUtil;
 import controller.util.JsfUtil.PersistAction;
+import controller.util.Session;
+import controller.util.SessionUtil;
 import service.MedecinFacade;
 
 import java.io.Serializable;
@@ -19,8 +24,9 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import service.MargeNonBloqueeFacade;
+import service.RendezVousFacade;
 
-@Named("medecinController") 
+@Named("medecinController")
 @SessionScoped
 public class MedecinController implements Serializable {
 
@@ -28,16 +34,135 @@ public class MedecinController implements Serializable {
     private service.MedecinFacade ejbFacade;
     private List<Medecin> items = null;
     private Medecin selected;
+    @EJB
+    private RendezVousFacade rendezVousFacade;
+    //Attribut Recherche : 
+    private String nom;
+    private String prenom;
+    private String ville;
+    private Residence residence;
+    private Specialite specialite;
+    private Configuration configuration;
+
+    public void search() {
+        items = ejbFacade.search(nom, prenom, ville, residence, specialite, configuration);
+    }
+
+    public void updatePopUp(Medecin medecin) {
+        selected =medecin;
+    }
+
+    public Medecin medecinEdit() {
+        return selected;
+    }
+
+    public void edit() {
+        ejbFacade.edit(selected);
+    }
+
+    public String view(Medecin medecin) {
+        SessionUtil.setAttribute("medecinView", medecin);
+        // Session.createAtrribute(medecin, "medecinSelected");
+        return "/medecin/Profil.xhtml";
+    }
+
+    public Medecin medecinView() {
+        return (Medecin) SessionUtil.getAttribute("medecinView");
+    }
+
+    public String findSecretaire() {
+        Medecin medecin = (Medecin) Session.getAttribut("medecinSelected");
+        Session.createAtrribute(medecin, "medecinSecretaire");
+        return "/secretaireMedecin/secretairesMedecin.xhtml";
+    }
+
+    public String findRdv() {
+        Medecin medecin = (Medecin) Session.getAttribut("medecinSelected");
+        Session.createAtrribute(medecin, "medecinRdv");
+        return "/rendezVous/rendezVousMedecin.xhtml";
+    }
+
+    public String findMargeBloquee() {
+        Medecin medecin = (Medecin) Session.getAttribut("medecinSelected");
+        Session.createAtrribute(medecin, "medecinMargeBloquee");
+        return "/margeBloquee/MargeBloqueeMedecin.xhtml";
+    }
+
+    public String findMargeNonBloquee() {
+        Medecin medecin = (Medecin) Session.getAttribut("medecinSelected");
+        Session.createAtrribute(medecin, "medecinMargeNonBloquee");
+        return "/margeNonBloquee/MargeNonBloqueeMedecin.xhtml";
+    }
+    
+    public String agendaDetail(Medecin medecin){
+        Session.clear();
+        Session.createAtrribute(medecin, "selectedMedecinForAgenda");
+        return "/agenda/schedule.xhtml";
+    }
+
+    public void deleteMedecin(Medecin medecin) {
+        rendezVousFacade.deleteByMedecin(medecin);
+        ejbFacade.remove(medecin);
+        items.remove(items.indexOf(medecin));
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public String getPrenom() {
+        return prenom;
+    }
+
+    public void setPrenom(String prenom) {
+        this.prenom = prenom;
+    }
+
+    public String getVille() {
+        return ville;
+    }
+
+    public void setVille(String ville) {
+        this.ville = ville;
+    }
+
+    public Residence getResidence() {
+        return residence;
+    }
+
+    public void setResidence(Residence residence) {
+        this.residence = residence;
+    }
+
+    public Specialite getSpecialite() {
+        return specialite;
+    }
+
+    public void setSpecialite(Specialite specialite) {
+        this.specialite = specialite;
+    }
+
+    public Configuration getConfiguration() {
+        return configuration;
+    }
+
+    public void setConfiguration(Configuration configuration) {
+        this.configuration = configuration;
+    }
 
     @EJB
     private MargeNonBloqueeFacade margeNonBloqueeFacade;
-    
+
     public MedecinController() {
     }
 
     public Medecin getSelected() {
-        if(selected==null){
-            selected=new Medecin();
+        if (selected == null) {
+            selected = new Medecin();
         }
         return selected;
     }

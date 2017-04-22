@@ -3,6 +3,7 @@ package controller;
 import bean.User;
 import controller.util.JsfUtil;
 import controller.util.JsfUtil.PersistAction;
+import controller.util.Session;
 import service.UserFacade;
 
 import java.io.Serializable;
@@ -35,6 +36,15 @@ public class UserController implements Serializable {
     }
 
     /*Methode Look Down */
+    
+    public String connexion(){
+        System.out.println(selected.getLogin());
+        User user=ejbFacade.find(selected.getLogin());
+//        System.out.println(user);
+        Session.createAtrribute(user, "connectedUser");
+        return "/margeBloquee/Ajout.xhtml";
+    }
+    
     
     /*Save Methode */
     public void save()

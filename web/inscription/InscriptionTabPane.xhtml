@@ -1,0 +1,109 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body class="col-lg-10 col-lg-offset-1" style="background-color: lightgray">
+        <div style="margin: 20%">
+            <p:tabView id="tabView" class="tab-pane">
+
+                <p:tab title="First Tab" class="tab-content">
+                    <div >
+                        <h:form >
+                            <!--<b:panelGrid columns="2">-->
+                            <b:inputText id="nom" label="#{bundle.CreatePatientLabel_nom}" value="#{inscriptionController.nom}" title="#{bundle.CreatePatientTitle_nom}" />
+                            <b:inputText id="prenom" label="#{bundle.CreatePatientLabel_prenom}" value="#{inscriptionController.prenom}" title="#{bundle.CreatePatientTitle_prenom}" />
+                            <b:selectOneMenu id="profession" label="Profession:" required="true" value="#{inscriptionController.typeUser}" >
+                                <f:selectItem itemLabel="Cliquez Pour Choisir"/>
+                                <f:selectItem itemLabel="Medecin" itemValue="Medecin"/>
+                                <f:selectItem itemLabel="Patient" itemValue="Patient"/>
+                            </b:selectOneMenu>
+                            <!--</b:panelGrid>-->
+                            <b:commandButton class="btn btn-group-justified btn-primary" action="#{inscriptionController.goToCreateObjectView()}" value="Suivant"/>
+                        </h:form>
+                    </div>
+                </p:tab>
+
+                <p:tab title="second tab" class="tab-content">
+                    <div>
+                        <h:form>
+                            <!--<b:panelGrid columns="3">-->
+                            <b:inputText id="tel" label="#{bundle.CreateMedecinLabel_tel}" value="#{inscriptionController.selectedMedecin.tel}" title="#{bundle.CreateMedecinTitle_tel}" />
+                            <b:inputText id="adresse" label="#{bundle.CreateMedecinLabel_adresse}" value="#{inscriptionController.selectedMedecin.adresse}" title="#{bundle.CreateMedecinTitle_adresse}" />
+                            <b:selectOneMenu id="residence" label="#{bundle.CreateMedecinLabel_residence}" value="#{inscriptionController.selectedMedecin.residence}" >
+                                <f:selectItems value="#{residenceController.itemsAvailableSelectOne}"
+                                               var="residenceItem"
+                                               itemValue="#{residenceItem}"/>
+                            </b:selectOneMenu>
+                            <b:inputText id="ville" label="#{bundle.CreateMedecinLabel_ville}" value="#{inscriptionController.selectedMedecin.ville}" title="#{bundle.CreateMedecinTitle_ville}" />
+                            <b:selectOneMenu id="specialite" label="#{bundle.CreateMedecinLabel_specialite}" value="#{inscriptionController.selectedMedecin.specialite}" >
+                                <f:selectItems value="#{specialiteController.itemsAvailableSelectOne}"
+                                               var="specialiteItem"
+                                               itemValue="#{specialiteItem}"/>
+                            </b:selectOneMenu>
+                            <!--</b:panelGrid>-->
+                            <b:commandButton class="btn btn-group-justified btn-primary" action="/inscription/CreateMedecinConfiguration.xhtml" value="Suivant"/>
+                        </h:form>
+                    </div>
+
+                </p:tab>
+                <p:tab title="Third tab" class="tab-content">
+                    <div>
+                        <h:form>
+                            <p:outputLabel value="#{bundle.CreateConfigurationLabel_heureDebut}" for="heureDebut" />
+                            <p:calendar id="heureDebut" pattern="HH:mm:ss" value="#{inscriptionController.configuration.heureDebut}" title="#{bundle.EditConfigurationTitle_heureDebut}"/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <p:outputLabel value="#{bundle.CreateConfigurationLabel_heureFin}" for="heureFin" />
+                            <p:calendar id="heureFin" pattern="HH:mm:ss" value="#{inscriptionController.configuration.heureFin}" title="#{bundle.EditConfigurationTitle_heureFin}"/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <p:outputLabel value="#{bundle.CreateConfigurationLabel_pas}"/>
+                            <b:inputText id="pas" value="#{inscriptionController.configuration.pas}" title="#{bundle.CreateConfigurationTitle_pas}" />
+                            <b:commandButton id="plusBtn" class="btn btn-group-sm btn-primary" actionListener="#{inscriptionController.addingPas()}" value="+" update="pas"/>
+                            <b:commandButton class="btn btn-group-justified btn-primary" action="/inscription/CreateUser.xhtml" value="Suivant"/>
+                        </h:form>
+                    </div>
+
+                </p:tab>
+                <p:tab title="Fourth tab" class="tab-content">
+                    <div>
+                        <h:form>
+                            <p:outputLabel value="#{bundle.CreatePatientLabel_cin}"/>
+                            <b:inputText id="cin" value="#{inscriptionController.selectedPatient.cin}" title="#{bundle.CreatePatientTitle_cin}" />
+                            <p:outputLabel value="#{bundle.CreatePatientLabel_tel}" />
+                            <b:inputText id="tel" value="#{inscriptionController.selectedPatient.tel}" title="#{bundle.CreatePatientTitle_tel}" />
+                            <p:outputLabel value="#{bundle.CreatePatientLabel_ville}"/>
+                            <b:inputText id="ville" value="#{patientController.selected.ville}" title="#{bundle.CreatePatientTitle_ville}" />
+                            <b:commandButton class="btn btn-group-justified btn-primary" action="/inscription/CreateUser.xhtml" value="Suivant"/>
+                        </h:form>
+                    </div>
+
+                </p:tab>
+                <p:tab title="Fifth tab" class="tab-content">
+                    <div>
+                        <h:form>
+                            <p:outputLabel value="#{bundle.CreatePatientLabel_cin}"/>
+                            <b:inputText id="cin" value="#{inscriptionController.selectedPatient.cin}" title="#{bundle.CreatePatientTitle_cin}" />
+                            <p:outputLabel value="#{bundle.CreatePatientLabel_tel}" />
+                            <b:inputText id="tel" value="#{inscriptionController.selectedPatient.tel}" title="#{bundle.CreatePatientTitle_tel}" />
+                            <p:outputLabel value="#{bundle.CreatePatientLabel_ville}"/>
+                            <b:inputText id="ville" value="#{patientController.selected.ville}" title="#{bundle.CreatePatientTitle_ville}" />
+                            <b:commandButton class="btn btn-group-justified btn-primary" action="/inscription/CreateUser.xhtml" value="Suivant"/>
+                        </h:form>
+                    </div>
+
+                </p:tab>
+                
+            </p:tabView>
+        </div>
+    </h:body>
+</html>
+

@@ -9,6 +9,7 @@ import bean.Configuration;
 import bean.Medecin;
 import bean.Patient;
 import bean.User;
+import controller.util.Session;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
@@ -98,7 +99,13 @@ public class InscriptionController implements Serializable {
     }
 
     public void sinscrire() {
+        System.out.println(nom);
+        System.out.println(prenom);
+        System.out.println(typeUser);
+        
         if (typeUser.equals("Medecin")) {
+            System.out.println(selectedMedecin);
+            System.out.println(configuration);
             configurationFacade.createForInscription(configuration);
             selectedMedecin.setEmail(email);
             selectedMedecin.setConfiguration(configuration);
@@ -106,18 +113,26 @@ public class InscriptionController implements Serializable {
             user.setMedecin(selectedMedecin);
             user.setType(1);
         } else if (typeUser.equals("Patient")) {
+            System.out.println(selectedPatient);
             selectedPatient.setEmail(email);
             patientFacade.create(selectedPatient);
             user.setPatient(selectedPatient);
             user.setType(3);
         }
+        System.out.println(user.getLogin());
         String pass = userFacade.getGeneratePass();
         user.setPassword(pass);
         userFacade.create(user);
     }
 
+    
+    
     public void addingPas() {
         configuration.setPas(configuration.getPas() + 1);
+    }
+    
+    public void minusPas() {
+        configuration.setPas(configuration.getPas() - 1);
     }
 
     public String getNom() {

@@ -17,6 +17,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.primefaces.model.DefaultScheduleEvent;
+import org.primefaces.model.ScheduleEvent;
 
 /**
  *
@@ -89,6 +90,17 @@ public class RendezVousFacade extends AbstractFacade<RendezVous> {
             return -1;
         }
     }
+    
+    public void deleteByMedecin(Medecin medecin) {
+        if (medecin != null) {
+            List<RendezVous> rdvs = findByMedecin(medecin);
+            for (RendezVous rdv : rdvs) {
+                remove(rdv);
+            }
+        }
+    }
+
+    
 
     public Date calculDateFin(RendezVous rdv) {
         Long var = rdv.getDateRdv().getTime() + rdv.getMedecin().getConfiguration().getPas() * 60 * 1000;
@@ -97,26 +109,18 @@ public class RendezVousFacade extends AbstractFacade<RendezVous> {
         return dateFin;
     }
 
-    public void eventMove(String eventId, int dayDelta, int minuteDelta){
-        RendezVous loadedRendezVous = find(Long.parseLong(eventId) * 1L);
+    public void eventMove(ScheduleEvent event, int dayDelta, int minuteDelta){
+        RendezVous loadedRendezVous = find(Long.parseLong(event.getId()) * 1L);
         System.out.println(loadedRendezVous);
-//       // Date d=new Date();
-//        if(dayDelta!=0){
-//            //loadedRendezVous.setDateRdv(loadedRendezVous.getDateRdv()+dayDelta);
-////           d=loadedRendezVous.getDateRdv();
-////            d.setHours(loadedRendezVous.getDateRdv().getHours()+dayDelta*24);
-////            System.out.println(d);
-//              loadedRendezVous.getDateRdv().setTime(loadedRendezVous.getDateRdv().getTime()+dayDelta*24*60*60*1000);
-//        }
-//        if(minuteDelta!=0){
-////            d=loadedRendezVous.getDateRdv();
-////            d.setMinutes(loadedRendezVous.getDateRdv().getMinutes()+minuteDelta);
-////            System.out.println(d);
-//              loadedRendezVous.getDateRdv().setTime(loadedRendezVous.getDateRdv().getTime()+minuteDelta*60*1000);
-//        }
-       // loadedRendezVous.setDateRdv(d);
-       // System.out.println(loadedRendezVous.getDateRdv());
-        edit(loadedRendezVous);
+        RendezVous newRdv=new RendezVous();
+        newRdv.setDateRdv(loadedRendezVous.getDateRdv());
+        newRdv.setId(generateId("RendezVous", "id"));
+        newRdv.setMedecin(loadedRendezVous.getMedecin());
+        newRdv.setPatient(loadedRendezVous.getPatient());
+        remove(loadedRendezVous);
+        create(newRdv);
+        event.setId(""+newRdv.getId());
+        System.out.println("ha id"+event.getId());
     }
     
     public RendezVous findRdvByEventId(String eventId){

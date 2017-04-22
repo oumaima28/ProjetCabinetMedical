@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="/template.xhtml">
+            <ui:define name="title">
+                <h:outputText value="#{bundle.ListMargeBloqueeTitle}"></h:outputText>
+            </ui:define>
+            <ui:define name="body">
+                <div class="container">
+                    <h:form id="MargeBloqueeRechercheForm" class="row">
+                        <b:panel title="Recherche Marge Bloquée">
+                            <b:panelGrid columns="2">   
+                                <p:outputLabel value="#{bundle.CreateMargeBloqueeLabel_medecin}"/>
+                                <h:selectOneMenu id="medecin" value="#{margeBloqueeController.medecinRecherchee}" class="form-control">
+                                    <f:selectItem itemLabel="--SELECT--"/>
+                                    <f:selectItems value="#{medecinController.itemsAvailableSelectOne}"
+                                                   var="medecinItem"
+                                                   itemValue="#{medecinItem}"/>
+                                </h:selectOneMenu>
+                                <p:outputLabel value="#{bundle.CreateMargeBloqueeLabel_dateDebutMin}" for="dateDebutMin" />
+                                <p:calendar id="dateDebutMin" pattern="dd/MM/yyyy" value="#{margeBloqueeController.dateDebutMin}" title="#{bundle.EditMargeBloqueeTitle_dateDebutMin}"  showOn="button"/>
+                                <p:outputLabel value="#{bundle.CreateMargeBloqueeLabel_dateDebutMax}" for="dateDebutMax" />
+                                <p:calendar id="dateDebutMax" pattern="dd/MM/yyyy" value="#{margeBloqueeController.dateDebutMax}" title="#{bundle.EditMargeBloqueeTitle_dateDebutMax}"  showOn="button"/>
+                                <p:outputLabel value="#{bundle.CreateMargeBloqueeLabel_dateFinMin}" for="dateFinMin" />
+                                <p:calendar id="dateFinMin" pattern="dd/MM/yyyy" value="#{margeBloqueeController.dateFinMin}" title="#{bundle.EditMargeBloqueeTitle_dateFinMin}"  showOn="button"/>
+                                <p:outputLabel value="#{bundle.CreateMargeBloqueeLabel_dateFinMax}" for="dateFinMax" />
+                                <p:calendar id="dateFinMax" pattern="dd/MM/yyyy" value="#{margeBloqueeController.dateFinMax}" title="#{bundle.EditMargeBloqueeTitle_dateFinMax}"  showOn="button"/>
+                                <b:commandButton actionListener="#{margeBloqueeController.rechercher()}" value="Rechercher" update=":MargeBloqueeListForm:rechercheDatalist"/>
+                            </b:panelGrid>
+
+                        </b:panel>
+                    </h:form>
+                    <h:form id="MargeBloqueeListForm" class="row">
+                        <!--<h1><h:outputText value="Liste des Marges Bloquees"/></h1>-->
+                        <p:panel header="#{bundle.ListMargeBloqueeTitle}">
+                            <p:dataTable id="rechercheDatalist" value="#{margeBloqueeController.items}" var="item"
+
+                                         >
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListMargeBloqueeTitle_id}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.id}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListMargeBloqueeTitle_dateDebut}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.dateDebut}">
+                                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                                    </h:outputText>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListMargeBloqueeTitle_dateFin}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.dateFin}">
+                                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                                    </h:outputText>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListMargeBloqueeTitle_medecin}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.medecin}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListMargeBloqueeTitle_medecin}"/>
+                                    </f:facet>
+                                    <b:commandButton actionListener="#{margeBloqueeController.deleteMargeBloquee(item)}" value="Supprimer" update="rechercheDatalist"/>
+                                    <b:commandButton action="#{margeBloqueeController.editePopUp(item)}" id="editButton" icon="ui-icon-pencil" value="#{bundle.Edit}" update=":MargeBloqueeEditForm" oncomplete="PF('MargeBloqueeEditDialog').show()" disabled="#{empty margeBloqueeController.selected}"/>
+                                    <b:commandButton action="#{margeBloqueeController.detail(item)}" value="Details"/>
+                                </p:column>
+                                <f:facet name="footer">
+                                </f:facet>
+                            </p:dataTable>
+                        </p:panel>
+                    </h:form>
+
+                </div>
+                <ui:include src="Edit.xhtml"/>
+            </ui:define>
+        </ui:composition>
+        
+    </h:body>
+</html>
+

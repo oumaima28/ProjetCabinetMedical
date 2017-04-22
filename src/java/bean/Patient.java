@@ -120,7 +120,8 @@ public class Patient implements Serializable {
 
     @Override
     public String toString() {
-        return "bean.Patient[ id=" + cin + " ]";
+        return cin;
     }
 
+   
 }

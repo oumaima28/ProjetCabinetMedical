@@ -51,10 +51,16 @@ public class MargeBloqueeController implements Serializable {
 
     //create Marge And MargeItem
     public void save() {
+        System.out.println("hani");
+        System.out.println(selected);
         if (selected.getDateDebut().getTime() >= System.currentTimeMillis()) {
+            System.out.println("hani");
             selected.setId(ejbFacade.generateId("MargeBloquee", "id"));
+            System.out.println("haniTani");
             create();
+            System.out.println("h");
             margeItemFacade.save(selected, margeItems);
+            System.out.println("haaniTaniTani");
         }
     }
 
@@ -83,7 +89,7 @@ public class MargeBloqueeController implements Serializable {
     }
 
     //modifier a margeBloquee from rechercher view
-    public void modifierMargeBloque() {
+    public void modifierMargeBloquee() {
         ejbFacade.modifier(selected, selected);
         items = null;
     }
@@ -96,7 +102,7 @@ public class MargeBloqueeController implements Serializable {
     //details
     public String detail(MargeBloquee margeBloquee) {
         Session.createAtrribute(margeBloquee, "selectedMargeBloqueeForDetails");
-        return "/margeItem/MargeItem.xhtml";
+        return "/margeItem/Recherche.xhtml";
     }
 
     public List<Integer> countJours() {

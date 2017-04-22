@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:b="http://bootsfaces.net/ui">
+
+
+    <h:head>
+        <title><ui:insert name="title">Connection</ui:insert></title>
+        <h:outputStylesheet library="css" name="bootstrap.css"/>
+        <h:outputStylesheet library="css" name="style.css"/>
+        <h:outputStylesheet library="css" name="jsfcrud.css"/>
+        <h:outputScript library="js" name="bootstrap.js"/>
+        <h:outputScript library="js" name="jsfcrud.js"/>
+
+        <!-- Meta tag Keywords -->
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="keywords" content="Smart Login Form Responsive Widget,Login form widgets, Sign up Web forms , Login signup Responsive web form,Flat Pricing table,Flat Drop downs,Registration Forms,News letter Forms,Elements" />
+        <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+            function hideURLbar(){ window.scrollTo(0,1); } </script>
+        <!-- Meta tag Keywords -->
+        <!-- css files -->
+        <link href="css/style.css" rel="stylesheet" type="text/css" media="all"/>
+        <style >
+
+            /*Main*/
+
+
+            #loginInput, #passwordId {
+                width: 88%;
+                padding: 15px 0px 15px 42px;
+                border: 1px solid #fff;
+                outline: none;
+                font-size: 14px;
+                color: #fff;
+                margin: 14px 0px;
+                font-family: 'Roboto', sans-serif;
+            }
+            #loginInput {
+                background: url("../resources/images/mail.png") no-repeat 10px 11px;
+                background-size: 24px;
+            }
+            #passwordId {
+                background: url("../resources/images/pass.png") no-repeat 8px 9px;
+                background-size: 28px;
+            }
+
+
+            /*Main*/
+
+            /*respnsive*/
+
+            @media (max-width: 480px){
+                .agileheader h1 {
+                    font-size: 26px;
+                    letter-spacing:6px;
+                }
+                .w3layouts-main h2 {
+                    font-size: 19px;
+                }
+                .w3layouts-main span {
+                    width: 38%;
+                    font-size: 15px;
+                }
+                .w3layouts-main h6 {
+                    width: 44%;
+                    font-size: 15px;
+                }
+                .w3layouts-main p {
+                    font-size: 16px;
+                    width: 105%;
+                }
+                .w3layouts-main p a {
+                    font-size: 17px;
+                    letter-spacing: 0px;
+                }
+                input[type="submit"] {
+                    font-size: 17px;
+                }
+                #loginInput, #passwordId {
+                    width: 86%;
+                }
+
+                .footer-w3l p {
+                    letter-spacing: 1px;
+                }
+            }
+            @media (max-width: 414px){
+                .agileheader h1 {
+                    font-size: 25px;
+                    letter-spacing:4px;
+                    margin: 34px 0px;
+                }
+                .w3layouts-main h2 {
+                    font-size: 18px;
+                }
+                .w3layouts-main {
+                    padding: 34px 26px;
+                }
+                .w3layouts-main span {
+                    font-size: 15px;
+                    width: 41%;
+                    margin-top: 9px;
+                }
+                #loginInput, #passwordId {
+                    width: 84%;
+                    padding: 13px 0px 13px 40px;
+                    margin: 10px 0px;
+                }
+                .w3layouts-main h6 {
+                    font-size: 15px;
+                    width: 48%;
+                    margin-top: 9px;
+                }
+                .w3layouts-main p {
+                    width: 95%;
+                    line-height: 32px;
+                }
+                .w3layouts-main p a {
+                    font-size: 16px;
+                    letter-spacing: 1px;
+                }
+                .footer-w3l p {
+                    margin: 2em 0.6em;
+                    line-height:1.8;
+                }
+                input[type="submit"] {
+                    margin: 45px auto 25px;
+                }
+                .footer-w3l p {
+                    margin: 2em 1.7em;
+                    line-height: 2;
+                    letter-spacing:0px;
+                }
+                .footer-w3l {
+                    padding: 0.8em 0em;
+                }
+            }
+            @media (max-width: 384px){
+                .agileheader h1 {
+                    font-size: 23px;
+                    margin: 31px 0px;
+                }
+                .w3layouts-main {
+                    padding: 30px 26px;
+                }
+                #loginInput, #passwordId {
+                    margin: 10px 0px;
+                    width: 83%;
+                    padding: 10px 0px 10px 39px;
+                }
+                #loginInput {
+                    background: url("../images/mail.png") no-repeat 9px 8px;
+                    background-size: 22px;
+                }
+                #passwordId {
+                    background: url("../images/pass.png") no-repeat 6px 6px;
+                    background-size: 26px;
+                }
+                .w3layouts-main span {
+                    width: 44%;
+                    margin-top: 12px;
+                }
+                .w3layouts-main h6 {
+                    width: 51%;
+                    margin-top: 12px;
+                }
+                input[type="submit"] {
+                    padding: 12px 52px;
+                    font-size: 17px;
+                    letter-spacing: 1px;
+                    margin: 34px auto 28px;
+                }
+                .w3layouts-main p {
+                    width: 102%;
+                    line-height: 29px;
+                }
+                .footer-w3l p {
+                    line-height: 27px;
+                }
+            }
+            @media (max-width: 375px){
+                .agileheader h1 {
+                    margin: 32px 0px;
+                }
+                .w3layouts-main span {
+                    width: 45%;
+                    margin-top: 10px;
+                }
+                .w3layouts-main h6 {
+                    width: 53%;
+                    margin-top: 10px;
+                    font-size: 14px;
+                }
+                .w3layouts-main {
+                    padding: 24px 34px;
+                    width: 65%;
+                }
+                .w3layouts-main span {
+                    width: 100%;
+                }
+                .w3layouts-main h6 {
+                    width: 100%;
+                }
+                .w3layouts-main h2 {
+                    letter-spacing: 1px;
+                }
+                input[type="submit"] {
+                    padding: 12px 33px;
+                    font-size: 15px;
+                    letter-spacing: 0px;
+                    margin: 21px auto 12px;
+                }
+                .w3layouts-main p {
+                    width: 100%;
+                    line-height: 28px;
+                }
+                .footer-w3l p {
+                    line-height: 29px;
+                }
+                .footer-w3l {
+                    padding: 0.7em;
+                }
+                #loginInput, #passwordId {
+                    width: 82%;
+                }
+            }
+            @media (max-width: 320px){
+                .agileheader h1 {
+                    font-size: 20px;
+                    margin: 20px 0px;
+                    letter-spacing:3px;
+                }
+                .w3layouts-main h2 {
+                    font-size: 17px;
+                    letter-spacing:0px;
+                }
+                .w3layouts-main {
+                    padding: 24px 28px;
+                    width: 73%;
+                }
+                #loginInput, #passwordId {
+                    width: 81%;
+                    padding: 12px 0px 12px 38px;
+                }
+
+                #loginInput {
+                    background: url("../images/mail.png") no-repeat 8px 9px;
+                    background-size: 23px;
+                }
+                #passwordId {
+                    background: url("../images/pass.png") no-repeat 6px 6px;
+                    background-size: 26px;
+                }
+
+                .w3layouts-main span {
+                    font-size: 14px;
+                }
+                input[type="submit"] {
+                    font-size: 15px;
+                }
+                .w3layouts-main p {
+                    font-size: 15px;
+                }
+                .w3layouts-main p a {
+                    font-size: 15px;
+                    letter-spacing: 0px;
+                }
+                .footer-w3l p {
+                    letter-spacing: 0px;
+                    line-height: 27px;
+                    margin: 0em 0.5em;
+                }
+            }
+
+            /*respnsive*/
+        </style>
+        <!-- online-fonts -->
+        <!--<link href="//fonts.googleapis.com/css?family=Roboto+Slab:100,300,400,700Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900iSlabo+27px&subset=cyrillic,cyrillic-ext,greek,greek-ext,latin-ext,vietnamese" rel="stylesheet"/>-->
+        <!--//online-fonts -->
+    </h:head>
+    <h:body>
+        
+        <ui:include src="../testTemplate/TemplateMenu.xhtml"></ui:include>
+        <!--header-->
+<!--        <div class="agileheader">
+            <h1>Smart Login Form</h1>
+        </div>-->
+        <!--//header-->
+
+        <!--main-->
+        <div class="main-w3l" style="margin-top: 12%">
+            <div class="w3layouts-main">
+                <h2>Login Now</h2>
+                <b:form>
+                    <h:outputLabel style="color: white;" value="Login:" for="loginInput"/>
+                    <br/>
+                    <p:inputText id="loginInput" style=" width: 88%;
+                                 padding: 15px 0px 15px 42px;
+                                 border: 1px solid #fff;
+                                 outline: none;
+                                 font-size: 14px;
+                                 color: #fff;
+                                 margin: 14px 0px;
+                                 font-family: 'Roboto', sans-serif;
+                                 background: url('../resources/images/mail.png') no-repeat 10px 11px;
+                                 background-size: 24px;
+
+                                 @media (max-width: 480px){
+
+                                     width: 86%;
+
+                                 }
+                                 @media (max-width: 414px){
+
+                                     width: 84%;
+                                     padding: 13px 0px 13px 40px;
+                                     margin: 10px 0px;
+
+                                 }
+                                 @media (max-width: 384px){
+
+                                     margin: 10px 0px;
+                                     width: 83%;
+                                     padding: 10px 0px 10px 39px;
+
+                                     background: url('../images/mail.png') no-repeat 9px 8px;
+                                     background-size: 22px;
+
+                                 }
+                                 @media (max-width: 375px){
+
+
+                                     width: 82%;
+
+                                 }
+                                 @media (max-width: 320px){
+
+                                     width: 81%;
+                                     padding: 12px 0px 12px 38px;
+
+                                     background: url('../images/mail.png') no-repeat 8px 9px;
+                                     background-size: 23px;
+
+                                 }
+
+                                 " value="#{userController.selected.login}" title="login" />
+
+                    <h:outputLabel style="color: white;" value="Password:" for="passwordId" />
+            <!--                                <b:inputText id="passwordInput"  value="#{userController.selected.password}" title="Password" />-->
+                    <!--                                 <f:facet name="prepend">
+                                                           <b:iconAwesome name="fa-key" />
+                                                        </f:facet>-->
+                    <p:password id="passwordId" value="#{userController.selected.password}" title="Password"/>
+                    <b:commandButton value="Sign-In" action="#{userController.connexion()}" class="btn btn-group-justified" style="color: white;
+                                     background-color: #1abc9c;font-size: 1.5em;
+                                     letter-spacing: 1px;
+                                     color: white;color: white"></b:commandButton>
+                </b:form>
+                <!--    <h3 style="color: white;width: 80%;
+                    background-color: #1abc9c;font-size: 1.5em;
+                    letter-spacing: 1px;
+                    text-transform: uppercase;font-family: 'Lato', sans-serif;
+                    font-weight: 600;padding: 2% 3%;
+                    margin: 2 auto;"><a style="color: white;color: white !important;
+                    text-decoration: none !important;padding-left: 20%;padding-top: 13%;
+                    margin-bottom: 5%;" href="../inscription/Inscription.xhtml">Sign-In</a></h3>-->
+
+                <p>Don't Have an Account ?<a href="../inscription/Inscription.xhtml">Register Now</a></p>
+            </div>
+        </div>
+        <!--//main-->
+
+    </h:body>
+</html>

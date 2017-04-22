@@ -3,14 +3,37 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Oumaima/Documents/NetBeansProjects/ProjetCabinetMedical/web/inscription/CreateMedecinConfiguration.xhtml</file>
-            <file>file:/C:/Users/Oumaima/Documents/NetBeansProjects/ProjetCabinetMedical/web/inscription/Inscription.xhtml</file>
+            <file>file:/C:/Users/Oumaima/Documents/NetBeansProjects/ProjetCabinetMedical/web/template.xhtml</file>
+            <file>file:/C:/Users/Oumaima/Documents/NetBeansProjects/ProjetCabinetMedical/web/margeItem/List.xhtml</file>
+            <file>file:/C:/Users/Oumaima/Documents/NetBeansProjects/ProjetCabinetMedical/web/user/searchUser.xhtml</file>
             <file>file:/C:/Users/Oumaima/Documents/NetBeansProjects/ProjetCabinetMedical/web/inscription/Etape1.xhtml</file>
-            <file>file:/C:/Users/Oumaima/Documents/NetBeansProjects/ProjetCabinetMedical/src/conf/persistence.xml</file>
+            <file>file:/C:/Users/Oumaima/Documents/NetBeansProjects/ProjetCabinetMedical/src/java/controller/ScheduleView.java</file>
+            <file>file:/C:/Users/Oumaima/Documents/NetBeansProjects/ProjetCabinetMedical/web/testTemplate/TemplateMenu.xhtml</file>
+            <file>file:/C:/Users/Oumaima/Documents/NetBeansProjects/ProjetCabinetMedical/web/home/home.xhtml</file>
+            <file>file:/C:/Users/Oumaima/Documents/NetBeansProjects/ProjetCabinetMedical/web/WEB-INF/web.xml</file>
+            <file>file:/C:/Users/Oumaima/Documents/NetBeansProjects/ProjetCabinetMedical/src/java/controller/UserController.java</file>
+            <file>file:/C:/Users/Oumaima/Documents/NetBeansProjects/ProjetCabinetMedical/src/java/controller/util/DateUtil.java</file>
             <file>file:/C:/Users/Oumaima/Documents/NetBeansProjects/ProjetCabinetMedical/web/inscription/CreatePatient.xhtml</file>
-            <file>file:/C:/Users/Oumaima/Documents/NetBeansProjects/ProjetCabinetMedical/nbproject/build-impl.xml</file>
+            <file>file:/C:/Users/Oumaima/Documents/NetBeansProjects/ProjetCabinetMedical/web/medecin/List.xhtml</file>
             <file>file:/C:/Users/Oumaima/Documents/NetBeansProjects/ProjetCabinetMedical/web/inscription/CreateMedecin.xhtml</file>
-            <file>file:/C:/Users/Oumaima/Documents/NetBeansProjects/ProjetCabinetMedical/web/inscription/CreateUser.xhtml</file>
+            <file>file:/C:/Users/Oumaima/Documents/NetBeansProjects/ProjetCabinetMedical/web/inscription/CreateMedecinConfiguration.xhtml</file>
+            <file>file:/C:/Users/Oumaima/Documents/NetBeansProjects/ProjetCabinetMedical/src/java/service/MedecinFacade.java</file>
+            <file>file:/C:/Users/Oumaima/Documents/NetBeansProjects/ProjetCabinetMedical/src/java/controller/MedecinController.java</file>
+            <file>file:/C:/Users/Oumaima/Documents/NetBeansProjects/ProjetCabinetMedical/web/margeBloquee/Create.xhtml</file>
+            <file>file:/C:/Users/Oumaima/Documents/NetBeansProjects/ProjetCabinetMedical/web/testTemplate/TemplateSideBar.xhtml</file>
+            <file>file:/C:/Users/Oumaima/Documents/NetBeansProjects/ProjetCabinetMedical/web/medecin/Search.xhtml</file>
+            <file>file:/C:/Users/Oumaima/Documents/NetBeansProjects/ProjetCabinetMedical/src/java/service/RendezVousFacade.java</file>
+            <file>file:/C:/Users/Oumaima/Documents/NetBeansProjects/ProjetCabinetMedical/nbproject/build-impl.xml</file>
+            <file>file:/C:/Users/Oumaima/Documents/NetBeansProjects/ProjetCabinetMedical/src/java/controller/InscriptionController.java</file>
+            <file>file:/C:/Users/Oumaima/Documents/NetBeansProjects/ProjetCabinetMedical/web/inscription/Inscription.xhtml</file>
+            <file>file:/C:/Users/Oumaima/Documents/NetBeansProjects/ProjetCabinetMedical/web/resources/css/styleTemplate.css</file>
+            <file>file:/C:/Users/Oumaima/Documents/NetBeansProjects/ProjetCabinetMedical/web/margeBloquee/Ajout.xhtml</file>
+            <file>file:/C:/Users/Oumaima/Documents/NetBeansProjects/ProjetCabinetMedical/src/java/controller/MargeBloqueeController.java</file>
+            <file>file:/C:/Users/Oumaima/Documents/NetBeansProjects/ProjetCabinetMedical/web/user/Connection.xhtml</file>
+            <file>file:/C:/Users/Oumaima/Documents/NetBeansProjects/ProjetCabinetMedical/src/conf/persistence.xml</file>
+            <file>file:/C:/Users/Oumaima/Documents/NetBeansProjects/ProjetCabinetMedical/web/resources/css/style.css</file>
+            <file>file:/C:/Users/Oumaima/Documents/NetBeansProjects/ProjetCabinetMedical/src/java/controller/util/SearchUtil.java</file>
+            <file>file:/C:/Users/Oumaima/Documents/NetBeansProjects/ProjetCabinetMedical/web/agenda/schedule.xhtml</file>
         </group>
     </open-files>
 </project-private>

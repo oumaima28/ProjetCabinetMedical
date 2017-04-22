@@ -4,73 +4,69 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
         <title>Facelet Title</title>
     </h:head>
     <h:body>
-        <h:form>
-            <p:outputLabel value="#{bundle.CreateMargeBloqueeLabel_medecin}" for="medecin" />
-            <p:selectOneMenu id="medecin" value="#{scheduleView.medecin}" >
-                <f:selectItem itemLabel="--SELECT--"/>
-                <f:selectItems value="#{medecinController.itemsAvailableSelectOne}"
-                               var="medecinItem"
-                               itemValue="#{medecinItem}"/>
-                <p:ajax process="medecin" listener="#{scheduleView.initAllAgendaEvents()}" update=":agendaForm:schedule"/>
-            </p:selectOneMenu>
+<!--        <ui:composition template="/testTemplate/TemplateSideBar.xhtml">
+            <ui:define name="title">Agenda</ui:define>-->
 
-        </h:form>
-        <h:form id="agendaForm">
-            <p:growl id="messages" showDetail="true" />
+            <!--<ui:define name="body">-->
+                <h:form id="agendaForm">
+                    <p:growl id="messages" showDetail="true" />
 
-            <h:panelGrid columnClasses="value">
-                <h3 style="margin-top: 0">Editable Schedule</h3>
-                <p:schedule id="schedule" value="#{scheduleView.eventModel}" widgetVar="myschedule">
+                    <h:panelGrid columnClasses="value">
+                        <h3 style="margin: 1%">Agenda</h3>
+                        <p:schedule id="schedule" value="#{scheduleView.eventModel}" widgetVar="myschedule" timeZone="GMT+1">
 
-                    <p:ajax event="dateSelect" listener="#{scheduleView.onDateSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
-                    <p:ajax event="eventSelect" listener="#{scheduleView.onEventSelect}" update="eventDetails"  />
-                    <p:ajax event="eventMove" listener="#{scheduleView.onEventMove}" update="messages" />
-                    <p:ajax event="eventResize" listener="#{scheduleView.onEventResize}" update="messages" />
+                            <p:ajax event="dateSelect" listener="#{scheduleView.onDateSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
+                            <p:ajax event="eventSelect" listener="#{scheduleView.onEventSelect}" update="eventDetails"  />
+                            <p:ajax event="eventMove" listener="#{scheduleView.onEventMove}" update="messages" />
+                            <p:ajax event="eventResize" listener="#{scheduleView.onEventResize}" update="messages" />
 
-                </p:schedule>
+                        </p:schedule>
 
-            </h:panelGrid>
+                    </h:panelGrid>
 
-            <p:dialog widgetVar="eventDialog" header="Event Details" showEffect="clip" hideEffect="clip" >
-                <h:panelGrid id="eventDetails" columns="2">
+                    <p:dialog widgetVar="eventDialog" header="Event Details" showEffect="clip" hideEffect="clip" >
+                        <h:panelGrid id="eventDetails" columns="2">
 
-                    <p:outputLabel value="#{bundle.CreateRendezVousLabel_medecin}" for="medecin" />
-                    <p:selectOneMenu id="medecin" value="#{scheduleView.selected.medecin}" >
-                        <f:selectItems value="#{medecinController.itemsAvailableSelectOne}"
-                                       var="medecinItem"
-                                       itemValue="#{medecinItem}"/>
-                    </p:selectOneMenu>
-                    <p:outputLabel value="#{bundle.CreateRendezVousLabel_patient}" for="patient" />
-                    <p:selectOneMenu id="patient" value="#{scheduleView.selected.patient}" >
-                        <f:selectItems value="#{patientController.itemsAvailableSelectOne}"
-                                       var="patientItem"
-                                       itemValue="#{patientItem}"/>
-                    </p:selectOneMenu>
-                    <p:outputLabel value="#{bundle.CreateRendezVousLabel_dateRdv}" for="dateRdv" />
-                    <p:calendar id="dateRdv" pattern="dd/MM/yyyy HH:mm:ss" value="#{scheduleView.selected.dateRdv}"  title="#{bundle.EditRendezVousTitle_dateRdv}"  showOn="button"/>
+                            <p:outputLabel value="#{bundle.CreateRendezVousLabel_medecin}" for="medecin" />
+                            <p:selectOneMenu id="medecin" value="#{scheduleView.selected.medecin}" >
+                                <f:selectItems value="#{medecinController.itemsAvailableSelectOne}"
+                                               var="medecinItem"
+                                               itemValue="#{medecinItem}"/>
+                            </p:selectOneMenu>
+                            <p:outputLabel value="#{bundle.CreateRendezVousLabel_patient}" for="patient" />
+                            <p:selectOneMenu id="patient" value="#{scheduleView.selected.patient}" >
+                                <f:selectItems value="#{patientController.itemsAvailableSelectOne}"
+                                               var="patientItem"
+                                               itemValue="#{patientItem}"/>
+                            </p:selectOneMenu>
+                            <p:outputLabel value="#{bundle.CreateRendezVousLabel_dateRdv}" for="dateRdv" />
+                            <p:calendar id="dateRdv" pattern="dd/MM/yyyy HH:mm:ss" value="#{scheduleView.selected.dateRdv}"  title="#{bundle.EditRendezVousTitle_dateRdv}"  showOn="button"/>
 
-                    <p:commandButton type="reset" value="Reset" />
-                    <!--                    <c:choose>
-                                            <c:when test="">
-                                                
-                                            </c:when>
-                                            <c:otherwise>
-                                                
-                                            </c:otherwise>
-                                        </c:choose>-->
-                    <p:commandButton id="addButton" value="Save" actionListener="#{scheduleView.addRendezVous()}" oncomplete="PF('myschedule').update();PF('eventDialog').hide();" rendered="#{scheduleView.nbrEvent==0?true:false}"/>
-                    <p:commandButton id="editButton" value="Editer" actionListener="#{scheduleView.modifierRdv()}" oncomplete="PF('myschedule').update();PF('eventDialog').hide();" rendered="#{scheduleView.nbrEvent==1?true:false}"/>
-                    <p:commandButton id="deleteButton" value="Delete" actionListener="#{scheduleView.deleteRdv()}" oncomplete="PF('myschedule').update();PF('eventDialog').hide();" />
+                            <p:commandButton type="reset" value="Reset" />
+                            <!--                    <c:choose>
+                                                    <c:when test="">
+                                                        
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        
+                                                    </c:otherwise>
+                                                </c:choose>-->
+                            <p:commandButton id="addButton" value="Save" actionListener="#{scheduleView.addRendezVous()}" oncomplete="PF('myschedule').update();PF('eventDialog').hide();" rendered="#{scheduleView.nbrEvent==0?true:false}"/>
+                            <p:commandButton id="editButton" value="Editer" actionListener="#{scheduleView.modifierRdv()}" oncomplete="PF('myschedule').update();PF('eventDialog').hide();" rendered="#{scheduleView.nbrEvent==1?true:false}"/>
+                            <p:commandButton id="deleteButton" value="Delete" actionListener="#{scheduleView.deleteRdv()}" oncomplete="PF('myschedule').update();PF('eventDialog').hide();" />
 
-                </h:panelGrid>
-            </p:dialog>
+                        </h:panelGrid>
+                    </p:dialog>
 
-        </h:form>
+                </h:form>
+<!--            </ui:define>
+        </ui:composition>-->
 
         <!--
                 <script type="text/javascript">
@@ -102,14 +98,58 @@
                 width: 700px;
             }
             .colorMargeBloquee{
-                background-color: red;
+                background-color: rgba(244, 71, 57, 0.95);
             }
             .colorRdv{
-                background-color: green;
+                background-color: #1abc9c;
+
             }
             .colorMargeNonBloquee{
-                background-color: gray;
+                background-color: #1d3a4f;
             }
+            .ui-state-highlight.fc-today{
+                background: #00C6D7;
+            }
+            .fc-past{
+                background: #f0eeed;
+                /*#1abc9c;*/        
+            }
+
+            .fc-toolbar h2{
+                color: white;
+            }
+
+            .fc-toolbar{
+                background: #1d3a4f;
+                margin: 1%;
+                padding: 1%;
+                border-radius: 5%;
+
+            }
+
+            .fc-toolbar button{
+                color: #1d3a4f; 
+                background: #1abc9c;
+            }
+
+            .fc-button-group{
+                color: red;
+            }
+
+            .fc-day{
+                /*background: red;*/
+            }
+
+            .fc-day-header{
+                background: #1d3a4f;
+                margin: 1%;
+                padding: 1%;
+                color: white;
+                border-radius: 1%;
+                font-family: "Lato";
+                font-size: 1.4em;
+            }
+
         </style>
     </h:body>
 </html>

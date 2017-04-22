@@ -9,7 +9,7 @@
     <h:head>
         <title>Facelet Title</title>
     </h:head>
-    <h:body style="background-color: lightgray;">
+<!--    <h:body style="background-color: lightgray;">
         <b:navBar inverse="true" fixed="top" brand="Gestion des Cabinets Medicales" brandHref="#">
             <b:navbarLinks>
                 <b:navLink value="Home" href="#"></b:navLink>
@@ -28,13 +28,14 @@
             <div class="jumbotron">
                 <h1>Inscription</h1>
             </div>
-        </div>
+        </div>-->
         <b:form class="form-group" >
             <b:panel title="Inscription" class="panel-footer panel-primary col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-10 col-xs-12">
                 
                 <!--style="width: 70%;margin: 8%;margin-left: 13%"-->
                 <b:panelGrid columns="2">
                     <p:outputLabel value="#{bundle.CreatePatientLabel_nom}" />
+                    
                     <b:inputText id="nom" value="#{inscriptionController.nom}" title="#{bundle.CreatePatientTitle_nom}" />
                     <p:outputLabel value="#{bundle.CreatePatientLabel_prenom}"/>
                     <b:inputText id="prenom" value="#{inscriptionController.prenom}" title="#{bundle.CreatePatientTitle_prenom}" />

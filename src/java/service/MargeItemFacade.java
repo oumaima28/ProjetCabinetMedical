@@ -49,9 +49,13 @@ public class MargeItemFacade extends AbstractFacade<MargeItem> {
     }
 
     public void save(MargeBloquee margeBloquee, List<MargeItem> margeItems) {
+        System.out.println("9bel for");
         for (MargeItem margeItem : margeItems) {
+            System.out.println("mora for");
             margeItem.setMargeBloquee(margeBloquee);
+            System.out.println("1");
             create(margeItem);
+            System.out.println("2");
         }
     }
 
